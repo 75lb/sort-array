@@ -2,13 +2,10 @@
   "name": "sort-array",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "0.0.0",
-  "description": "sort-array",
+  "description": "Sort an array of objects by any number of fields, in any order. ",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
   "main": "./lib/sort-array.js",
-  "bin": {
-    "sort-array": "bin/cli.js"
-  },
   "keywords": [ "sort", "by", "array", "recordset", "objects", "sorted", "asc", "desc" ],
   "engines": {
     "node": ">=0.10.0"
@@ -21,6 +18,7 @@
     "array-back": "^1.0.0"
   },
   "devDependencies": {
-    "tape": "^4.0.0"
+    "tape": "^4.0.0",
+    "jsdoc-to-markdown": "^1.1.1"
   }
 }

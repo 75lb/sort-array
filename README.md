@@ -5,6 +5,8 @@
 
 <a name="module_sort-array"></a>
 ## sort-array
+Sort an array of objects by any number of fields, in any order.
+
 **Example**  
 ```js
 var sortBy = require("sort-array");
