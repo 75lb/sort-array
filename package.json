@@ -1,7 +1,7 @@
 {
   "name": "sort-array",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Sort an array of objects by any number of fields, in any order. ",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
