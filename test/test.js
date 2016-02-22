@@ -82,3 +82,16 @@ test('sort by two columns, both custom', function (t) {
   t.deepEqual(result, expected)
   t.end()
 })
+
+test('jsdoc-parse', function (t) {
+  var fixture = require('./fixture/jsdoc-parse')
+  var expected = require('./expected/jsdoc-parse')
+  var customOrder = {
+    kind: [ 'class', 'constructor', 'mixin', 'member', 'namespace', 'enum',
+      'constant', 'function', 'event', 'typedef', 'external' ],
+    scope: [ 'global', 'instance', 'static', 'inner' ]
+  }
+  var result = sortBy(fixture, ['kind', 'scope'], customOrder)
+  t.deepEqual(result, expected)
+  t.end()
+})

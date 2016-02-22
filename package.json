@@ -24,7 +24,8 @@
     "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo"
   },
   "dependencies": {
-    "array-back": "^1.0.0"
+    "array-back": "^1.0.0",
+    "typical": "^2.4.2"
   },
   "devDependencies": {
     "tape": "^4.4.0",
