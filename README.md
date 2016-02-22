@@ -2,6 +2,7 @@
 [![npm module downloads](http://img.shields.io/npm/dt/sort-array.svg)](https://www.npmjs.org/package/sort-array)
 [![Build Status](https://travis-ci.org/75lb/sort-array.svg?branch=master)](https://travis-ci.org/75lb/sort-array)
 [![Dependency Status](https://david-dm.org/75lb/sort-array.svg)](https://david-dm.org/75lb/sort-array)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 <a name="module_sort-array"></a>
 ## sort-array
@@ -9,7 +10,7 @@ Sort an array of objects by any number of fields, in any order.
 
 **Example**  
 ```js
-var sortBy = require("sort-array");
+var sortBy = require("sort-array")
 ```
 <a name="exp_module_sort-array--sortBy"></a>
 ### sortBy(recordset, columns, customOrder) ⇒ <code>Array</code> ⏏
@@ -49,7 +50,7 @@ sort by `slot` using the default sort order (alphabetical)
 
 specify a custom sort order for `slot`
 ```js
-> var slotOrder = [ "morning", "afternoon", "evening", "twilight" ];
+> var slotOrder = [ "morning", "afternoon", "evening", "twilight" ]
 > a.sortBy(DJs, "slot", { slot: slotOrder })
 [ { name: 'Rodney', slot: 'morning' },
   { name: 'Chris', slot: 'morning' },
