@@ -49,3 +49,36 @@ test('custom order', function (t) {
   t.deepEqual(sortBy(fixture, 'fruit', { fruit: fruitOrder }), expected)
   t.end()
 })
+
+test('sort by two columns, both custom', function (t) {
+  var expected = [
+    { importance: 'speed', weight: 'low' },
+    { importance: 'speed', weight: 'medium' },
+    { importance: 'speed', weight: 'high' },
+    { importance: 'strength', weight: 'low' },
+    { importance: 'strength', weight: 'medium' },
+    { importance: 'strength', weight: 'high' },
+    { importance: 'intelligence', weight: 'low' },
+    { importance: 'intelligence', weight: 'medium' },
+    { importance: 'intelligence', weight: 'high' }
+  ]
+  var fixture = [
+    { importance: 'intelligence', weight: 'medium' },
+    { importance: 'strength', weight: 'high' },
+    { importance: 'speed', weight: 'low' },
+    { importance: 'strength', weight: 'low' },
+    { importance: 'speed', weight: 'high' },
+    { importance: 'intelligence', weight: 'low' },
+    { importance: 'speed', weight: 'medium' },
+    { importance: 'intelligence', weight: 'high' },
+    { importance: 'strength', weight: 'medium' }
+  ]
+  var customOrder = {
+    importance: [ 'speed', 'strength', 'intelligence' ],
+    weight: [ 'low', 'medium', 'high' ]
+  }
+
+  var result = sortBy(fixture, [ 'importance', 'weight' ], customOrder)
+  t.deepEqual(result, expected)
+  t.end()
+})
