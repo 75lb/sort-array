@@ -22,7 +22,7 @@ Sort an array of objects by one or more fields
 | --- | --- | --- |
 | recordset | <code>Array.&lt;object&gt;</code> | Input array of objects |
 | columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | Column name(s) to sort by |
-| customOrder | <code>object</code> | Custom sort order definitions. An object where each key is the column name and the value is an array mandating the custom sort order. Example: `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
+| customOrder | <code>object</code> | Custom sort order definitions. An object where each key is the column name and the value is an array mandating the custom sort order. Example: <br><br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
 
 **Example**  
 with this data
