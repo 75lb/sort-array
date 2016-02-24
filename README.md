@@ -19,7 +19,7 @@ var sortBy = require('sort-array')
 | Param | Type | Description |
 | --- | --- | --- |
 | recordset | <code>Array.&lt;object&gt;</code> | Input array of objects |
-| columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `name` or `name.first`. |
+| columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `'name'` or `'name.first'`. |
 | [customOrder] | <code>object</code> | Custom sort order definitions. An object where each key is the property expression and the value is an array specifying the sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
 
 **Example**  
@@ -69,7 +69,7 @@ sort by `slot` then `name`
   { name: 'Trevor', slot: 'twilight' } ]
 ```
 
-sort by nested property values (at any depth) using `property.property` notation
+sort by nested property values (at any depth) using dot notation (e.g. `'inner.number'`)
 ```js
 > input = [
   { inner: { number: 5 } },
