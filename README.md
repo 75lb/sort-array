@@ -14,15 +14,13 @@ var sortBy = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortBy"></a>
 ### sortBy(recordset, columnNames, [customOrder]) ⇒ <code>Array</code> ⏏
-Sort an array of objects by one or more fields
-
 **Kind**: Exported function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | recordset | <code>Array.&lt;object&gt;</code> | Input array of objects |
-| columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | Column name(s) to sort by |
-| [customOrder] | <code>object</code> | Custom sort order definitions. An object where each key is the column name and the value is an array mandating the custom sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
+| columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `name` or `name.first`. |
+| [customOrder] | <code>object</code> | Custom sort order definitions. An object where each key is the property expression and the value is an array specifying the sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
 
 **Example**  
 with this data
@@ -72,7 +70,7 @@ sort by `slot` then `name`
 ```
 
 sort by nested property values (at any depth) using `property.property` notation
-```
+```js
 > input = [
   { inner: { number: 5 } },
   { inner: { number: 2 } },
@@ -90,7 +88,7 @@ sort by nested property values (at any depth) using `property.property` notation
 ```
 
 a custom order for a nested property looks like this:
-```
+```js
 var customOrder = {
   'inner.number': [ 1, 2, 4, 3, 5 ]
 }
