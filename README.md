@@ -6,14 +6,14 @@
 
 <a name="module_sort-array"></a>
 ## sort-array
-Sort an array of objects by any number of fields, in any custom order.
+Sort an array of objects by any property value, at any depth, in any custom order.
 
 **Example**  
 ```js
 var sortBy = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortBy"></a>
-### sortBy(recordset, columnNames, customOrder) ⇒ <code>Array</code> ⏏
+### sortBy(recordset, columnNames, [customOrder]) ⇒ <code>Array</code> ⏏
 Sort an array of objects by one or more fields
 
 **Kind**: Exported function  
@@ -22,18 +22,18 @@ Sort an array of objects by one or more fields
 | --- | --- | --- |
 | recordset | <code>Array.&lt;object&gt;</code> | Input array of objects |
 | columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | Column name(s) to sort by |
-| customOrder | <code>object</code> | Custom sort order definitions. An object where each key is the column name and the value is an array mandating the custom sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
+| [customOrder] | <code>object</code> | Custom sort order definitions. An object where each key is the column name and the value is an array mandating the custom sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
 
 **Example**  
 with this data
 ```js
 > DJs = [
-    { name: 'Trevor', slot: 'twilight' },
-    { name: 'Chris', slot: 'twilight' },
-    { name: 'Mike', slot: 'afternoon' },
-    { name: 'Rodney', slot: 'morning' },
-    { name: 'Chris', slot: 'morning' },
-    { name: 'Zane', slot: 'evening' }
+  { name: 'Trevor', slot: 'twilight' },
+  { name: 'Chris', slot: 'twilight' },
+  { name: 'Mike', slot: 'afternoon' },
+  { name: 'Rodney', slot: 'morning' },
+  { name: 'Chris', slot: 'morning' },
+  { name: 'Zane', slot: 'evening' }
 ]
 ```
 
@@ -69,6 +69,31 @@ sort by `slot` then `name`
   { name: 'Zane', slot: 'evening' },
   { name: 'Chris', slot: 'twilight' },
   { name: 'Trevor', slot: 'twilight' } ]
+```
+
+sort by nested property values (at any depth) using `property.property` notation
+```
+> input = [
+  { inner: { number: 5 } },
+  { inner: { number: 2 } },
+  { inner: { number: 3 } },
+  { inner: { number: 1 } },
+  { inner: { number: 4 } }
+]
+
+> sortBy(input, 'inner.number')
+[ { inner: { number: 1 } },
+  { inner: { number: 2 } },
+  { inner: { number: 3 } },
+  { inner: { number: 4 } },
+  { inner: { number: 5 } } ]
+```
+
+a custom order for a nested property looks like this:
+```
+var customOrder = {
+  'inner.number': [ 1, 2, 4, 3, 5 ]
+}
 ```
 
 * * *

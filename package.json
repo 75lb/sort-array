@@ -2,7 +2,7 @@
   "name": "sort-array",
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "1.0.0",
-  "description": "Sort an array of objects by any number of fields, in any order. ",
+  "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
   "main": "./lib/sort-array.js",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "array-back": "^1.0.0",
+    "object-get": "^2.0.1",
     "typical": "^2.4.2"
   },
   "devDependencies": {

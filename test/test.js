@@ -95,3 +95,46 @@ test('jsdoc-parse', function (t) {
   t.deepEqual(result, expected)
   t.end()
 })
+
+test('sort by deep value', function (t) {
+  var fixture = [
+    { inner: { number: 5 } },
+    { inner: { number: 2 } },
+    { inner: { number: 3 } },
+    { inner: { number: 1 } },
+    { inner: { number: 4 } }
+  ]
+  var expected = [
+    { inner: { number: 1 } },
+    { inner: { number: 2 } },
+    { inner: { number: 3 } },
+    { inner: { number: 4 } },
+    { inner: { number: 5 } }
+  ]
+  var result = sortBy(fixture, 'inner.number')
+  t.deepEqual(result, expected)
+  t.end()
+})
+
+test('sort by deep value, custom order', function (t) {
+  var fixture = [
+    { inner: { number: 5 } },
+    { inner: { number: 2 } },
+    { inner: { number: 3 } },
+    { inner: { number: 1 } },
+    { inner: { number: 4 } }
+  ]
+  var expected = [
+    { inner: { number: 1 } },
+    { inner: { number: 2 } },
+    { inner: { number: 4 } },
+    { inner: { number: 3 } },
+    { inner: { number: 5 } }
+  ]
+  var customOrder = {
+    'inner.number': [ 1, 2, 4, 3, 5 ]
+  }
+  var result = sortBy(fixture, 'inner.number', customOrder)
+  t.deepEqual(result, expected)
+  t.end()
+})
