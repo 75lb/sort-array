@@ -5,6 +5,7 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 <a name="module_sort-array"></a>
+
 ## sort-array
 Sort an array of objects by any property value, at any depth, in any custom order.
 
@@ -13,6 +14,7 @@ Sort an array of objects by any property value, at any depth, in any custom orde
 var sortBy = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortBy"></a>
+
 ### sortBy(recordset, columnNames, [customOrder]) ⇒ <code>Array</code> ⏏
 **Kind**: Exported function  
 
@@ -37,7 +39,7 @@ with this data
 
 sort by `slot` using the default sort order (alphabetical)
 ```js
-> a.sortBy(DJs, 'slot')
+> sortBy(DJs, 'slot')
 [ { name: 'Mike', slot: 'afternoon' },
   { name: 'Zane', slot: 'evening' },
   { name: 'Chris', slot: 'morning' },
@@ -49,7 +51,7 @@ sort by `slot` using the default sort order (alphabetical)
 specify a custom sort order for `slot`
 ```js
 > var slotOrder = [ 'morning', 'afternoon', 'evening', 'twilight' ]
-> a.sortBy(DJs, 'slot', { slot: slotOrder })
+> sortBy(DJs, 'slot', { slot: slotOrder })
 [ { name: 'Rodney', slot: 'morning' },
   { name: 'Chris', slot: 'morning' },
   { name: 'Mike', slot: 'afternoon' },
@@ -60,7 +62,7 @@ specify a custom sort order for `slot`
 
 sort by `slot` then `name`
 ```js
-> a.sortBy(DJs, ['slot', 'name'], { slot: slotOrder })
+> sortBy(DJs, ['slot', 'name'], { slot: slotOrder })
 [ { name: 'Chris', slot: 'morning' },
   { name: 'Rodney', slot: 'morning' },
   { name: 'Mike', slot: 'afternoon' },
