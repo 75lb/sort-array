@@ -11,7 +11,7 @@ Sort an array of objects by any property value, at any depth, in any custom orde
 
 **Example**  
 ```js
-var sortBy = require('sort-array')
+const sortBy = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortBy"></a>
 
@@ -21,7 +21,7 @@ var sortBy = require('sort-array')
 | Param | Type | Description |
 | --- | --- | --- |
 | recordset | <code>Array.&lt;object&gt;</code> | Input array of objects |
-| columnNames | <code>string</code> &#124; <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `'name'` or `'name.first'`. |
+| columnNames | <code>string</code> \| <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `'name'` or `'name.first'`. |
 | [customOrder] | <code>object</code> | Custom sort order definitions. An object where each key is the property expression and the value is an array specifying the sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
 
 **Example**  
@@ -50,7 +50,7 @@ sort by `slot` using the default sort order (alphabetical)
 
 specify a custom sort order for `slot`
 ```js
-> var slotOrder = [ 'morning', 'afternoon', 'evening', 'twilight' ]
+> const slotOrder = [ 'morning', 'afternoon', 'evening', 'twilight' ]
 > sortBy(DJs, 'slot', { slot: slotOrder })
 [ { name: 'Rodney', slot: 'morning' },
   { name: 'Chris', slot: 'morning' },
@@ -91,11 +91,11 @@ sort by nested property values (at any depth) using dot notation (e.g. `'inner.n
 
 a custom order for a nested property looks like this:
 ```js
-var customOrder = {
+const customOrder = {
   'inner.number': [ 1, 2, 4, 3, 5 ]
 }
 ```
 
 * * *
 
-&copy; 2015-16 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
+&copy; 2015-17 Lloyd Brookes \<75pound@gmail.com\>. Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
