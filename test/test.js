@@ -139,7 +139,7 @@ test('sort by deep value, custom order', function (t) {
   t.end()
 })
 
-test('sort nulls', function (t) {
+runner.test('sort nulls', function () {
   const expected = [
     { importance: 'speed', weight: null },
     { importance: 'strength', weight: null },
@@ -163,11 +163,10 @@ test('sort nulls', function (t) {
     { importance: 'strength', weight: 'medium' }
   ]
   const result = sortBy(fixture, 'weight')
-  t.deepEqual(result, expected)
-  t.end()
+  a.deepStrictEqual(result, expected)
 })
 
-test('sortBy with nulls', function (t) {
+runner.test('sortBy with nulls', function () {
   const fixture = [
     { a: 4, b: null, c: 3 },
     { a: 4, b: 2, c: null },
@@ -191,6 +190,5 @@ test('sortBy with nulls', function (t) {
     { a: 4, b: 3, c: null }
   ]
   const result = sortBy(fixture, ['a', 'b', 'c'])
-  t.deepEqual(result, expected)
-  t.end()
+  a.deepStrictEqual(result, expected)
 })
