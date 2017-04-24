@@ -1,7 +1,7 @@
 {
   "name": "sort-array",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
