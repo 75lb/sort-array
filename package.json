@@ -19,6 +19,9 @@
   "engines": {
     "node": ">=4"
   },
+  "browserify": {
+    "transform": ["babelify"]
+  },
   "scripts": {
     "test": "test-runner test/*.js",
     "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo"
