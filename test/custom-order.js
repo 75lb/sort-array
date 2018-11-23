@@ -8,12 +8,12 @@ runner.test('customOrder: undefined vals 3', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
-    { a: 1 },
+    { a: 1 }
   ]
   const expected = [
     { a: 1 },
     { a: 2 },
-    { a: undefined },
+    { a: undefined }
   ]
   const customOrder = {
     a: [ 1, 2, undefined ]
@@ -26,12 +26,12 @@ runner.test('customOrder: null vals', function () {
   const fixture = [
     { a: 2 },
     { a: null },
-    { a: 1 },
+    { a: 1 }
   ]
   const expected = [
     { a: 1 },
     { a: 2 },
-    { a: null },
+    { a: null }
   ]
   const customOrder = {
     a: [ 1, 2, null ]
@@ -41,9 +41,21 @@ runner.test('customOrder: null vals', function () {
 })
 
 runner.test('customOrder', function () {
-  const fixture = [{ fruit: 'apple' }, { fruit: 'orange' }, { fruit: 'banana' }, { fruit: 'pear' }]
-  const expected = [{ fruit: 'banana' }, { fruit: 'pear' }, { fruit: 'apple' }, { fruit: 'orange' }]
-  const customOrder = { fruit: [ 'banana', 'pear', 'apple', 'orange' ] }
+  const fixture = [
+    { fruit: 'apple' },
+    { fruit: 'orange' },
+    { fruit: 'banana' },
+    { fruit: 'pear' }
+  ]
+  const expected = [
+    { fruit: 'banana' },
+    { fruit: 'pear' },
+    { fruit: 'apple' },
+    { fruit: 'orange' }
+  ]
+  const customOrder = {
+    fruit: [ 'banana', 'pear', 'apple', 'orange' ]
+  }
   const result = sortBy(fixture, 'fruit', customOrder)
   a.deepStrictEqual(result, expected)
 })
@@ -84,11 +96,10 @@ runner.test('customOrder: jsdoc-parse usage', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
   const customOrder = {
-    kind: [ 'class', 'constructor', 'mixin', 'member', 'namespace', 'enum',
-      'constant', 'function', 'event', 'typedef', 'external' ],
+    kind: [ 'class', 'constructor', 'mixin', 'member', 'namespace', 'enum', 'constant', 'function', 'event', 'typedef', 'external' ],
     scope: [ 'global', 'instance', 'static', 'inner' ]
   }
-  const result = sortBy(fixture, ['kind', 'scope'], customOrder)
+  const result = sortBy(fixture, [ 'kind', 'scope' ], customOrder)
   a.deepStrictEqual(result, expected)
 })
 
@@ -135,7 +146,7 @@ runner.test('customOrder: sort nulls, 2 column customOrder', function () {
     { importance: 1, weight: 'a' },
     { importance: null, weight: 'a' },
     { importance: 1, weight: null },
-    { importance: 3, weight: null },
+    { importance: 3, weight: null }
   ]
   const customOrder = {
     importance: [ undefined, 1, 2, null, 3 ],

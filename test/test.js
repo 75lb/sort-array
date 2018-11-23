@@ -1,10 +1,10 @@
 const TestRunner = require('test-runner')
-const sortBy = require('../')
+const sort = require('../')
 const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('sortBy', function () {
+runner.test('sort', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -27,40 +27,60 @@ runner.test('sortBy', function () {
     { a: 4, b: 3, c: 1 },
     { a: 4, b: 3, c: 1 }
   ]
-  const result = sortBy(fixture, ['a', 'b', 'c'])
+  const by = [ 'a', 'b', 'c' ]
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sortBy: undefined vals', function () {
-  const fixture = [ { a: 1 }, { }, { a: 0 } ]
-  const expected = [ { }, { a: 0 }, { a: 1 } ]
-  const result = sortBy(fixture, 'a')
+runner.test('sort: undefined vals', function () {
+  const fixture = [
+    { a: 1 },
+    {},
+    { a: 0 }
+  ]
+  const expected = [
+    {},
+    { a: 0 },
+    { a: 1 }
+  ]
+  const by = 'a'
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sortBy: undefined vals 2', function () {
-  const fixture = [ { a: 'yeah' }, { }, { a: 'what' } ]
-  const expected = [ { }, { a: 'what' }, { a: 'yeah' } ]
-  const result = sortBy(fixture, 'a')
+runner.test('sort: undefined vals 2', function () {
+  const fixture = [
+    { a: 'yeah' },
+    {},
+    { a: 'what' }
+  ]
+  const expected = [
+    {},
+    { a: 'what' },
+    { a: 'yeah' }
+  ]
+  const by = 'a'
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sortBy: undefined vals 3', function () {
+runner.test('sort: undefined vals 3', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
-    { a: 1 },
+    { a: 1 }
   ]
   const expected = [
     { a: undefined },
     { a: 1 },
     { a: 2 }
   ]
-  const result = sortBy(fixture, 'a')
+  const by = 'a'
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sortBy: deep value', function () {
+runner.test('sort: deep value', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -75,11 +95,12 @@ runner.test('sortBy: deep value', function () {
     { inner: { number: 4 } },
     { inner: { number: 5 } }
   ]
-  const result = sortBy(fixture, 'inner.number')
+  const by = 'inner.number'
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sortBy: nulls', function () {
+runner.test('sort: nulls', function () {
   const expected = [
     { importance: 'speed', weight: null },
     { importance: 'strength', weight: null },
@@ -102,11 +123,12 @@ runner.test('sortBy: nulls', function () {
     { importance: 'intelligence', weight: 'high' },
     { importance: 'strength', weight: 'medium' }
   ]
-  const result = sortBy(fixture, 'weight')
+  const by = 'weight'
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sortBy: nulls 2', function () {
+runner.test('sort: nulls 2', function () {
   const fixture = [
     { a: 4, b: null, c: 3 },
     { a: 4, b: 2, c: null },
@@ -129,6 +151,7 @@ runner.test('sortBy: nulls 2', function () {
     { a: 4, b: 2, c: null },
     { a: 4, b: 3, c: null }
   ]
-  const result = sortBy(fixture, ['a', 'b', 'c'])
+  const by = [ 'a', 'b', 'c' ]
+  const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
