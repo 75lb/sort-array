@@ -59,3 +59,23 @@ runner.test('sortOrder: desc 2', function () {
   const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
+
+runner.test('sortOrder: deep value', function () {
+  const fixture = [
+    { inner: { number: 2 } },
+    { inner: { number: 3 } },
+    { inner: { number: 5 } },
+    { inner: { number: 1 } },
+    { inner: { number: 4 } }
+  ]
+  const expected = [
+    { inner: { number: 5 } },
+    { inner: { number: 4 } },
+    { inner: { number: 3 } },
+    { inner: { number: 2 } },
+    { inner: { number: 1 } }
+  ]
+  const by = { 'inner.number': 'desc' }
+  const result = sort(fixture, by)
+  a.deepStrictEqual(result, expected)
+})
