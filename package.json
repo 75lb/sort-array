@@ -5,7 +5,6 @@
   "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
-  "main": "./lib/sort-array.js",
   "keywords": [
     "sort",
     "by",
@@ -17,19 +16,19 @@
     "desc"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "scripts": {
     "test": "test-runner test/*.js",
-    "docs": "jsdoc2md -t jsdoc2md/README.hbs lib/*.js > README.md; echo"
+    "docs": "jsdoc2md -t README.hbs index.js > README.md; echo"
   },
   "dependencies": {
     "array-back": "^2.0.0",
     "object-get": "^2.1.0",
-    "typical": "^2.6.1"
+    "typical": "^3.0.0"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0",
-    "test-runner": "^0.4.1"
+    "jsdoc-to-markdown": "^4.0.1",
+    "test-runner": "^0.5.1"
   }
 }
