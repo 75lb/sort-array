@@ -1,5 +1,5 @@
 const TestRunner = require('test-runner')
-const sortBy = require('../')
+const sort = require('../')
 const a = require('assert')
 
 const runner = new TestRunner()
@@ -15,10 +15,11 @@ runner.test('customOrder: undefined vals 3', function () {
     { a: 2 },
     { a: undefined }
   ]
+  const by = 'a'
   const customOrder = {
     a: [ 1, 2, undefined ]
   }
-  const result = sortBy(fixture, 'a', customOrder)
+  const result = sort(fixture, by, customOrder)
   a.deepStrictEqual(result, expected)
 })
 
@@ -33,10 +34,11 @@ runner.test('customOrder: null vals', function () {
     { a: 2 },
     { a: null }
   ]
+  const by = 'a'
   const customOrder = {
     a: [ 1, 2, null ]
   }
-  const result = sortBy(fixture, 'a', customOrder)
+  const result = sort(fixture, by, customOrder)
   a.deepStrictEqual(result, expected)
 })
 
@@ -53,10 +55,11 @@ runner.test('customOrder', function () {
     { fruit: 'apple' },
     { fruit: 'orange' }
   ]
+  const by = 'fruit'
   const customOrder = {
     fruit: [ 'banana', 'pear', 'apple', 'orange' ]
   }
-  const result = sortBy(fixture, 'fruit', customOrder)
+  const result = sort(fixture, by, customOrder)
   a.deepStrictEqual(result, expected)
 })
 
@@ -83,12 +86,13 @@ runner.test('customOrder: two columns', function () {
     { importance: 'intelligence', weight: 'high' },
     { importance: 'strength', weight: 'medium' }
   ]
+  const by = [ 'importance', 'weight' ]
   const customOrder = {
     importance: [ 'speed', 'strength', 'intelligence' ],
     weight: [ 'low', 'medium', 'high' ]
   }
 
-  const result = sortBy(fixture, [ 'importance', 'weight' ], customOrder)
+  const result = sort(fixture, by, customOrder)
   a.deepStrictEqual(result, expected)
 })
 
@@ -99,29 +103,8 @@ runner.test('customOrder: jsdoc-parse usage', function () {
     kind: [ 'class', 'constructor', 'mixin', 'member', 'namespace', 'enum', 'constant', 'function', 'event', 'typedef', 'external' ],
     scope: [ 'global', 'instance', 'static', 'inner' ]
   }
-  const result = sortBy(fixture, [ 'kind', 'scope' ], customOrder)
-  a.deepStrictEqual(result, expected)
-})
-
-runner.test('customOrder: sort by deep value', function () {
-  const fixture = [
-    { inner: { number: 5 } },
-    { inner: { number: 2 } },
-    { inner: { number: 3 } },
-    { inner: { number: 1 } },
-    { inner: { number: 4 } }
-  ]
-  const expected = [
-    { inner: { number: 1 } },
-    { inner: { number: 2 } },
-    { inner: { number: 4 } },
-    { inner: { number: 3 } },
-    { inner: { number: 5 } }
-  ]
-  const customOrder = {
-    'inner.number': [ 1, 2, 4, 3, 5 ]
-  }
-  const result = sortBy(fixture, 'inner.number', customOrder)
+  const by = [ 'kind', 'scope' ]
+  const result = sort(fixture, by, customOrder)
   a.deepStrictEqual(result, expected)
 })
 
@@ -148,32 +131,11 @@ runner.test('customOrder: sort nulls, 2 column customOrder', function () {
     { importance: 1, weight: null },
     { importance: 3, weight: null }
   ]
+  const by = [ 'importance', 'weight' ]
   const customOrder = {
     importance: [ undefined, 1, 2, null, 3 ],
     weight: [ 'a', 'b', null ]
   }
-  const result = sortBy(fixture, [ 'importance', 'weight' ], customOrder)
-  a.deepStrictEqual(result, expected)
-})
-
-runner.test('customOrder: sort by deep value, nulls', function () {
-  const fixture = [
-    { inner: { number: 5 } },
-    { inner: { number: 2 } },
-    { inner: { number: 3 } },
-    { inner: { number: 1 } },
-    { inner: { number: null } }
-  ]
-  const expected = [
-    { inner: { number: 1 } },
-    { inner: { number: 2 } },
-    { inner: { number: null } },
-    { inner: { number: 3 } },
-    { inner: { number: 5 } }
-  ]
-  const customOrder = {
-    'inner.number': [ 1, 2, null, 3, 5 ]
-  }
-  const result = sortBy(fixture, 'inner.number', customOrder)
+  const result = sort(fixture, by, customOrder)
   a.deepStrictEqual(result, expected)
 })

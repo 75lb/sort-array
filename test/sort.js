@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('sort', function () {
+runner.test('sort: by array of column names', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -32,7 +32,35 @@ runner.test('sort', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: undefined vals', function () {
+runner.test('sort: by array of column names, nulls', function () {
+  const fixture = [
+    { a: 4, b: null, c: 3 },
+    { a: 4, b: 2, c: null },
+    { a: 2, b: 2, c: 3 },
+    { a: 2, b: 2, c: 2 },
+    { a: null, b: 3, c: 4 },
+    { a: null, b: null, c: 4 },
+    { a: null, b: 2, c: 4 },
+    { a: 3, b: 3, c: 3 },
+    { a: 4, b: 3, c: null }
+  ]
+  const expected = [
+    { a: null, b: null, c: 4 },
+    { a: null, b: 2, c: 4 },
+    { a: null, b: 3, c: 4 },
+    { a: 2, b: 2, c: 2 },
+    { a: 2, b: 2, c: 3 },
+    { a: 3, b: 3, c: 3 },
+    { a: 4, b: null, c: 3 },
+    { a: 4, b: 2, c: null },
+    { a: 4, b: 3, c: null }
+  ]
+  const by = [ 'a', 'b', 'c' ]
+  const result = sort(fixture, by)
+  a.deepStrictEqual(result, expected)
+})
+
+runner.test('sort: by single column name, undefined vals', function () {
   const fixture = [
     { a: 1 },
     {},
@@ -48,7 +76,7 @@ runner.test('sort: undefined vals', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: undefined vals 2', function () {
+runner.test('sort: by single column name, undefined vals 2', function () {
   const fixture = [
     { a: 'yeah' },
     {},
@@ -64,7 +92,7 @@ runner.test('sort: undefined vals 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: undefined vals 3', function () {
+runner.test('sort: by single column name, undefined vals 3', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -80,27 +108,7 @@ runner.test('sort: undefined vals 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: deep value', function () {
-  const fixture = [
-    { inner: { number: 5 } },
-    { inner: { number: 2 } },
-    { inner: { number: 3 } },
-    { inner: { number: 1 } },
-    { inner: { number: 4 } }
-  ]
-  const expected = [
-    { inner: { number: 1 } },
-    { inner: { number: 2 } },
-    { inner: { number: 3 } },
-    { inner: { number: 4 } },
-    { inner: { number: 5 } }
-  ]
-  const by = 'inner.number'
-  const result = sort(fixture, by)
-  a.deepStrictEqual(result, expected)
-})
-
-runner.test('sort: nulls', function () {
+runner.test('sort: by single column name, nulls', function () {
   const expected = [
     { importance: 'speed', weight: null },
     { importance: 'strength', weight: null },
@@ -124,34 +132,6 @@ runner.test('sort: nulls', function () {
     { importance: 'strength', weight: 'medium' }
   ]
   const by = 'weight'
-  const result = sort(fixture, by)
-  a.deepStrictEqual(result, expected)
-})
-
-runner.test('sort: nulls 2', function () {
-  const fixture = [
-    { a: 4, b: null, c: 3 },
-    { a: 4, b: 2, c: null },
-    { a: 2, b: 2, c: 3 },
-    { a: 2, b: 2, c: 2 },
-    { a: null, b: 3, c: 4 },
-    { a: null, b: null, c: 4 },
-    { a: null, b: 2, c: 4 },
-    { a: 3, b: 3, c: 3 },
-    { a: 4, b: 3, c: null }
-  ]
-  const expected = [
-    { a: null, b: null, c: 4 },
-    { a: null, b: 2, c: 4 },
-    { a: null, b: 3, c: 4 },
-    { a: 2, b: 2, c: 2 },
-    { a: 2, b: 2, c: 3 },
-    { a: 3, b: 3, c: 3 },
-    { a: 4, b: null, c: 3 },
-    { a: 4, b: 2, c: null },
-    { a: 4, b: 3, c: null }
-  ]
-  const by = [ 'a', 'b', 'c' ]
   const result = sort(fixture, by)
   a.deepStrictEqual(result, expected)
 })
