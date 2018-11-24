@@ -1,7 +1,5 @@
-'use strict'
 const arrayify = require('array-back')
 const t = require('typical')
-const objectGet = require('object-get')
 
 /**
  * Sort an array of objects by any property value, at any depth, in any custom order.
@@ -101,8 +99,8 @@ function sortByFunc (properties, customOrder) {
   let property = props.shift()
   return function sorter (a, b) {
     let result
-    const x = objectGet(a, property)
-    const y = objectGet(b, property)
+    const x = a[property]
+    const y = b[property]
 
     if (customOrder && customOrder[property]) {
       result = customOrder[property].indexOf(x) - customOrder[property].indexOf(y)
