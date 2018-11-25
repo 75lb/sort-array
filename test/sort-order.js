@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.skip('sortOrder: desc 1', function () {
+runner.test('sort order: desc 1', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -36,7 +36,7 @@ runner.skip('sortOrder: desc 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('sortOrder: desc 2', function () {
+runner.test('sort order: desc 2', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -59,7 +59,6 @@ runner.skip('sortOrder: desc 2', function () {
     { a: 1, b: 2, c: 4 },
     { a: 1, b: 3, c: 4 },
   ]
-  const by = { a: 'desc', b: 'asc', c: 'desc' }
   const by = [
     [ 'a', 'desc' ],
     [ 'b', 'asc' ],
@@ -69,7 +68,7 @@ runner.skip('sortOrder: desc 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('sortOrder: deep value', function () {
+runner.test('sort order: computed property', function () {
   const fixture = [
     { inner: { number: 2 } },
     { inner: { number: 3 } },
