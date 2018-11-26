@@ -20,6 +20,7 @@
   },
   "scripts": {
     "test": "test-runner test/*.js",
+    "test:next": "test-runner test/sort-order.js",
     "docs": "jsdoc2md -t README.hbs index.js > README.md; echo"
   },
   "dependencies": {

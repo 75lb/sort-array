@@ -36,7 +36,7 @@ runner.test('sort order: desc 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: desc 2', function () {
+runner.skip('sort order: desc 2', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -68,7 +68,7 @@ runner.test('sort order: desc 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: computed property', function () {
+runner.skip('sort order: computed property', function () {
   const fixture = [
     { inner: { number: 2 } },
     { inner: { number: 3 } },

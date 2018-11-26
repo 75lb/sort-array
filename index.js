@@ -90,31 +90,22 @@ module.exports = sortBy
  * }
  * ```
  */
-function sortBy (recordset, columnNames, customOrder) {
-  return recordset.sort(sortByFunc(arrayify(columnNames), customOrder))
+function sortBy (recordset, sortBy, customOrder) {
+  if (customOrder) {
+    return recordset.sort(sortByCustom(arrayify(sortBy), customOrder))
+  } else {
+    return recordset.sort(sortByConvention(arrayify(sortBy)))
+  }
 }
 
-function sortByFunc (properties, customOrder) {
+function sortByCustom (properties, customOrder) {
   let props = properties.slice(0)
   let property = props.shift()
   return function sorter (a, b) {
-    let result
     const x = a[property]
     const y = b[property]
-
-    if (customOrder && customOrder[property]) {
-      result = customOrder[property].indexOf(x) - customOrder[property].indexOf(y)
-    } else if (x === null && y === null) {
-      result = 0
-    } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
-      result = -1
-    } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
-      result = 1
-    } else if (!t.isDefined(x) && !t.isDefined(y)) {
-      result = 0
-    } else {
-      result = x < y ? -1 : x > y ? 1 : 0
-    }
+    
+    let result = customOrder[property].indexOf(x) - customOrder[property].indexOf(y)
 
     if (result === 0) {
       if (props.length) {
@@ -129,6 +120,52 @@ function sortByFunc (properties, customOrder) {
       props = properties.slice(0)
       property = props.shift()
       return result
+    }
+  }
+}
+
+function sortByConvention (sortBy) {
+  let sorts = sortBy.slice(0)
+  let propSort = sorts.shift()
+  let property = t.isArrayLike(propSort) && propSort.shift() || undefined
+  let sort = t.isArrayLike(propSort) && propSort.shift() || 'asc'
+  
+  return function sorter (a, b) {
+    // Sort asc initially, then invert the result if a desc has been requested
+    
+    let result
+    const x = a[property]
+    const y = b[property]
+    let currentSort = sort
+
+    // Perform the initial asc sort
+    if (x === null && y === null) {
+      result = 0
+    } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
+      result = -1
+    } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
+      result = 1
+    } else if (!t.isDefined(x) && !t.isDefined(y)) {
+      result = 0
+    } else {
+      result = x < y ? -1 : x > y ? 1 : 0
+    }
+    
+    // Prepare the for the next call to this sorting function
+    if (!((result === 0) && (sorts.length))) {
+      sorts = sortBy.slice(0)
+    }
+    propSort = sorts.shift()
+    property = t.isArrayLike(propSort) && propSort.shift() || undefined
+    sort = t.isArrayLike(propSort) && propSort.shift() || 'asc'
+    
+    // Present the result
+    if ((result === 0) && (sorts.length)) {
+      return sorter(a, b)
+    } else if ((result === 0) || (currentSort === 'asc')) {
+      return result
+    }  else {
+      return result *= -1
     }
   }
 }
