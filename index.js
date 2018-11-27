@@ -127,16 +127,16 @@ function sortByCustom (properties, customOrder) {
 function sortByConvention (sortBy) {
   let sorts = sortBy.slice(0)
   let propSort = sorts.shift()
-  let property = t.isArrayLike(propSort) && propSort.shift() || undefined
-  let sort = t.isArrayLike(propSort) && propSort.shift() || 'asc'
+  let property = t.isArrayLike(propSort) && propSort[0] || undefined
+  let sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
   
   return function sorter (a, b) {
     // Sort asc initially, then invert the result if a desc has been requested
-    
     let result
     const x = a[property]
     const y = b[property]
     let currentSort = sort
+    let recurse
 
     // Perform the initial asc sort
     if (x === null && y === null) {
@@ -151,21 +151,27 @@ function sortByConvention (sortBy) {
       result = x < y ? -1 : x > y ? 1 : 0
     }
     
-    // Prepare the for the next call to this sorting function
-    if (!((result === 0) && (sorts.length))) {
+    // Reset this sorting function and parent, unless we have an equal
+    // result and there are more sorts still to perform, in which case
+    // move on to the next one.
+    if (result === 0 && sorts.length) {
+      recurse = true
+    } else {
+      recurse = false
       sorts = sortBy.slice(0)
     }
-    propSort = sorts.shift()
-    property = t.isArrayLike(propSort) && propSort.shift() || undefined
-    sort = t.isArrayLike(propSort) && propSort.shift() || 'asc'
     
+    propSort = sorts.shift()
+    property = t.isArrayLike(propSort) && propSort[0] || undefined
+    sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
+
     // Present the result
-    if ((result === 0) && (sorts.length)) {
+    if (recurse) {
       return sorter(a, b)
     } else if ((result === 0) || (currentSort === 'asc')) {
       return result
     }  else {
-      return result *= -1
+      return result * -1
     }
   }
 }
