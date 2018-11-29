@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.skip('customOrder: undefined vals 3', function () {
+runner.test('customOrder: undefined vals 3', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -24,7 +24,7 @@ runner.skip('customOrder: undefined vals 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: null vals', function () {
+runner.test('customOrder: null vals', function () {
   const fixture = [
     { a: 2 },
     { a: null },
@@ -44,7 +44,7 @@ runner.skip('customOrder: null vals', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder', function () {
+runner.test('customOrder', function () {
   const fixture = [
     { fruit: 'apple' },
     { fruit: 'orange' },
@@ -66,7 +66,7 @@ runner.skip('customOrder', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: two columns', function () {
+runner.test('customOrder: two columns', function () {
   const expected = [
     { importance: 'speed', weight: 'low' },
     { importance: 'speed', weight: 'medium' },
@@ -99,7 +99,7 @@ runner.skip('customOrder: two columns', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: jsdoc-parse usage', function () {
+runner.test('customOrder: jsdoc-parse usage', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
   
@@ -112,7 +112,7 @@ runner.skip('customOrder: jsdoc-parse usage', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: sort nulls, 2 column customOrder', function () {
+runner.test('customOrder: sort nulls, 2 column customOrder', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },

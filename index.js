@@ -113,12 +113,13 @@ function sortWithoutComputedProperties (sortBy) {
     let currentSort = sort
     let recurse
 
-    /*
-    if (customOrder) {
-      result = customOrder[property].indexOf(x) - customOrder[property].indexOf(y)
+    if (t.isArrayLike(sort)) {
+      // Custom sort the current property.
+      result = sort.indexOf(y) - sort.indexOf(x)
     } else {
-    */
-      // Perform the initial asc sort
+      // Asc/desc sort the current property. Perform an asc sort by default, 
+      // then invert the result later if a desc has been requested for the 
+      // current property.
       if (x === null && y === null) {
         result = 0
       } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
@@ -130,7 +131,7 @@ function sortWithoutComputedProperties (sortBy) {
       } else {
         result = x < y ? -1 : x > y ? 1 : 0
       }
-    //}
+    }
     
     // Reset this sorting function and parent, unless we have an equal
     // result and there are more sorts still to perform, in which case
