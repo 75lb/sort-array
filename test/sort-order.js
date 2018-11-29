@@ -5,7 +5,6 @@ const a = require('assert')
 const runner = new TestRunner()
 
 // @TODO: Remove these small 'debug' tests when no longer needed
-/*
 runner.test('sort order: prop:asc, change:no, 1', function () {
   const fixture = [
     { a: 4 },
@@ -17,13 +16,14 @@ runner.test('sort order: prop:asc, change:no, 1', function () {
     { a: 4 },
     { a: 4 }
   ]
-  const by = [
-    [ 'a', 'asc' ]
-  ]
-  const result = sort(fixture, by)
+  const sortBy = {
+    a: 'asc'
+  }
+  const result = sort(fixture, sortBy)
   a.deepStrictEqual(result, expected)
 })
 
+/*
 runner.test('sort order: prop:asc, change:no, 2', function () {
   const fixture = [
     { a: 1 },
@@ -329,7 +329,7 @@ runner.test('sort order: prop:desc|prop:desc, change:yes, 1', function () {
 })
 */
 
-runner.test('sort order: asc|desc|asc', function () {
+runner.skip('sort order: asc|desc|asc', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -352,16 +352,16 @@ runner.test('sort order: asc|desc|asc', function () {
     { a: 4, b: 3, c: 1 },
     { a: 4, b: 1, c: 1 }
   ]
-  const by = [
-    [ 'a', 'asc' ],
-    [ 'b', 'desc' ],
-    [ 'c', 'asc' ]
-  ]
-  const result = sort(fixture, by)
+  const sortBy = {
+    a: 'asc',
+    b: 'desc',
+    c: 'asc'
+  }
+  const result = sort(fixture, sortBy)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: desc|asc|desc', function () {
+runner.skip('sort order: desc|asc|desc', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -384,12 +384,12 @@ runner.test('sort order: desc|asc|desc', function () {
     { a: 1, b: 2, c: 4 },
     { a: 1, b: 3, c: 4 },
   ]
-  const by = [
-    [ 'a', 'desc' ],
-    [ 'b', 'asc' ],
-    [ 'c', 'desc' ]
-  ]
-  const result = sort(fixture, by)
+  const sortBy = {
+    a: 'desc',
+    b: 'asc',
+    c: 'desc'
+  }
+  const result = sort(fixture, sortBy)
   a.deepStrictEqual(result, expected)
 })
 
@@ -408,9 +408,12 @@ runner.skip('sort order: computed property', function () {
     { inner: { number: 2 } },
     { inner: { number: 1 } }
   ]
-  const by = [
-    [ item => item.inner.number, 'desc' ]
-  ]
-  const result = sort(fixture, by)
+  const sortBy = {
+    output: 'desc'
+  }
+  const computedProperties = {
+    output: item => item.inner.number * 2
+  }
+  const result = sort(fixture, sortBy, computedProperties)
   a.deepStrictEqual(result, expected)
 })

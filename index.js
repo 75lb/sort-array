@@ -124,31 +124,34 @@ function sortByCustom (properties, customOrder) {
   }
 }
 
-function sortByConvention (sortBy) {
+function sortByConvention (sortBy, customOrder) {
   let sorts = sortBy.slice(0)
   let propSort = sorts.shift()
   let property = t.isArrayLike(propSort) && propSort[0] || undefined
-  let sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
+  let sort = t.isArrayLike(propSort) && propSort[1] || customOrder ? 'custom' : 'asc'
   
   return function sorter (a, b) {
-    // Sort asc initially, then invert the result if a desc has been requested
     let result
     const x = a[property]
     const y = b[property]
     let currentSort = sort
     let recurse
 
-    // Perform the initial asc sort
-    if (x === null && y === null) {
-      result = 0
-    } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
-      result = -1
-    } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
-      result = 1
-    } else if (!t.isDefined(x) && !t.isDefined(y)) {
-      result = 0
+    if (customOrder) {
+      result = customOrder[property].indexOf(x) - customOrder[property].indexOf(y)
     } else {
-      result = x < y ? -1 : x > y ? 1 : 0
+      // Perform the initial asc sort
+      if (x === null && y === null) {
+        result = 0
+      } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
+        result = -1
+      } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
+        result = 1
+      } else if (!t.isDefined(x) && !t.isDefined(y)) {
+        result = 0
+      } else {
+        result = x < y ? -1 : x > y ? 1 : 0
+      }
     }
     
     // Reset this sorting function and parent, unless we have an equal
