@@ -90,14 +90,74 @@ module.exports = sortBy
  * }
  * ```
  */
-function sortBy (recordset, sortBy, customOrder) {
-  if (customOrder) {
-    return recordset.sort(sortByCustom(arrayify(sortBy), customOrder))
+function sortBy (recordset, sortBy, computedProperties) {
+  if (computedProperties) {
+    return recordset.sort(sortWithComputedProperties(sortBy))
   } else {
-    return recordset.sort(sortByConvention(arrayify(sortBy)))
+    return recordset.sort(sortWithoutComputedProperties(sortBy))
   }
 }
 
+// @TODO: Question - do we support crap data in? E.g. testing for 'isArrayLike',
+// @TODO: rather than just assuming the data in is correct?
+function sortWithoutComputedProperties (sortBy) {
+  let sorts = Object.entries(sortBy) // equiv: let sorts = sortBy.slice(0)
+  let propSort = sorts.shift()
+  let property = t.isArrayLike(propSort) && propSort[0] || undefined
+  let sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
+
+  return function sorter (a, b) {
+    let result
+    const x = a[property]
+    const y = b[property]
+    let currentSort = sort
+    let recurse
+
+    /*
+    if (customOrder) {
+      result = customOrder[property].indexOf(x) - customOrder[property].indexOf(y)
+    } else {
+    */
+      // Perform the initial asc sort
+      if (x === null && y === null) {
+        result = 0
+      } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
+        result = -1
+      } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
+        result = 1
+      } else if (!t.isDefined(x) && !t.isDefined(y)) {
+        result = 0
+      } else {
+        result = x < y ? -1 : x > y ? 1 : 0
+      }
+    //}
+    
+    // Reset this sorting function and parent, unless we have an equal
+    // result and there are more sorts still to perform, in which case
+    // move on to the next one.
+    if (result === 0 && sorts.length) {
+      recurse = true
+    } else {
+      recurse = false
+      sorts = Object.entries(sortBy)
+    }
+    
+    propSort = sorts.shift()
+    property = t.isArrayLike(propSort) && propSort[0] || undefined
+    sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
+
+    // Present the result
+    if (recurse) {
+      return sorter(a, b)
+    } else if ((result === 0) || (currentSort === 'asc')) {
+      return result
+    }  else {
+      return result * -1
+    }
+  }
+}
+
+/*
 function sortByCustom (properties, customOrder) {
   let props = properties.slice(0)
   let property = props.shift()
@@ -178,3 +238,4 @@ function sortByConvention (sortBy, customOrder) {
     }
   }
 }
+*/
