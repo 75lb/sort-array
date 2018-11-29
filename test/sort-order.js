@@ -387,7 +387,7 @@ runner.test('sort order: desc|asc|desc', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('sort order: computed property', function () {
+runner.test('sort order: computed property', function () {
   const fixture = [
     { inner: { number: 2 } },
     { inner: { number: 3 } },
