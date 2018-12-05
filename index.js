@@ -1,3 +1,4 @@
+const arrayify = require('array-back')
 const t = require('typical')
 
 /**
@@ -89,17 +90,63 @@ module.exports = sortBy
  * }
  * ```
  */
-function sortBy (recordset, sortBy, computedProperties) {
-  return recordset.sort(compare(sortBy, computedProperties))
+// @TODO: Incorporate sharedCompProps into sanity checks
+function sortBy (recordset, sortBy, sortTypes, sharedCompProps) {
+  // Ensure arguments are of the expected type
+  recordset = arrayify(recordset)
+  sortBy = arrayify(sortBy)
+  sortTypes = arrayify(sortTypes)
+  
+  // Perform sanity checks early.
+  let isPrimitiveSort = recordset.some(record => t.isPrimitive(record))
+  if (isPrimitiveSort) {
+    // Any 'sortBy' arguments invalidate the sort, because they will not be 
+    // applicable on a primitive array.
+    if (sortBy.length !== 0) {
+      return recordset
+    }
+  } else {
+    // At least one 'sortBy' argument must be provided, so that the recordset 
+    // can be sorted according to that property.
+    if (sortBy.length === 0) {
+      return recordset
+    }
+  }
+  
+  // Ensure the arguments are correctly provided. Hydrate or prune as
+  // required.
+  if ((sortBy.length === 0) && (sortTypes.length === 0)) {
+    sortTypes.push('asc')
+  } else if (sortBy.length > sortTypes.length) {
+    // Not enough sortTypes have been provided. Fully hydrate the sortTypes
+    // array, using 'asc' by default.
+    let noOfMissingSortTypes = sortBy.length - sortTypes.length
+    for (let i = 0; i < noOfMissingSortTypes; i++) {
+      sortTypes.push('asc')
+    }
+  } else if (sortBy.length < sortTypes.length) {
+    // Too many sortTypes have been provided. Prune the redundant ones
+    // at the end of the sortType array.
+    sortTypes.splice(-1, noOfExcessSortTypes)
+  }
+  
+  if (isPrimitiveSort) {
+    return recordset.sort(comparePrim(sortBy, sortTypes))
+  } else {
+    return recordset.sort(compare(sortBy, sortTypes, sharedCompProps))
+  }
 }
 
-// @TODO: Question - do we support crap data in? E.g. testing for 't.isArrayLike',
-// @TODO: rather than just assuming the data in is correct?
-function compare (sortBy, computedProperties) {
-  let sorts = Object.entries(sortBy)
-  let propSort = sorts.shift()
-  let property = t.isArrayLike(propSort) && propSort[0] || undefined
-  let sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
+function comparePrim (sortBy, sortTypes) {
+  console.log('comparePrim() NOT YET IMPLEMENTED')
+}
+
+function compare (sortBy, sortTypes, sharedCompProps) {
+  let sorts = sortBy.slice(0)
+  let property = sorts.shift()
+  
+  let types = sortTypes.slice(0)
+  let sort = types.shift()
 
   return function sorter (a, b) {
     let x
@@ -108,47 +155,40 @@ function compare (sortBy, computedProperties) {
     let recurse
     let currentSort = sort
     
-    if (t.isDefined(computedProperties) && computedProperties.hasOwnProperty(property)) {
-      x = computedProperties[property](a)
-      y = computedProperties[property](b)
-    } else {
+    if (t.isFunction(sort)) {
+      // Apply a calculated property sort
+      x = sort(a)
+      y = sort(b)
+      // Perform an asc sort by default, then invert later if a desc has been 
+      // requested for the current property.
+      results = getAscOrder(x, y)
+    } else if (t.isArrayLike(sort)) {
+      // Apply custom ordering
       x = a[property]
       y = b[property]
-    }
-
-    if (t.isArrayLike(sort)) {
-      // Custom sort the current property.
       result = sort.indexOf(y) - sort.indexOf(x)
     } else {
-      // Asc/desc sort the current property. Perform an asc sort by default, 
-      // then invert the result later if a desc has been requested for the 
-      // current property.
-      if (x === null && y === null) {
-        result = 0
-      } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
-        result = -1
-      } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
-        result = 1
-      } else if (!t.isDefined(x) && !t.isDefined(y)) {
-        result = 0
-      } else {
-        result = x < y ? -1 : x > y ? 1 : 0
-      }
+      // Apply a simple asc/desc sort
+      x = a[property]
+      y = b[property]
+      // Perform an asc sort by default, then invert later if a desc has been 
+      // requested for the current property.
+      results = getAscOrder(x, y)
     }
     
-    // Reset this sorting function and parent, unless we have an equal
+    // Reset this sorting function and parent, unless there is an equal
     // result and there are more sorts still to perform, in which case
     // move on to the next one.
     if (result === 0 && sorts.length) {
       recurse = true
     } else {
       recurse = false
-      sorts = Object.entries(sortBy)
+      sorts = sortBy.slice(0)
+      types = sortTypes.slice(0)
     }
     
-    propSort = sorts.shift()
-    property = t.isArrayLike(propSort) && propSort[0] || undefined
-    sort = t.isArrayLike(propSort) && propSort[1] || 'asc'
+    property = sorts.shift()
+    sort = types.shift()
 
     // Present the result
     if (recurse) {
@@ -159,4 +199,20 @@ function compare (sortBy, computedProperties) {
       return result * -1
     }
   }
+}
+
+function getAscOrder(x, y) {
+  let result
+  if (x === null && y === null) {
+    result = 0
+  } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
+    result = -1
+  } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
+    result = 1
+  } else if (!t.isDefined(x) && !t.isDefined(y)) {
+    result = 0
+  } else {
+    result = x < y ? -1 : x > y ? 1 : 0
+  }
+  return result
 }

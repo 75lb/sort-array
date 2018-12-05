@@ -5,6 +5,7 @@ const a = require('assert')
 const runner = new TestRunner()
 
 // @TODO: Remove these small 'debug' tests when no longer needed
+/*
 runner.test('sort order: prop:asc, change:no, 1', function () {
   const fixture = [
     { a: 4 },
@@ -322,8 +323,9 @@ runner.test('sort order: prop:desc|prop:desc, change:yes, 1', function () {
   const result = sort(fixture, sortBy)
   a.deepStrictEqual(result, expected)
 })
+*/
 
-runner.test('sort order: asc|desc|asc', function () {
+runner.skip('sort order: asc|desc|asc', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -346,12 +348,9 @@ runner.test('sort order: asc|desc|asc', function () {
     { a: 4, b: 3, c: 1 },
     { a: 4, b: 1, c: 1 }
   ]
-  const sortBy = {
-    a: 'asc',
-    b: 'desc',
-    c: 'asc'
-  }
-  const result = sort(fixture, sortBy)
+  const sortBy = [ 'a', 'b', 'c' ]
+  const sortTypes = [ 'asc', 'desc', 'asc' ]
+  const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
 
@@ -378,16 +377,13 @@ runner.test('sort order: desc|asc|desc', function () {
     { a: 1, b: 2, c: 4 },
     { a: 1, b: 3, c: 4 },
   ]
-  const sortBy = {
-    a: 'desc',
-    b: 'asc',
-    c: 'desc'
-  }
-  const result = sort(fixture, sortBy)
+  const sortBy = [ 'a', 'b', 'c' ]
+  const sortTypes = [ 'desc', 'asc', 'desc' ]
+  const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: computed property', function () {
+runner.skip('sort order: computed property', function () {
   const fixture = [
     { inner: { number: 2 } },
     { inner: { number: 3 } },
@@ -402,12 +398,11 @@ runner.test('sort order: computed property', function () {
     { inner: { number: 2 } },
     { inner: { number: 1 } }
   ]
-  const sortBy = {
-    output: 'desc'
-  }
-  const computedProperties = {
+  const sortBy = [ 'output' ]
+  const sortTypes = [ 'desc' ]
+  const sharedCompProps = {
     output: item => item.inner.number * 2
   }
-  const result = sort(fixture, sortBy, computedProperties)
+  const result = sort(fixture, sortBy, sortTypes, sharedCompProps)
   a.deepStrictEqual(result, expected)
 })
