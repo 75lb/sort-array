@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.skip('computed property: anonymous', function () {
+runner.test('computed property: anonymous', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -27,7 +27,7 @@ runner.skip('computed property: anonymous', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('computed property: named', function () {
+runner.test('computed property: named', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -44,14 +44,14 @@ runner.skip('computed property: named', function () {
   ]
   const sortBy = [ 'total' ]
   const sortTypes = [ 'asc' ]
-  const sharedCompProps = {
+  const shared = {
     total: item => item.inner.a + item.inner.b
   }
-  const result = sort(fixture, sortBy, sortTypes, sharedCompProps)
+  const result = sort(fixture, sortBy, sortTypes, shared)
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('computed property: anonymous, descending order', function () {
+runner.test('computed property: anonymous, descending order', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -60,11 +60,11 @@ runner.skip('computed property: anonymous, descending order', function () {
     { inner: { number: 4 } }
   ]
   const expected = [
-    { inner: { number: 1 } },
-    { inner: { number: 2 } },
-    { inner: { number: 3 } },
+    { inner: { number: 5 } },
     { inner: { number: 4 } },
-    { inner: { number: 5 } }
+    { inner: { number: 3 } },
+    { inner: { number: 2 } },
+    { inner: { number: 1 } }
   ]
   const sortBy = [ item => item.inner.number ]
   const sortTypes = [ 'desc' ]
@@ -72,7 +72,7 @@ runner.skip('computed property: anonymous, descending order', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('computed property: named, descending custom order', function () {
+runner.test('computed property: named, descending custom order', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -89,14 +89,14 @@ runner.skip('computed property: named, descending custom order', function () {
   ]
   const sortBy = [ 'total' ]
   const sortTypes = [ 'desc' ]
-  const sharedCompProps = {
+  const shared = {
     total: item => item.inner.number
   }
-  const result = sort(fixture, sortBy, sortTypes, sharedCompProps)
+  const result = sort(fixture, sortBy, sortTypes, shared)
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('computed property: custom order', function () {
+runner.test('computed property: custom order', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -116,15 +116,15 @@ runner.skip('computed property: custom order', function () {
   const sortTypes = [ 
     [ 1, 2, 4, 3, 5 ]
   ]
-  const sharedCompProps = {
+  const shared = {
     number: item => item.inner.number
   }
   
-  const result = sort(fixture, sortBy, sortTypes, sharedCompProps)
+  const result = sort(fixture, sortBy, sortTypes, shared)
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('computed property: custom order, nulls', function () {
+runner.test('computed property: custom order, nulls', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -144,9 +144,9 @@ runner.skip('computed property: custom order, nulls', function () {
   const sortTypes = [
     [ 1, 2, null, 3, 5 ]
   ]
-  const sharedCompProps = {
+  const shared = {
     number: item => item.inner.number
   }
-  const result = sort(fixture, sortBy, sortTypes, sharedCompProps)
+  const result = sort(fixture, sortBy, sortTypes, shared)
   a.deepStrictEqual(result, expected)
 })

@@ -90,12 +90,16 @@ module.exports = sortBy
  * }
  * ```
  */
-// @TODO: Incorporate sharedCompProps into sanity checks
-function sortBy (recordset, sortBy, sortTypes, sharedCompProps) {
+// @TODO: Incorporate sharedComputedProps into sanity checks
+// @TODO: Incorporate sharedCustomOrders into sanity checks
+// @TODO: Write tests for garbage in
+function sortBy (recordset, sortBy, sortTypes, sharedComputedProps, sharedCustomOrders) {
   // Ensure arguments are of the expected type
   recordset = arrayify(recordset)
   sortBy = arrayify(sortBy)
   sortTypes = arrayify(sortTypes)
+  sharedComputedProps = sharedComputedProps || {}
+  sharedCustomOrders = sharedCustomOrders || {}
   
   // Perform sanity checks early.
   let isPrimitiveSort = recordset.some(record => t.isPrimitive(record))
@@ -127,27 +131,34 @@ function sortBy (recordset, sortBy, sortTypes, sharedCompProps) {
   } else if (sortBy.length < sortTypes.length) {
     // Too many sortTypes have been provided. Prune the redundant ones
     // at the end of the sortType array.
-    sortTypes.splice(-1, noOfExcessSortTypes)
+    sortTypes.splice(-1, sortTypes.length - sortBy.length)
   }
   
   if (isPrimitiveSort) {
     return recordset.sort(comparePrim(sortBy, sortTypes))
   } else {
-    return recordset.sort(compare(sortBy, sortTypes, sharedCompProps))
+    return recordset.sort(compare(sortBy, sortTypes, sharedComputedProps, sharedCustomOrders))
   }
 }
 
+// @TODO: implement compare primitives
 function comparePrim (sortBy, sortTypes) {
   console.log('comparePrim() NOT YET IMPLEMENTED')
 }
 
-function compare (sortBy, sortTypes, sharedCompProps) {
+function compare (sortBy, sortTypes, sharedComputedProps, sharedCustomOrders) {
+  // Identify the first property on which to sort, and the way it should be sorted.
+  
+  // The property may be either a string property name, an anonymous function, or
+  // a string key into the sharedComputedProps object.
   let sorts = sortBy.slice(0)
   let property = sorts.shift()
   
+  // The sort can be 'asc', 'desc', a custom array or a string key into the 
+  // sharedCustomOrders object.
   let types = sortTypes.slice(0)
   let sort = types.shift()
-
+  
   return function sorter (a, b) {
     let x
     let y
@@ -155,25 +166,29 @@ function compare (sortBy, sortTypes, sharedCompProps) {
     let recurse
     let currentSort = sort
     
-    if (t.isFunction(sort)) {
-      // Apply a calculated property sort
-      x = sort(a)
-      y = sort(b)
-      // Perform an asc sort by default, then invert later if a desc has been 
-      // requested for the current property.
-      results = getAscOrder(x, y)
-    } else if (t.isArrayLike(sort)) {
-      // Apply custom ordering
-      x = a[property]
-      y = b[property]
-      result = sort.indexOf(y) - sort.indexOf(x)
+    // Allocate the comparees.
+    if (t.isFunction(property)) {
+      x = property(a)
+      y = property(b)
+    } else if(t.isDefined(sharedComputedProps[property])) {
+      x = sharedComputedProps[property](a)
+      y = sharedComputedProps[property](b)
     } else {
-      // Apply a simple asc/desc sort
       x = a[property]
       y = b[property]
+    }
+    
+    // Perform the sort
+    if (t.isArrayLike(sort)) {
+      // Apply custom ordering
+      result = sort.indexOf(x) - sort.indexOf(y)
+    } else if (t.isDefined(sharedCustomOrders[sort])) {
+      // Apply custom ordering
+      result = sharedCustomOrders[sort].indexOf(x) - sharedCustomOrders[sort].indexOf(y)
+    } else {
       // Perform an asc sort by default, then invert later if a desc has been 
       // requested for the current property.
-      results = getAscOrder(x, y)
+      result = getAscOrder(x, y)
     }
     
     // Reset this sorting function and parent, unless there is an equal
@@ -186,17 +201,16 @@ function compare (sortBy, sortTypes, sharedCompProps) {
       sorts = sortBy.slice(0)
       types = sortTypes.slice(0)
     }
-    
     property = sorts.shift()
     sort = types.shift()
 
     // Present the result
     if (recurse) {
       return sorter(a, b)
-    } else if ((result === 0) || (currentSort === 'asc')) {
-      return result
-    }  else {
+    } else if (currentSort === 'desc') {
       return result * -1
+    } else {
+      return result
     }
   }
 }

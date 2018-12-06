@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.skip('customOrder: undefined vals 3', function () {
+runner.test('customOrder: undefined vals 3', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -17,12 +17,35 @@ runner.skip('customOrder: undefined vals 3', function () {
   ]
   
   const sortBy = [ 'a' ]
-  const sortTypes = [ 1, 2, undefined ]
+  const sortTypes = [ 
+    [ 1, 2, undefined ]
+  ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: null vals', function () {
+runner.test('customOrder: shared : undefined vals 3', function () {
+  const fixture = [
+    { a: 2 },
+    { a: undefined },
+    { a: 1 }
+  ]
+  const expected = [
+    { a: 1 },
+    { a: 2 },
+    { a: undefined }
+  ]
+  
+  const sortBy = [ 'a' ]
+  const sortTypes = [ 'custom1' ]
+  const sharedCustomOrders = {
+    custom1: [ 1, 2, undefined ]
+  }
+  const result = sort(fixture, sortBy, sortTypes, {}, sharedCustomOrders)
+  a.deepStrictEqual(result, expected)
+})
+
+runner.test('customOrder: null vals', function () {
   const fixture = [
     { a: 2 },
     { a: null },
@@ -35,12 +58,14 @@ runner.skip('customOrder: null vals', function () {
   ]
   
   const sortBy = [ 'a' ]
-  const sortTypes = [ 1, 2, null ]
+  const sortTypes = [
+    [ 1, 2, null ]
+  ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder', function () {
+runner.test('customOrder', function () {
   const fixture = [
     { fruit: 'apple' },
     { fruit: 'orange' },
@@ -55,12 +80,14 @@ runner.skip('customOrder', function () {
   ]
   
   const sortBy = [ 'fruit' ]
-  const sortTypes = [ 'banana', 'pear', 'apple', 'orange' ]
+  const sortTypes = [
+    [ 'banana', 'pear', 'apple', 'orange' ]
+  ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: two columns', function () {
+runner.test('customOrder: two columns', function () {
   const expected = [
     { importance: 'speed', weight: 'low' },
     { importance: 'speed', weight: 'medium' },
@@ -93,7 +120,7 @@ runner.skip('customOrder: two columns', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: jsdoc-parse usage', function () {
+runner.test('customOrder: jsdoc-parse usage', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
   
@@ -106,7 +133,7 @@ runner.skip('customOrder: jsdoc-parse usage', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.skip('customOrder: sort nulls, 2 column customOrder', function () {
+runner.test('customOrder: sort nulls, 2 column customOrder', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },
@@ -139,3 +166,40 @@ runner.skip('customOrder: sort nulls, 2 column customOrder', function () {
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
+
+
+runner.test('customOrder: shared : sort nulls, 2 column customOrder', function () {
+  const expected = [
+    { importance: undefined, weight: null },
+    { importance: 1, weight: 'a' },
+    { importance: 1, weight: 'b' },
+    { importance: 1, weight: null },
+    { importance: 2, weight: 'a' },
+    { importance: 2, weight: null },
+    { importance: null, weight: 'a' },
+    { importance: 3, weight: 'b' },
+    { importance: 3, weight: null }
+  ]
+  const fixture = [
+    { importance: 3, weight: 'b' },
+    { importance: 1, weight: 'b' },
+    { importance: 2, weight: 'a' },
+    { importance: undefined, weight: null },
+    { importance: 2, weight: null },
+    { importance: 1, weight: 'a' },
+    { importance: null, weight: 'a' },
+    { importance: 1, weight: null },
+    { importance: 3, weight: null }
+  ]
+  
+  const sortBy = [ 'importance', 'weight' ]
+  const sortTypes = [ 'cImportance', 'cWeight' ]
+  const sharedCustomOrders = {
+    cImportance: [ undefined, 1, 2, null, 3 ],
+    cWeight: [ 'a', 'b', null ]
+  }
+  
+  const result = sort(fixture, sortBy, sortTypes, {}, sharedCustomOrders)
+  a.deepStrictEqual(result, expected)
+})
+
