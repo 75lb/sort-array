@@ -22,7 +22,6 @@
     "lint": "standard \"*.js\" \"test/**.js\"",
     "lint:fix": "standard --fix \"*.js\" \"test/**.js\"",
     "test": "test-runner test/*.js",
-    "test:computed": "node test/computed-property.js",
     "docs": "jsdoc2md -t README.hbs index.js > README.md; echo"
   },
   "dependencies": {

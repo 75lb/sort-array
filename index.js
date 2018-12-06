@@ -90,18 +90,15 @@ module.exports = sortBy
  * }
  * ```
  */
-// @TODO: Incorporate sharedComputedProps into sanity checks
-// @TODO: Incorporate sharedCustomOrders into sanity checks
-// @TODO: Write tests for garbage in
 function sortBy (recordset, sortBy, sortTypes, sharedComputedProps, sharedCustomOrders) {
-  // Ensure arguments are of the expected type
+  // First stage preformatting
   recordset = arrayify(recordset)
   sortBy = arrayify(sortBy)
   sortTypes = arrayify(sortTypes)
-  sharedComputedProps = sharedComputedProps || {}
-  sharedCustomOrders = sharedCustomOrders || {}
-  
-  // Perform sanity checks early.
+  sharedComputedProps = t.isObject(sharedComputedProps) ? sharedComputedProps : {}
+  sharedCustomOrders = t.isObject(sharedCustomOrders) ? sharedCustomOrders : {}
+    
+  // Perform sanity checks.
   let isPrimitiveSort = recordset.some(record => t.isPrimitive(record))
   if (isPrimitiveSort) {
     // Any 'sortBy' arguments invalidate the sort, because they will not be 
@@ -117,8 +114,31 @@ function sortBy (recordset, sortBy, sortTypes, sharedComputedProps, sharedCustom
     }
   }
   
-  // Ensure the arguments are correctly provided. Hydrate or prune as
-  // required.
+  // Ensure that if sharedComputedProps is provided, that the object keys
+  // are referenced in the sortBy array
+  if (Object.keys(sharedComputedProps).length > 0) {
+    for (let key in Object.keys(sharedComputedProps)) {
+      if (!t.isDefined(sortBy[key])) {
+        // Missing object key, return the recordset unchanged
+        return recordset
+      }
+    }
+  }
+  
+  // Ensure that if sharedCustomOrders is provided, that the object keys
+  // are referenced in the sortTypes array
+  if (Object.keys(sharedCustomOrders).length > 0) {
+    for (let key in Object.keys(sharedCustomOrders)) {
+      if (!t.isDefined(sortTypes[key])) {
+        // Missing object key, return the recordset unchanged
+        return recordset
+      }
+    }
+  }
+  
+  // Second stage preformatting. Ensure that each property in sortBy
+  // has a corresponding property in sortTypes. Populate missing, and
+  // remove excess, as required.
   if ((sortBy.length === 0) && (sortTypes.length === 0)) {
     sortTypes.push('asc')
   } else if (sortBy.length > sortTypes.length) {
