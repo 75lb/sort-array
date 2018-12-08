@@ -44,10 +44,12 @@ runner.test('computed property: named', function () {
   ]
   const sortBy = [ 'total' ]
   const sortTypes = [ 'asc' ]
-  const shared = {
-    total: item => item.inner.a + item.inner.b
+  const namedConfigs = {
+    namedComputedProps: {
+      total: item => item.inner.a + item.inner.b
+    }
   }
-  const result = sort(fixture, sortBy, sortTypes, shared)
+  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
   a.deepStrictEqual(result, expected)
 })
 
@@ -89,10 +91,12 @@ runner.test('computed property: named, descending custom order', function () {
   ]
   const sortBy = [ 'total' ]
   const sortTypes = [ 'desc' ]
-  const shared = {
-    total: item => item.inner.number
+  const namedConfigs = {
+    namedComputedProps: {
+      total: item => item.inner.number
+    }
   }
-  const result = sort(fixture, sortBy, sortTypes, shared)
+  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
   a.deepStrictEqual(result, expected)
 })
 
@@ -111,16 +115,18 @@ runner.test('computed property: custom order', function () {
     { inner: { number: 3 } },
     { inner: { number: 5 } }
   ]
-  
+
   const sortBy = [ 'number' ]
-  const sortTypes = [ 
+  const sortTypes = [
     [ 1, 2, 4, 3, 5 ]
   ]
-  const shared = {
-    number: item => item.inner.number
+  const namedConfigs = {
+    namedComputedProps: {
+      number: item => item.inner.number
+    }
   }
-  
-  const result = sort(fixture, sortBy, sortTypes, shared)
+
+  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
   a.deepStrictEqual(result, expected)
 })
 
@@ -139,14 +145,16 @@ runner.test('computed property: custom order, nulls', function () {
     { inner: { number: 3 } },
     { inner: { number: 5 } }
   ]
-  
+
   const sortBy = [ 'number' ]
   const sortTypes = [
     [ 1, 2, null, 3, 5 ]
   ]
-  const shared = {
-    number: item => item.inner.number
+  const namedConfigs = {
+    namedComputedProps: {
+      number: item => item.inner.number
+    }
   }
-  const result = sort(fixture, sortBy, sortTypes, shared)
+  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
   a.deepStrictEqual(result, expected)
 })
