@@ -15,13 +15,13 @@ const sortBy = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortBy"></a>
 
-### sortBy(recordset, columnNames, [customOrder]) ⇒ <code>Array</code> ⏏
+### sortBy(recordset, sortBy, [customOrder]) ⇒ <code>Array</code> ⏏
 **Kind**: Exported function  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | recordset | <code>Array.&lt;object&gt;</code> | Input array of objects |
-| columnNames | <code>string</code> \| <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `'name'` or `'name.first'`. |
+| sortBy | <code>string</code> \| <code>Array.&lt;string&gt;</code> | One or more property expressions to sort by,  e.g. `'name'` or `'name.first'`. |
 | [customOrder] | <code>object</code> | Custom sort order definitions. An object where each key is the property expression and the value is an array specifying the sort order. Example: <br> `{ importance: [ 'speed', 'strength', 'intelligence' ]}` |
 
 **Example**  
