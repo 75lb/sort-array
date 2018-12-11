@@ -88,8 +88,6 @@ module.exports = sortBy
  * ```
  */
 function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
-  const arrayify = require('array-back')
-
   // First stage data preparation
   recordset = arrayify(recordset)
   sortBy = arrayify(sortBy)
