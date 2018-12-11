@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('computed property: missing computed property name', function () {
+runner.test('sanity check: missing named computed property 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -30,7 +30,7 @@ runner.test('computed property: missing computed property name', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: missing custom order name', function () {
+runner.test('sanity check: missing named custom order 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },

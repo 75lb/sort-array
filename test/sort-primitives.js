@@ -36,7 +36,7 @@ runner.test('sort primitives: custom', function () {
 })
 
 // @TODO: need better real-world test case here
-runner.test('sort primitives: computed property: asc', function () {
+runner.test('sort primitives: computed property (asc)', function () {
   const fixture = [ 100, 98, 102, 100, 98 ]
   const expected = [ 98, 98, 100, 100, 102 ]
 
@@ -49,7 +49,7 @@ runner.test('sort primitives: computed property: asc', function () {
 })
 
 // @TODO: need better real-world test case here
-runner.test('sort primitives: computed property: desc', function () {
+runner.test('sort primitives: computed property (desc)', function () {
   const fixture = [ 100, 98, 102, 100, 98 ]
   const expected = [ 102, 100, 100, 98, 98 ]
 
@@ -62,7 +62,7 @@ runner.test('sort primitives: computed property: desc', function () {
 })
 
 // @TODO: need better real-world test case here
-runner.test('sort primitives: computed property: custom', function () {
+runner.test('sort primitives: computed property (custom)', function () {
   const fixture = [ 100, 98, 102, 100, 98 ]
   const expected = [ 100, 100, 98, 98, 102 ]
 

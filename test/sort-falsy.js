@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('sort: by array of column names, nulls', function () {
+runner.test('sort falsy: sort by array of column names (inc nulls) 1', function () {
   const fixture = [
     { a: 4, b: null, c: 3 },
     { a: 4, b: 2, c: null },
@@ -34,7 +34,7 @@ runner.test('sort: by array of column names, nulls', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: by single column name, undefined vals', function () {
+runner.test('sort falsy: sort by single column name (inc empty object) 1', function () {
   const fixture = [
     { a: 1 },
     {},
@@ -51,7 +51,7 @@ runner.test('sort: by single column name, undefined vals', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: by single column name, undefined vals 2', function () {
+runner.test('sort falsy: sort by single column name (inc empty object) 2', function () {
   const fixture = [
     { a: 'yeah' },
     {},
@@ -68,7 +68,7 @@ runner.test('sort: by single column name, undefined vals 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: by single column name, undefined vals 3', function () {
+runner.test('sort falsy: sort by single column name (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -85,7 +85,7 @@ runner.test('sort: by single column name, undefined vals 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: by single column name, nulls', function () {
+runner.test('sort falsy: sort by single column name (inc nulls) 1', function () {
   const fixture = [
     { importance: 'intelligence', weight: 'medium' },
     { importance: 'strength', weight: 'high' },

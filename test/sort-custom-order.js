@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('customOrder: undefined vals 3', function () {
+runner.test('sort custom: unnamed sort (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -24,7 +24,7 @@ runner.test('customOrder: undefined vals 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: named : undefined vals 3', function () {
+runner.test('sort custom: named sort (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -47,7 +47,7 @@ runner.test('customOrder: named : undefined vals 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: null vals', function () {
+runner.test('sort custom: unnamed sort (inc null) 1', function () {
   const fixture = [
     { a: 2 },
     { a: null },
@@ -67,7 +67,7 @@ runner.test('customOrder: null vals', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder', function () {
+runner.test('sort custom: unnamed sort 1', function () {
   const fixture = [
     { fruit: 'apple' },
     { fruit: 'orange' },
@@ -89,7 +89,7 @@ runner.test('customOrder', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: two columns', function () {
+runner.test('sort custom: unnamed 2-column sort 1', function () {
   const expected = [
     { importance: 'speed', weight: 'low' },
     { importance: 'speed', weight: 'medium' },
@@ -122,7 +122,7 @@ runner.test('customOrder: two columns', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: jsdoc-parse usage', function () {
+runner.test('sort custom: jsdoc-parse usage 1', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
 
@@ -135,7 +135,7 @@ runner.test('customOrder: jsdoc-parse usage', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: sort nulls, 2 column customOrder', function () {
+runner.test('sort custom: unnamed 2-column sort (inc null) 1', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },
@@ -169,7 +169,7 @@ runner.test('customOrder: sort nulls, 2 column customOrder', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('customOrder: named : sort nulls, 2 column customOrder', function () {
+runner.test('sort custom: named 2-column sort (inc null) 1', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },

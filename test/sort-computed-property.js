@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('computed property: anonymous', function () {
+runner.test('sort computed property: anonymous function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -27,7 +27,7 @@ runner.test('computed property: anonymous', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('computed property: named', function () {
+runner.test('sort computed property: named function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -53,7 +53,7 @@ runner.test('computed property: named', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('computed property: anonymous, descending order', function () {
+runner.test('sort computed property: anonymous function (desc) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -74,7 +74,7 @@ runner.test('computed property: anonymous, descending order', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('computed property: named, descending custom order', function () {
+runner.test('sort computed property: named function (desc) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -100,7 +100,7 @@ runner.test('computed property: named, descending custom order', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('computed property: custom order', function () {
+runner.test('sort computed property: named function (custom) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -130,7 +130,7 @@ runner.test('computed property: custom order', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('computed property: custom order, nulls', function () {
+runner.test('sort computed property: named function (custom) (inc nulls) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },

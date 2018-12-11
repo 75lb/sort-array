@@ -4,7 +4,7 @@ const a = require('assert')
 
 const runner = new TestRunner()
 
-runner.test('sort order: prop:asc, change:no, 1', function () {
+runner.test('sort small: order remains unchanged on (asc) 1', function () {
   const fixture = [
     { a: 4 },
     { a: 4 },
@@ -21,7 +21,7 @@ runner.test('sort order: prop:asc, change:no, 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc, change:no, 2', function () {
+runner.test('sort small: order remains unchanged on (asc) 2', function () {
   const fixture = [
     { a: 1 },
     { a: 2 },
@@ -38,7 +38,41 @@ runner.test('sort order: prop:asc, change:no, 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc, change:yes, 3', function () {
+runner.test('sort small: order remains unchanged on (desc) 1', function () {
+  const fixture = [
+    { a: 4 },
+    { a: 4 },
+    { a: 4 }
+  ]
+  const expected = [
+    { a: 4 },
+    { a: 4 },
+    { a: 4 }
+  ]
+  const sortBy = [ 'a' ]
+  const sortTypes = [ 'desc' ]
+  const result = sort(fixture, sortBy, sortTypes)
+  a.deepStrictEqual(result, expected)
+})
+
+runner.test('sort small: order remains unchanged on (desc) 2', function () {
+  const fixture = [
+    { a: 3 },
+    { a: 2 },
+    { a: 1 }
+  ]
+  const expected = [
+    { a: 3 },
+    { a: 2 },
+    { a: 1 }
+  ]
+  const sortBy = [ 'a' ]
+  const sortTypes = [ 'desc' ]
+  const result = sort(fixture, sortBy, sortTypes)
+  a.deepStrictEqual(result, expected)
+})
+
+runner.test('sort small: order changes on (asc) 1', function () {
   const fixture = [
     { a: 4 },
     { a: 3 },
@@ -57,24 +91,7 @@ runner.test('sort order: prop:asc, change:yes, 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:desc, change:no, 1', function () {
-  const fixture = [
-    { a: 4 },
-    { a: 4 },
-    { a: 4 }
-  ]
-  const expected = [
-    { a: 4 },
-    { a: 4 },
-    { a: 4 }
-  ]
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'desc' ]
-  const result = sort(fixture, sortBy, sortTypes)
-  a.deepStrictEqual(result, expected)
-})
-
-runner.test('sort order: prop:desc, change:yes, 2', function () {
+runner.test('sort small: order changes on (desc) 1', function () {
   const fixture = [
     { a: 1 },
     { a: 2 },
@@ -91,24 +108,7 @@ runner.test('sort order: prop:desc, change:yes, 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:desc, change:no, 3', function () {
-  const fixture = [
-    { a: 3 },
-    { a: 2 },
-    { a: 1 }
-  ]
-  const expected = [
-    { a: 3 },
-    { a: 2 },
-    { a: 1 }
-  ]
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'desc' ]
-  const result = sort(fixture, sortBy, sortTypes)
-  a.deepStrictEqual(result, expected)
-})
-
-runner.test('sort order: prop:asc|prop:asc, change:no, 1', function () {
+runner.test('sort small: order remains unchanged on (asc asc) 1', function () {
   const fixture = [
     { a: 4, b: 1 },
     { a: 4, b: 1 },
@@ -125,7 +125,7 @@ runner.test('sort order: prop:asc|prop:asc, change:no, 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:asc, change:no, 2', function () {
+runner.test('sort small: order remains unchanged on (asc asc) 2', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 1 },
@@ -142,7 +142,7 @@ runner.test('sort order: prop:asc|prop:asc, change:no, 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:asc, change:no, 3', function () {
+runner.test('sort small: order remains unchanged on (asc asc) 3', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 2 },
@@ -159,7 +159,7 @@ runner.test('sort order: prop:asc|prop:asc, change:no, 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:asc, change:no, 4', function () {
+runner.test('sort small: order remains unchanged on (asc asc) 4', function () {
   const fixture = [
     { a: 4, b: 1 },
     { a: 4, b: 2 },
@@ -176,7 +176,7 @@ runner.test('sort order: prop:asc|prop:asc, change:no, 4', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:desc, change:no, 1', function () {
+runner.test('sort small: order remains unchanged on (asc desc) 1', function () {
   const fixture = [
     { a: 4, b: 1 },
     { a: 4, b: 1 },
@@ -193,7 +193,7 @@ runner.test('sort order: prop:asc|prop:desc, change:no, 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:desc, change:no, 2', function () {
+runner.test('sort small: order remains unchanged on (asc desc) 2', function () {
   const fixture = [
     { a: 4, b: 3 },
     { a: 4, b: 2 },
@@ -210,7 +210,7 @@ runner.test('sort order: prop:asc|prop:desc, change:no, 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:desc, change:no, 3', function () {
+runner.test('sort small: order remains unchanged on (asc desc) 3', function () {
   const fixture = [
     { a: 1, b: 3 },
     { a: 2, b: 2 },
@@ -227,7 +227,7 @@ runner.test('sort order: prop:asc|prop:desc, change:no, 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:asc|prop:desc, change:yes, 4', function () {
+runner.test('sort small: order changes on (asc desc) 1', function () {
   const fixture = [
     { a: 5, b: 1 },
     { a: 5, b: 2 },
@@ -250,7 +250,7 @@ runner.test('sort order: prop:asc|prop:desc, change:yes, 4', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:desc|prop:asc, change:yes, 1', function () {
+runner.test('sort small: order changes on (desc asc) 1', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 2 },
@@ -273,7 +273,7 @@ runner.test('sort order: prop:desc|prop:asc, change:yes, 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort order: prop:desc|prop:desc, change:yes, 1', function () {
+runner.test('sort small: order changes on (desc desc) 1', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 2 },
