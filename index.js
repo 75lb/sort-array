@@ -1,6 +1,3 @@
-const arrayify = require('array-back')
-const t = require('typical')
-
 /**
  * Sort an array of objects by any property value, at any depth, in any custom order.
  *
@@ -98,22 +95,22 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
 
   let namedComputedProps = {}
   let namedCustomOrders = {}
-  if (t.isObject(namedConfigs)) {
-    if (t.isDefined(namedConfigs['namedComputedProps'])) {
+  if (isObject(namedConfigs)) {
+    if (isDefined(namedConfigs['namedComputedProps'])) {
       namedComputedProps = namedConfigs['namedComputedProps']
     }
-    if (t.isDefined(namedConfigs['namedCustomOrders'])) {
+    if (isDefined(namedConfigs['namedCustomOrders'])) {
       namedCustomOrders = namedConfigs['namedCustomOrders']
     }
   }
 
   // Perform sanity checks.
-  let isPrimitiveSort = recordset.some(record => t.isPrimitive(record))
+  let isPrimitiveSort = recordset.some(record => isPrimitive(record))
   if (isPrimitiveSort) {
     // The only applicable 'sortBy' arguments on a primitive array
     // are 'computed property' functions.
     for (let i = 0; i < sortBy.length; i++) {
-      if (!t.isFunction(sortBy[i])) {
+      if (!isFunction(sortBy[i])) {
         return recordset
       }
     }
@@ -194,7 +191,7 @@ function comparePrim (sortBy, sortTypes) {
     let result
 
     // Allocate the comparees.
-    if (t.isFunction(property)) {
+    if (isFunction(property)) {
       x = property(a)
       y = property(b)
     } else {
@@ -203,7 +200,7 @@ function comparePrim (sortBy, sortTypes) {
     }
 
     // Perform the sort
-    if (t.isArrayLike(sort)) {
+    if (isArrayLike(sort)) {
       // Apply custom ordering
       result = sort.indexOf(x) - sort.indexOf(y)
     } else {
@@ -242,10 +239,10 @@ function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
     let currentSort = sort
 
     // Allocate the comparees.
-    if (t.isFunction(property)) {
+    if (isFunction(property)) {
       x = property(a)
       y = property(b)
-    } else if (t.isDefined(namedComputedProps[property])) {
+    } else if (isDefined(namedComputedProps[property])) {
       x = namedComputedProps[property](a)
       y = namedComputedProps[property](b)
     } else {
@@ -254,10 +251,10 @@ function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
     }
 
     // Perform the sort
-    if (t.isArrayLike(sort)) {
+    if (isArrayLike(sort)) {
       // Apply custom ordering
       result = sort.indexOf(x) - sort.indexOf(y)
-    } else if (t.isDefined(namedCustomOrders[sort])) {
+    } else if (isDefined(namedCustomOrders[sort])) {
       // Apply custom ordering
       result = namedCustomOrders[sort].indexOf(x) - namedCustomOrders[sort].indexOf(y)
     } else {
@@ -294,14 +291,58 @@ function getAscOrder (x, y) {
   let result
   if (x === null && y === null) {
     result = 0
-  } else if ((!t.isDefined(x) || x === null) && t.isDefined(y)) {
+  } else if ((!isDefined(x) || x === null) && isDefined(y)) {
     result = -1
-  } else if (t.isDefined(x) && (!t.isDefined(y) || y === null)) {
+  } else if (isDefined(x) && (!isDefined(y) || y === null)) {
     result = 1
-  } else if (!t.isDefined(x) && !t.isDefined(y)) {
+  } else if (!isDefined(x) && !isDefined(y)) {
     result = 0
   } else {
     result = x < y ? -1 : x > y ? 1 : 0
   }
   return result
+}
+
+function isObject (input) {
+  return typeof input === 'object' && input !== null
+}
+
+function isArrayLike (input) {
+  return isObject(input) && typeof input.length === 'number'
+}
+
+function isDefined (input) {
+  return typeof input !== 'undefined'
+}
+
+function isFunction (input) {
+  return typeof input === 'function'
+}
+
+function isPrimitive (input) {
+  if (input === null) return true
+  switch (typeof input) {
+    case 'string':
+    case 'number':
+    case 'symbol':
+    case 'undefined':
+    case 'boolean':
+      return true
+    default:
+      return false
+  }
+}
+
+function arrayify (input) {
+  if (Array.isArray(input)) {
+    return input
+  } else {
+    if (input === undefined) {
+      return []
+    } else if (isArrayLike(input)) {
+      return Array.prototype.slice.call(input)
+    } else {
+      return [ input ]
+    }
+  }
 }
