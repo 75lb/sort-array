@@ -291,12 +291,12 @@ function getAscOrder (x, y) {
   let result
   if (x === null && y === null) {
     result = 0
-  } else if ((!isDefined(x) || x === null) && isDefined(y)) {
-    result = -1
-  } else if (isDefined(x) && (!isDefined(y) || y === null)) {
-    result = 1
   } else if (!isDefined(x) && !isDefined(y)) {
     result = 0
+  } else if ((!isDefined(x) || x === null) && isDefined(y)) {
+    result = 1
+  } else if (isDefined(x) && (!isDefined(y) || y === null)) {
+    result = -1
   } else {
     result = x < y ? -1 : x > y ? 1 : 0
   }
