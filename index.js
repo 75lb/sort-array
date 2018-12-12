@@ -1,5 +1,5 @@
 /**
- * Sort an array of objects by any property value, at any depth, in any custom order.
+ * Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
  *
  * @module sort-array
  * @typicalname sortBy
@@ -9,12 +9,30 @@
 module.exports = sortBy
 
 /**
- * @param {object[]} - Input array of objects
- * @param {string|string[]} - One or more property expressions to sort by,  e.g. `'name'` or `'name.first'`.
- * @param [customOrder] {object} - Custom sort order definitions. An object where each key is the property expression and the value is an array specifying the sort order. Example: <br>
- * `{ importance: [ 'speed', 'strength', 'intelligence' ]}`
+ * @param {Array} recordset - Input array of objects or primitive values.
+ *
+ * @param {Array.<(string|function)>} sortBy - One or more property expressions to sort by. Expressions
+ * may be strings which refer to properties in the input array; they may be strings which refer to
+ * properties in the optional `namedConfigs.namedComputedProps` parameter; or they may be inline
+ * functions which dynamically calculate values for each property in the input array.
+ *
+ * @param {Array.<(string|Array.<*>)>} sortTypes - The sort types for each of the sortBy expressions.
+ * Values may be 'asc', 'desc', an array of custom values, and strings which refer to properties in
+ * the optional `namedConfigs.namedCustomOrders` parameter.
+ *
+ * @param {object} [namedConfigs] - Provides a means of reusing computed property functions and custom sort types.
+ *
+ * @param {object} [namedConfigs.namedComputedProps] - Key/value pairs, where the keys correspond to strings
+ * given in the sortBy property list, and the values are functions which will dynamically calculated values
+ * for each property in the input array.
+ *
+ * @param {object} [namedConfigs.namedCustomOrders] - Key/value pairs, where the keys correspond to strings
+ * given in the sortTypes list, and the values are arrays of custom values which define the sort type.
+ *
  * @returns {Array}
+ *
  * @alias module:sort-array
+ *
  * @example
  * with this data
  * ```js
@@ -28,9 +46,9 @@ module.exports = sortBy
  * ]
  * ```
  *
- * sort by `slot` using the default sort order (alphabetical)
+ * sort by `slot` using an ascending sort type
  * ```js
- * > sortBy(DJs, 'slot')
+ * > sortBy(DJs, [ 'slot' ], [ 'asc' ])
  * [ { name: 'Mike', slot: 'afternoon' },
  *   { name: 'Zane', slot: 'evening' },
  *   { name: 'Chris', slot: 'morning' },
@@ -39,10 +57,20 @@ module.exports = sortBy
  *   { name: 'Trevor', slot: 'twilight' } ]
  * ```
  *
- * specify a custom sort order for `slot`
+ * sort by `slot` using a descending sort type
  * ```js
- * > const slotOrder = [ 'morning', 'afternoon', 'evening', 'twilight' ]
- * > sortBy(DJs, 'slot', { slot: slotOrder })
+ * > sortBy(DJs, [ 'slot' ], [ 'desc' ])
+ * [ { name: 'Chris', slot: 'twilight' },
+ *   { name: 'Trevor', slot: 'twilight' },
+ *   { name: 'Chris', slot: 'morning' },
+ *   { name: 'Rodney', slot: 'morning' },
+ *   { name: 'Zane', slot: 'evening' },
+ *   { name: 'Mike', slot: 'afternoon' }]
+ * ```
+ *
+ * sort by `slot` using an 'inline' custom sort type
+ * ```js
+ * > sortBy(DJs, [ 'slot' ], [ 'morning', 'afternoon', 'evening', 'twilight' ])
  * [ { name: 'Rodney', slot: 'morning' },
  *   { name: 'Chris', slot: 'morning' },
  *   { name: 'Mike', slot: 'afternoon' },
@@ -51,40 +79,31 @@ module.exports = sortBy
  *   { name: 'Chris', slot: 'twilight' } ]
  * ```
  *
- * sort by `slot` then `name`
+ * sort by `slot` using an 'named' custom sort type
  * ```js
- * > sortBy(DJs, ['slot', 'name'], { slot: slotOrder })
+ * > let namedConfigs = {
+ *     namedCustomOrders: {
+ *       custOrder1: [ 'morning', 'afternoon', 'evening', 'twilight' ]
+ *     }
+ *   }
+ * > sortBy(DJs, [ 'slot' ], [ 'custOrder1' ], namedConfigs)
+ * [ { name: 'Rodney', slot: 'morning' },
+ *   { name: 'Chris', slot: 'morning' },
+ *   { name: 'Mike', slot: 'afternoon' },
+ *   { name: 'Zane', slot: 'evening' },
+ *   { name: 'Trevor', slot: 'twilight' },
+ *   { name: 'Chris', slot: 'twilight' } ]
+ * ```
+ *
+ * sort by `slot` (with a custom sort type) then `name` (with an ascending sort type)
+ * ```js
+ * > sortBy(DJs, ['slot', 'name'], [ [ 'morning', 'afternoon', 'evening', 'twilight' ], 'asc' ])
  * [ { name: 'Chris', slot: 'morning' },
  *   { name: 'Rodney', slot: 'morning' },
  *   { name: 'Mike', slot: 'afternoon' },
  *   { name: 'Zane', slot: 'evening' },
  *   { name: 'Chris', slot: 'twilight' },
  *   { name: 'Trevor', slot: 'twilight' } ]
- * ```
- *
- * sort by nested property values (at any depth) using dot notation (e.g. `'inner.number'`)
- * ```js
- * > input = [
- *   { inner: { number: 5 } },
- *   { inner: { number: 2 } },
- *   { inner: { number: 3 } },
- *   { inner: { number: 1 } },
- *   { inner: { number: 4 } }
- * ]
- *
- * > sortBy(input, 'inner.number')
- * [ { inner: { number: 1 } },
- *   { inner: { number: 2 } },
- *   { inner: { number: 3 } },
- *   { inner: { number: 4 } },
- *   { inner: { number: 5 } } ]
- * ```
- *
- * a custom order for a nested property looks like this:
- * ```js
- * const customOrder = {
- *   'inner.number': [ 1, 2, 4, 3, 5 ]
- * }
  * ```
  */
 function sortBy (recordset, sortBy, sortTypes, namedConfigs) {

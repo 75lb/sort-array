@@ -22,8 +22,7 @@
     "node": ">=6"
   },
   "scripts": {
-    "lint": "standard \"*.js\" \"test/**.js\"",
-    "lint:fix": "standard --fix \"*.js\" \"test/**.js\"",
+    "lint": "standard --fix \"*.js\" \"test/**.js\"",
     "test": "test-runner test/*.js",
     "docs": "jsdoc2md -t README.hbs index.js > README.md; echo"
   },
