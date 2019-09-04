@@ -4,7 +4,7 @@ const a = require('assert')
 
 const tom = module.exports = new Tom('preformatting')
 
-tom.test('preformatting: too few sort types provided', function () {
+tom.test('too few sort types provided - defaults to asc', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -33,7 +33,7 @@ tom.test('preformatting: too few sort types provided', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('preformatting: too many sort types provided', function () {
+tom.test('too many sort types provided - extras ignored', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },

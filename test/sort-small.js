@@ -2,9 +2,9 @@ const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const tom = module.exports = new Tom('')
+const tom = module.exports = new Tom('sort-small')
 
-tom.test('sort small: order remains unchanged on (asc) 1', function () {
+tom.test('order remains unchanged on (asc) 1', function () {
   const fixture = [
     { a: 4 },
     { a: 4 },
@@ -21,7 +21,7 @@ tom.test('sort small: order remains unchanged on (asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc) 2', function () {
+tom.test('order remains unchanged on (asc) 2', function () {
   const fixture = [
     { a: 1 },
     { a: 2 },
@@ -38,7 +38,7 @@ tom.test('sort small: order remains unchanged on (asc) 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (desc) 1', function () {
+tom.test('order remains unchanged on (desc) 1', function () {
   const fixture = [
     { a: 4 },
     { a: 4 },
@@ -55,7 +55,7 @@ tom.test('sort small: order remains unchanged on (desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (desc) 2', function () {
+tom.test('order remains unchanged on (desc) 2', function () {
   const fixture = [
     { a: 3 },
     { a: 2 },
@@ -72,7 +72,7 @@ tom.test('sort small: order remains unchanged on (desc) 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order changes on (asc) 1', function () {
+tom.test('order changes on (asc) 1', function () {
   const fixture = [
     { a: 4 },
     { a: 3 },
@@ -91,7 +91,7 @@ tom.test('sort small: order changes on (asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order changes on (desc) 1', function () {
+tom.test('order changes on (desc) 1', function () {
   const fixture = [
     { a: 1 },
     { a: 2 },
@@ -108,7 +108,7 @@ tom.test('sort small: order changes on (desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc asc) 1', function () {
+tom.test('order remains unchanged on (asc asc) 1', function () {
   const fixture = [
     { a: 4, b: 1 },
     { a: 4, b: 1 },
@@ -125,7 +125,7 @@ tom.test('sort small: order remains unchanged on (asc asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc asc) 2', function () {
+tom.test('order remains unchanged on (asc asc) 2', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 1 },
@@ -142,7 +142,7 @@ tom.test('sort small: order remains unchanged on (asc asc) 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc asc) 3', function () {
+tom.test('order remains unchanged on (asc asc) 3', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 2 },
@@ -159,7 +159,7 @@ tom.test('sort small: order remains unchanged on (asc asc) 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc asc) 4', function () {
+tom.test('order remains unchanged on (asc asc) 4', function () {
   const fixture = [
     { a: 4, b: 1 },
     { a: 4, b: 2 },
@@ -176,7 +176,7 @@ tom.test('sort small: order remains unchanged on (asc asc) 4', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc desc) 1', function () {
+tom.test('order remains unchanged on (asc desc) 1', function () {
   const fixture = [
     { a: 4, b: 1 },
     { a: 4, b: 1 },
@@ -193,7 +193,7 @@ tom.test('sort small: order remains unchanged on (asc desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc desc) 2', function () {
+tom.test('order remains unchanged on (asc desc) 2', function () {
   const fixture = [
     { a: 4, b: 3 },
     { a: 4, b: 2 },
@@ -210,7 +210,7 @@ tom.test('sort small: order remains unchanged on (asc desc) 2', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order remains unchanged on (asc desc) 3', function () {
+tom.test('order remains unchanged on (asc desc) 3', function () {
   const fixture = [
     { a: 1, b: 3 },
     { a: 2, b: 2 },
@@ -227,7 +227,7 @@ tom.test('sort small: order remains unchanged on (asc desc) 3', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order changes on (asc desc) 1', function () {
+tom.test('order changes on (asc desc) 1', function () {
   const fixture = [
     { a: 5, b: 1 },
     { a: 5, b: 2 },
@@ -250,7 +250,7 @@ tom.test('sort small: order changes on (asc desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order changes on (desc asc) 1', function () {
+tom.test('order changes on (desc asc) 1', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 2 },
@@ -273,7 +273,7 @@ tom.test('sort small: order changes on (desc asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort small: order changes on (desc desc) 1', function () {
+tom.test('order changes on (desc desc) 1', function () {
   const fixture = [
     { a: 1, b: 1 },
     { a: 2, b: 2 },

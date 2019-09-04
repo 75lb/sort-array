@@ -4,7 +4,33 @@ const a = require('assert')
 
 const tom = module.exports = new Tom('sort-computed-property')
 
-tom.test('sort computed property: anonymous function (asc) 1', function () {
+tom.test('(computed property)', function () {
+  const fixture = [
+    { inner: { number: 2 } },
+    { inner: { number: 3 } },
+    { inner: { number: 5 } },
+    { inner: { number: 1 } },
+    { inner: { number: 4 } }
+  ]
+  const expected = [
+    { inner: { number: 5 } },
+    { inner: { number: 4 } },
+    { inner: { number: 3 } },
+    { inner: { number: 2 } },
+    { inner: { number: 1 } }
+  ]
+  const sortBy = [ 'output' ]
+  const sortTypes = [ 'desc' ]
+  const namedConfigs = {
+    namedComputedProps: {
+      output: item => item.inner.number * 2
+    }
+  }
+  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
+  a.deepStrictEqual(result, expected)
+})
+
+tom.test('anonymous function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -27,7 +53,7 @@ tom.test('sort computed property: anonymous function (asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort computed property: named function (asc) 1', function () {
+tom.test('named function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -53,7 +79,7 @@ tom.test('sort computed property: named function (asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort computed property: anonymous function (desc) 1', function () {
+tom.test('anonymous function (desc) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -74,7 +100,7 @@ tom.test('sort computed property: anonymous function (desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort computed property: named function (desc) 1', function () {
+tom.test('named function (desc) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -100,7 +126,7 @@ tom.test('sort computed property: named function (desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort computed property: named function (custom) 1', function () {
+tom.test('named function (custom) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -130,7 +156,7 @@ tom.test('sort computed property: named function (custom) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort computed property: named function (custom) (inc nulls) 1', function () {
+tom.test('named function (custom) (inc nulls) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },

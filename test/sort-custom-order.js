@@ -4,7 +4,7 @@ const a = require('assert')
 
 const tom = module.exports = new Tom('sort-custom-order')
 
-tom.test('sort custom: unnamed sort (inc undefined) 1', function () {
+tom.test('unnamed sort order (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -24,7 +24,7 @@ tom.test('sort custom: unnamed sort (inc undefined) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: named sort (inc undefined) 1', function () {
+tom.test('named sort order (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -47,7 +47,7 @@ tom.test('sort custom: named sort (inc undefined) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: unnamed sort (inc null) 1', function () {
+tom.test('unnamed sort order (inc null) 1', function () {
   const fixture = [
     { a: 2 },
     { a: null },
@@ -67,7 +67,7 @@ tom.test('sort custom: unnamed sort (inc null) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: unnamed sort 1', function () {
+tom.test('unnamed sort order 1', function () {
   const fixture = [
     { fruit: 'apple' },
     { fruit: 'orange' },
@@ -89,7 +89,7 @@ tom.test('sort custom: unnamed sort 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: unnamed 2-column sort 1', function () {
+tom.test('unnamed 2-column sort 1', function () {
   const expected = [
     { importance: 'speed', weight: 'low' },
     { importance: 'speed', weight: 'medium' },
@@ -122,7 +122,7 @@ tom.test('sort custom: unnamed 2-column sort 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: jsdoc-parse usage 1', function () {
+tom.test('jsdoc-parse usage 1', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
 
@@ -135,7 +135,7 @@ tom.test('sort custom: jsdoc-parse usage 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: unnamed 2-column sort (inc null) 1', function () {
+tom.test('unnamed 2-column sort (inc null) 1', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },
@@ -169,7 +169,7 @@ tom.test('sort custom: unnamed 2-column sort (inc null) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort custom: named 2-column sort (inc null) 1', function () {
+tom.test('named 2-column sort (inc null) 1', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },

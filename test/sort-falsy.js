@@ -4,7 +4,7 @@ const a = require('assert')
 
 const tom = module.exports = new Tom('sort-falsy')
 
-tom.test('sort falsy: sort by array of column names (inc nulls) 1', function () {
+tom.test('sort by array of column names (inc nulls) 1', function () {
   const fixture = [
     { a: 4, b: null, c: 3 },
     { a: 4, b: 2, c: null },
@@ -34,7 +34,7 @@ tom.test('sort falsy: sort by array of column names (inc nulls) 1', function () 
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort falsy: sort by single column name (inc empty object) 1', function () {
+tom.test('sort by single column name (inc empty object) 1', function () {
   const fixture = [
     { a: 1 },
     {},
@@ -51,7 +51,7 @@ tom.test('sort falsy: sort by single column name (inc empty object) 1', function
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort falsy: sort by single column name (inc empty object) 2', function () {
+tom.test('sort by single column name (inc empty object) 2', function () {
   const fixture = [
     { a: 'yeah' },
     {},
@@ -68,7 +68,7 @@ tom.test('sort falsy: sort by single column name (inc empty object) 2', function
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort falsy: sort by single column name (inc undefined) 1', function () {
+tom.test('sort by single column name (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -85,7 +85,7 @@ tom.test('sort falsy: sort by single column name (inc undefined) 1', function ()
   a.deepStrictEqual(result, expected)
 })
 
-tom.test('sort falsy: sort by single column name (inc nulls) 1', function () {
+tom.test('sort by single column name (inc nulls) 1', function () {
   const fixture = [
     { importance: 'intelligence', weight: 'medium' },
     { importance: 'strength', weight: 'high' },
