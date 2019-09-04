@@ -365,4 +365,4 @@ function arrayify (input) {
   }
 }
 
-module.exports = sortBy
+export default sortBy

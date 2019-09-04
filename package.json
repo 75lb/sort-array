@@ -8,6 +8,8 @@
   "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "index.mjs",
   "keywords": [
     "sort",
     "by",
@@ -22,13 +24,15 @@
     "node": ">=8"
   },
   "scripts": {
-    "lint": "standard --fix \"*.js\" \"test/**.js\"",
+    "lint": "standard --fix index.mjs test/*.js",
     "test": "test-runner test/*.js",
-    "docs": "jsdoc2md -t README.hbs index.js > README.md; echo"
+    "docs": "jsdoc2md -t README.hbs index.js > README.md; echo",
+    "dist": "rollup -f umd -o dist/index.js -n sortArray index.mjs"
   },
   "dependencies": {},
   "devDependencies": {
     "jsdoc-to-markdown": "^5.0.1",
+    "rollup": "^1.20.3",
     "standard": "^14.1.0",
     "test-runner": "^0.6.0"
   }
