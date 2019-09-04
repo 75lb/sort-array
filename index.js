@@ -6,7 +6,6 @@
  * @example
  * const sortBy = require('sort-array')
  */
-module.exports = sortBy
 
 /**
  * @param {Array} recordset - Input array of objects or primitive values.
@@ -365,3 +364,5 @@ function arrayify (input) {
     }
   }
 }
+
+module.exports = sortBy

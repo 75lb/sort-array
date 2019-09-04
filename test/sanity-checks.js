@@ -1,10 +1,10 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('sanity-check')
 
-runner.test('sanity check: missing named computed property 1', function () {
+tom.test('sanity check: missing named computed property 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -30,7 +30,7 @@ runner.test('sanity check: missing named computed property 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sanity check: missing named custom order 1', function () {
+tom.test('sanity check: missing named custom order 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },

@@ -1,10 +1,10 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('sort-custom-order')
 
-runner.test('sort custom: unnamed sort (inc undefined) 1', function () {
+tom.test('sort custom: unnamed sort (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -24,7 +24,7 @@ runner.test('sort custom: unnamed sort (inc undefined) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: named sort (inc undefined) 1', function () {
+tom.test('sort custom: named sort (inc undefined) 1', function () {
   const fixture = [
     { a: 2 },
     { a: undefined },
@@ -47,7 +47,7 @@ runner.test('sort custom: named sort (inc undefined) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: unnamed sort (inc null) 1', function () {
+tom.test('sort custom: unnamed sort (inc null) 1', function () {
   const fixture = [
     { a: 2 },
     { a: null },
@@ -67,7 +67,7 @@ runner.test('sort custom: unnamed sort (inc null) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: unnamed sort 1', function () {
+tom.test('sort custom: unnamed sort 1', function () {
   const fixture = [
     { fruit: 'apple' },
     { fruit: 'orange' },
@@ -89,7 +89,7 @@ runner.test('sort custom: unnamed sort 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: unnamed 2-column sort 1', function () {
+tom.test('sort custom: unnamed 2-column sort 1', function () {
   const expected = [
     { importance: 'speed', weight: 'low' },
     { importance: 'speed', weight: 'medium' },
@@ -122,7 +122,7 @@ runner.test('sort custom: unnamed 2-column sort 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: jsdoc-parse usage 1', function () {
+tom.test('sort custom: jsdoc-parse usage 1', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
 
@@ -135,7 +135,7 @@ runner.test('sort custom: jsdoc-parse usage 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: unnamed 2-column sort (inc null) 1', function () {
+tom.test('sort custom: unnamed 2-column sort (inc null) 1', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },
@@ -169,7 +169,7 @@ runner.test('sort custom: unnamed 2-column sort (inc null) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort custom: named 2-column sort (inc null) 1', function () {
+tom.test('sort custom: named 2-column sort (inc null) 1', function () {
   const expected = [
     { importance: undefined, weight: null },
     { importance: 1, weight: 'a' },

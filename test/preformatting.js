@@ -1,10 +1,10 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('preformatting')
 
-runner.test('preformatting: too few sort types provided', function () {
+tom.test('preformatting: too few sort types provided', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -33,7 +33,7 @@ runner.test('preformatting: too few sort types provided', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('preformatting: too many sort types provided', function () {
+tom.test('preformatting: too many sort types provided', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },

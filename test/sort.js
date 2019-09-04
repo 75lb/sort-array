@@ -1,10 +1,10 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('sort')
 
-runner.test('sort: (asc desc asc)', function () {
+tom.test('sort: (asc desc asc)', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -33,7 +33,7 @@ runner.test('sort: (asc desc asc)', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: (desc asc desc)', function () {
+tom.test('sort: (desc asc desc)', function () {
   const fixture = [
     { a: 4, b: 1, c: 1 },
     { a: 4, b: 3, c: 1 },
@@ -62,7 +62,7 @@ runner.test('sort: (desc asc desc)', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort: (computed property)', function () {
+tom.test('sort: (computed property)', function () {
   const fixture = [
     { inner: { number: 2 } },
     { inner: { number: 3 } },

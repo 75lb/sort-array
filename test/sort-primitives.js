@@ -1,10 +1,10 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('sort-primitives')
 
-runner.test('sort primitives: simple asc', function () {
+tom.test('sort primitives: simple asc', function () {
   const fixture = [ 4, 1, 32, 21, 34, 39, 46, 11, 19, 12, 52, 65, 75, 23, 74 ]
   const expected = [ 1, 4, 11, 12, 19, 21, 23, 32, 34, 39, 46, 52, 65, 74, 75 ]
 
@@ -14,7 +14,7 @@ runner.test('sort primitives: simple asc', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort primitives: simple desc', function () {
+tom.test('sort primitives: simple desc', function () {
   const fixture = [ 22, 79, 66, 10, 70, 38, 100, 34, 60, 99, 88, 4, 39, 33, 52 ]
   const expected = [ 100, 99, 88, 79, 70, 66, 60, 52, 39, 38, 34, 33, 22, 10, 4 ]
 
@@ -24,7 +24,7 @@ runner.test('sort primitives: simple desc', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort primitives: custom', function () {
+tom.test('sort primitives: custom', function () {
   const fixture = [ 3, 1, 3, 3, 5, 3, 1, 5, 1, 5 ]
   const expected = [ 5, 5, 5, 1, 1, 1, 3, 3, 3, 3 ]
 
@@ -36,7 +36,7 @@ runner.test('sort primitives: custom', function () {
 
 /*
 // @TODO: need better real-world test case here
-runner.test('sort primitives: computed property (asc)', function () {
+tom.test('sort primitives: computed property (asc)', function () {
   const fixture = [ 100, 98, 102, 100, 98 ]
   const expected = [ 98, 98, 100, 100, 102 ]
 
@@ -49,7 +49,7 @@ runner.test('sort primitives: computed property (asc)', function () {
 })
 
 // @TODO: need better real-world test case here
-runner.test('sort primitives: computed property (desc)', function () {
+tom.test('sort primitives: computed property (desc)', function () {
   const fixture = [ 100, 98, 102, 100, 98 ]
   const expected = [ 102, 100, 100, 98, 98 ]
 
@@ -62,7 +62,7 @@ runner.test('sort primitives: computed property (desc)', function () {
 })
 
 // @TODO: need better real-world test case here
-runner.test('sort primitives: computed property (custom)', function () {
+tom.test('sort primitives: computed property (custom)', function () {
   const fixture = [ 100, 98, 102, 100, 98 ]
   const expected = [ 100, 100, 98, 98, 102 ]
 

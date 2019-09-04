@@ -1,10 +1,10 @@
-const TestRunner = require('test-runner')
+const Tom = require('test-runner').Tom
 const sort = require('../')
 const a = require('assert')
 
-const runner = new TestRunner()
+const tom = module.exports = new Tom('sort-computed-property')
 
-runner.test('sort computed property: anonymous function (asc) 1', function () {
+tom.test('sort computed property: anonymous function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -27,7 +27,7 @@ runner.test('sort computed property: anonymous function (asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort computed property: named function (asc) 1', function () {
+tom.test('sort computed property: named function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
     { inner: { a: 2, b: 10 } },
@@ -53,7 +53,7 @@ runner.test('sort computed property: named function (asc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort computed property: anonymous function (desc) 1', function () {
+tom.test('sort computed property: anonymous function (desc) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -74,7 +74,7 @@ runner.test('sort computed property: anonymous function (desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort computed property: named function (desc) 1', function () {
+tom.test('sort computed property: named function (desc) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -100,7 +100,7 @@ runner.test('sort computed property: named function (desc) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort computed property: named function (custom) 1', function () {
+tom.test('sort computed property: named function (custom) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },
@@ -130,7 +130,7 @@ runner.test('sort computed property: named function (custom) 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
-runner.test('sort computed property: named function (custom) (inc nulls) 1', function () {
+tom.test('sort computed property: named function (custom) (inc nulls) 1', function () {
   const fixture = [
     { inner: { number: 5 } },
     { inner: { number: 2 } },

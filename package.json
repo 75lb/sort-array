@@ -19,7 +19,7 @@
     "desc"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "scripts": {
     "lint": "standard --fix \"*.js\" \"test/**.js\"",
@@ -28,8 +28,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "jsdoc-to-markdown": "^4.0.1",
-    "standard": "^12.0.1",
-    "test-runner": "^0.5.1"
+    "jsdoc-to-markdown": "^5.0.1",
+    "standard": "^14.1.0",
+    "test-runner": "^0.6.0"
   }
 }
