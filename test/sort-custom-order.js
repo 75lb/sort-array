@@ -16,9 +16,9 @@ tom.test('unnamed sort order (inc undefined) 1', function () {
     { a: undefined }
   ]
 
-  const sortBy = [ 'a' ]
+  const sortBy = ['a']
   const sortTypes = [
-    [ 1, 2, undefined ]
+    [1, 2, undefined]
   ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
@@ -36,11 +36,11 @@ tom.test('named sort order (inc undefined) 1', function () {
     { a: undefined }
   ]
 
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'custom1' ]
+  const sortBy = ['a']
+  const sortTypes = ['custom1']
   const namedConfigs = {
     namedCustomOrders: {
-      custom1: [ 1, 2, undefined ]
+      custom1: [1, 2, undefined]
     }
   }
   const result = sort(fixture, sortBy, sortTypes, namedConfigs)
@@ -59,9 +59,9 @@ tom.test('unnamed sort order (inc null) 1', function () {
     { a: null }
   ]
 
-  const sortBy = [ 'a' ]
+  const sortBy = ['a']
   const sortTypes = [
-    [ 1, 2, null ]
+    [1, 2, null]
   ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
@@ -81,9 +81,9 @@ tom.test('unnamed sort order 1', function () {
     { fruit: 'orange' }
   ]
 
-  const sortBy = [ 'fruit' ]
+  const sortBy = ['fruit']
   const sortTypes = [
-    [ 'banana', 'pear', 'apple', 'orange' ]
+    ['banana', 'pear', 'apple', 'orange']
   ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
@@ -113,10 +113,10 @@ tom.test('unnamed 2-column sort 1', function () {
     { importance: 'strength', weight: 'medium' }
   ]
 
-  const sortBy = [ 'importance', 'weight' ]
+  const sortBy = ['importance', 'weight']
   const sortTypes = [
-    [ 'speed', 'strength', 'intelligence' ],
-    [ 'low', 'medium', 'high' ]
+    ['speed', 'strength', 'intelligence'],
+    ['low', 'medium', 'high']
   ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
@@ -126,10 +126,10 @@ tom.test('jsdoc-parse usage 1', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
 
-  const sortBy = [ 'kind', 'scope' ]
+  const sortBy = ['kind', 'scope']
   const sortTypes = [
-    [ 'class', 'constructor', 'mixin', 'member', 'namespace', 'enum', 'constant', 'function', 'event', 'typedef', 'external' ],
-    [ 'global', 'instance', 'static', 'inner' ]
+    ['class', 'constructor', 'mixin', 'member', 'namespace', 'enum', 'constant', 'function', 'event', 'typedef', 'external'],
+    ['global', 'instance', 'static', 'inner']
   ]
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
@@ -159,10 +159,10 @@ tom.test('unnamed 2-column sort (inc null) 1', function () {
     { importance: 3, weight: null }
   ]
 
-  const sortBy = [ 'importance', 'weight' ]
+  const sortBy = ['importance', 'weight']
   const sortTypes = [
-    [ undefined, 1, 2, null, 3 ],
-    [ 'a', 'b', null ]
+    [undefined, 1, 2, null, 3],
+    ['a', 'b', null]
   ]
 
   const result = sort(fixture, sortBy, sortTypes)
@@ -193,12 +193,12 @@ tom.test('named 2-column sort (inc null) 1', function () {
     { importance: 3, weight: null }
   ]
 
-  const sortBy = [ 'importance', 'weight' ]
-  const sortTypes = [ 'cImportance', 'cWeight' ]
+  const sortBy = ['importance', 'weight']
+  const sortTypes = ['cImportance', 'cWeight']
   const namedConfigs = {
     namedCustomOrders: {
-      cImportance: [ undefined, 1, 2, null, 3 ],
-      cWeight: [ 'a', 'b', null ]
+      cImportance: [undefined, 1, 2, null, 3],
+      cWeight: ['a', 'b', null]
     }
   }
 

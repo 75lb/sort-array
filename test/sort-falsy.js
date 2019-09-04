@@ -28,8 +28,8 @@ tom.test('sort by array of column names (inc nulls) 1', function () {
     { a: null, b: null, c: 4 }
   ]
 
-  const sortBy = [ 'a', 'b', 'c' ]
-  const sortTypes = [ 'asc', 'asc', 'asc' ]
+  const sortBy = ['a', 'b', 'c']
+  const sortTypes = ['asc', 'asc', 'asc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
@@ -45,8 +45,8 @@ tom.test('sort by single column name (inc empty object) 1', function () {
     { a: 1 },
     {}
   ]
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'asc' ]
+  const sortBy = ['a']
+  const sortTypes = ['asc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
@@ -62,8 +62,8 @@ tom.test('sort by single column name (inc empty object) 2', function () {
     { a: 'yeah' },
     {}
   ]
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'asc' ]
+  const sortBy = ['a']
+  const sortTypes = ['asc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
@@ -79,8 +79,8 @@ tom.test('sort by single column name (inc undefined) 1', function () {
     { a: 2 },
     { a: undefined }
   ]
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'asc' ]
+  const sortBy = ['a']
+  const sortTypes = ['asc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
@@ -108,8 +108,8 @@ tom.test('sort by single column name (inc nulls) 1', function () {
     { importance: 'strength', weight: null },
     { importance: 'intelligence', weight: null }
   ]
-  const sortBy = [ 'weight' ]
-  const sortTypes = [ 'asc' ]
+  const sortBy = ['weight']
+  const sortTypes = ['asc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })

@@ -19,8 +19,8 @@ tom.test('missing named computed property 1 - no sort performed', function () {
     { inner: { a: 1, b: 10 } },
     { inner: { a: 4, b: 10 } }
   ]
-  const sortBy = [ 'total' ]
-  const sortTypes = [ 'asc' ]
+  const sortBy = ['total']
+  const sortTypes = ['asc']
   const namedConfigs = {
     namedComputedProps: {
       MISSPELT: item => item.inner.a + item.inner.b
@@ -42,11 +42,11 @@ tom.test('missing named custom order 1 - no sort performed', function () {
     { a: 1 }
   ]
 
-  const sortBy = [ 'a' ]
-  const sortTypes = [ 'custom1' ]
+  const sortBy = ['a']
+  const sortTypes = ['custom1']
   const namedConfigs = {
     namedCustomOrders: {
-      MISSSPELLED: [ 1, 2, undefined ]
+      MISSSPELLED: [1, 2, undefined]
     }
   }
   const result = sort(fixture, sortBy, sortTypes, namedConfigs)

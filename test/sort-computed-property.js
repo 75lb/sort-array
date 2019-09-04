@@ -19,8 +19,8 @@ tom.test('(computed property)', function () {
     { inner: { number: 2 } },
     { inner: { number: 1 } }
   ]
-  const sortBy = [ 'output' ]
-  const sortTypes = [ 'desc' ]
+  const sortBy = ['output']
+  const sortTypes = ['desc']
   const namedConfigs = {
     namedComputedProps: {
       output: item => item.inner.number * 2
@@ -48,7 +48,7 @@ tom.test('anonymous function (asc) 1', function () {
   const sortBy = [
     item => item.inner.a + item.inner.b
   ]
-  const sortTypes = [ 'asc' ]
+  const sortTypes = ['asc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
@@ -68,8 +68,8 @@ tom.test('named function (asc) 1', function () {
     { inner: { a: 4, b: 10 } },
     { inner: { a: 5, b: 10 } }
   ]
-  const sortBy = [ 'total' ]
-  const sortTypes = [ 'asc' ]
+  const sortBy = ['total']
+  const sortTypes = ['asc']
   const namedConfigs = {
     namedComputedProps: {
       total: item => item.inner.a + item.inner.b
@@ -94,8 +94,8 @@ tom.test('anonymous function (desc) 1', function () {
     { inner: { number: 2 } },
     { inner: { number: 1 } }
   ]
-  const sortBy = [ item => item.inner.number ]
-  const sortTypes = [ 'desc' ]
+  const sortBy = [item => item.inner.number]
+  const sortTypes = ['desc']
   const result = sort(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
@@ -115,8 +115,8 @@ tom.test('named function (desc) 1', function () {
     { inner: { number: 2 } },
     { inner: { number: 1 } }
   ]
-  const sortBy = [ 'total' ]
-  const sortTypes = [ 'desc' ]
+  const sortBy = ['total']
+  const sortTypes = ['desc']
   const namedConfigs = {
     namedComputedProps: {
       total: item => item.inner.number
@@ -142,9 +142,9 @@ tom.test('named function (custom) 1', function () {
     { inner: { number: 5 } }
   ]
 
-  const sortBy = [ 'number' ]
+  const sortBy = ['number']
   const sortTypes = [
-    [ 1, 2, 4, 3, 5 ]
+    [1, 2, 4, 3, 5]
   ]
   const namedConfigs = {
     namedComputedProps: {
@@ -172,9 +172,9 @@ tom.test('named function (custom) (inc nulls) 1', function () {
     { inner: { number: 5 } }
   ]
 
-  const sortBy = [ 'number' ]
+  const sortBy = ['number']
   const sortTypes = [
-    [ 1, 2, null, 3, 5 ]
+    [1, 2, null, 3, 5]
   ]
   const namedConfigs = {
     namedComputedProps: {

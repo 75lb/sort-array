@@ -114,16 +114,16 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
   let namedComputedProps = {}
   let namedCustomOrders = {}
   if (isObject(namedConfigs)) {
-    if (isDefined(namedConfigs['namedComputedProps'])) {
-      namedComputedProps = namedConfigs['namedComputedProps']
+    if (isDefined(namedConfigs.namedComputedProps)) {
+      namedComputedProps = namedConfigs.namedComputedProps
     }
-    if (isDefined(namedConfigs['namedCustomOrders'])) {
-      namedCustomOrders = namedConfigs['namedCustomOrders']
+    if (isDefined(namedConfigs.namedCustomOrders)) {
+      namedCustomOrders = namedConfigs.namedCustomOrders
     }
   }
 
   // Perform sanity checks.
-  let isPrimitiveSort = recordset.some(record => isPrimitive(record))
+  const isPrimitiveSort = recordset.some(record => isPrimitive(record))
   if (isPrimitiveSort) {
     // The only applicable 'sortBy' arguments on a primitive array
     // are 'computed property' functions.
@@ -142,7 +142,7 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
 
   // Ensure that if namedComputedProps is provided, that the object keys
   // are referenced in the sortBy array
-  let noOfNamedComputedProps = Object.keys(namedComputedProps).length
+  const noOfNamedComputedProps = Object.keys(namedComputedProps).length
   if (noOfNamedComputedProps > 0) {
     for (let i = 0; i < noOfNamedComputedProps; i++) {
       if (sortBy.indexOf(Object.keys(namedComputedProps)[i]) < 0) {
@@ -154,7 +154,7 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
 
   // Ensure that if namedCustomOrders is provided, that the object keys
   // are referenced in the sortTypes array
-  let noOfNamedCustomOrders = Object.keys(namedCustomOrders).length
+  const noOfNamedCustomOrders = Object.keys(namedCustomOrders).length
   if (noOfNamedCustomOrders > 0) {
     for (let i = 0; i < noOfNamedCustomOrders; i++) {
       if (sortTypes.indexOf(Object.keys(namedCustomOrders)[i]) < 0) {
@@ -172,7 +172,7 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
   } else if (sortBy.length > sortTypes.length) {
     // Not enough sortTypes have been provided. Fully hydrate the sortTypes
     // array, using 'asc' by default.
-    let noOfMissingSortTypes = sortBy.length - sortTypes.length
+    const noOfMissingSortTypes = sortBy.length - sortTypes.length
     for (let i = 0; i < noOfMissingSortTypes; i++) {
       sortTypes.push('asc')
     }
@@ -191,15 +191,15 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
 
 function comparePrim (sortBy, sortTypes) {
   // The property should be undefined or a function
-  let sorts = sortBy.slice(0)
-  let property = sorts.shift()
+  const sorts = sortBy.slice(0)
+  const property = sorts.shift()
 
   // The sort should be 'asc', 'desc', or a custom array
   let sort
   if (sortTypes.length > 1) {
     sort = sortTypes.slice(0)
   } else {
-    let types = sortTypes.slice(0)
+    const types = sortTypes.slice(0)
     sort = types.shift()
   }
 
@@ -254,7 +254,7 @@ function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
     let y
     let result
     let recurse
-    let currentSort = sort
+    const currentSort = sort
 
     // Allocate the comparees.
     if (isFunction(property)) {
@@ -360,7 +360,7 @@ function arrayify (input) {
     } else if (isArrayLike(input)) {
       return Array.prototype.slice.call(input)
     } else {
-      return [ input ]
+      return [input]
     }
   }
 }
