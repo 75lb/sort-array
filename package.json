@@ -25,7 +25,7 @@
   },
   "scripts": {
     "lint": "standard --fix index.mjs test/*.js",
-    "test": "test-runner test/*.js",
+    "test": "npm run dist && test-runner test/*.js",
     "docs": "jsdoc2md -t README.hbs index.js > README.md; echo",
     "dist": "rollup -f umd -o dist/index.js -n sortArray index.mjs"
   },

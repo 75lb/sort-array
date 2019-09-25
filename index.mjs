@@ -140,18 +140,6 @@ function sortBy (recordset, sortBy, sortTypes, namedConfigs) {
     }
   }
 
-  // Ensure that if namedComputedProps is provided, that the object keys
-  // are referenced in the sortBy array
-  const noOfNamedComputedProps = Object.keys(namedComputedProps).length
-  if (noOfNamedComputedProps > 0) {
-    for (let i = 0; i < noOfNamedComputedProps; i++) {
-      if (sortBy.indexOf(Object.keys(namedComputedProps)[i]) < 0) {
-        // Missing object key, return the recordset unchanged
-        return recordset
-      }
-    }
-  }
-
   // Ensure that if namedCustomOrders is provided, that the object keys
   // are referenced in the sortTypes array
   const noOfNamedCustomOrders = Object.keys(namedCustomOrders).length

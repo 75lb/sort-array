@@ -30,6 +30,30 @@ tom.test('(computed property)', function () {
   a.deepStrictEqual(result, expected)
 })
 
+tom.test('namedComputedProps exist but not used', function () {
+  const fixture = [
+    { a: 4 },
+    { a: 3 },
+    { a: 2 },
+    { a: 1 }
+  ]
+  const expected = [
+    { a: 1 },
+    { a: 2 },
+    { a: 3 },
+    { a: 4 }
+  ]
+  const sortBy = ['a']
+  const sortTypes = ['asc']
+  const namedConfigs = {
+    namedComputedProps: {
+      something: item => item.inner.number * 2
+    }
+  }
+  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
+  a.deepStrictEqual(result, expected)
+})
+
 tom.test('anonymous function (asc) 1', function () {
   const fixture = [
     { inner: { a: 5, b: 10 } },
