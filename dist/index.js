@@ -218,15 +218,11 @@
       } else {
         // Perform an asc sort by default, then invert later if a desc has been
         // requested for the current property.
-        result = getAscOrder(x, y);
+        result = getOrder(x, y, sort === 'asc');
       }
 
       // Present the result
-      if (sort === 'desc') {
-        return result * -1
-      } else {
-        return result
-      }
+      return result
     }
   }
 
@@ -272,7 +268,7 @@
       } else {
         // Perform an asc sort by default, then invert later if a desc has been
         // requested for the current property.
-        result = getAscOrder(x, y);
+        result = getOrder(x, y, currentSort === 'asc');
       }
 
       // Reset this sorting function and parent, unless there is an equal
@@ -291,26 +287,33 @@
       // Present the result
       if (recurse) {
         return sorter(a, b)
-      } else if (currentSort === 'desc') {
-        return result * -1
       } else {
         return result
       }
     }
   }
 
-  function getAscOrder (x, y) {
+  function getOrder (x, y, asc) {
     let result;
-    if (x === null && y === null) {
+    if (x === y) {
       result = 0;
-    } else if (!isDefined(x) && !isDefined(y)) {
-      result = 0;
-    } else if ((!isDefined(x) || x === null) && isDefined(y)) {
+    } else if (isNull(x) && isUndefined(y)) {
+      result = asc ? 1 : -1;
+    } else if (isUndefined(x) && isNull(y)) {
+      result = asc ? -1 : 1;
+    } else if (isNull(x) && isDefinedValue(y)) {
       result = 1;
-    } else if (isDefined(x) && (!isDefined(y) || y === null)) {
+    } else if (isUndefined(x) && isDefinedValue(y)) {
+      result = 1;
+    } else if (isNull(y) && isDefinedValue(x)) {
+      result = -1;
+    } else if (isUndefined(y) && isDefinedValue(x)) {
       result = -1;
     } else {
       result = x < y ? -1 : x > y ? 1 : 0;
+      if (!asc) {
+        result = result * -1;
+      }
     }
     return result
   }
@@ -323,8 +326,20 @@
     return isObject(input) && typeof input.length === 'number'
   }
 
+  function isNull (input) {
+    return input === null
+  }
+
   function isDefined (input) {
     return typeof input !== 'undefined'
+  }
+
+  function isDefinedValue (input) {
+    return isDefined(input) && !isNull(input)
+  }
+
+  function isUndefined (input) {
+    return typeof input === 'undefined'
   }
 
   function isFunction (input) {
