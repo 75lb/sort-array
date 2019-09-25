@@ -4,7 +4,7 @@
   "contributors": [
     "Ben Vickers <bjvickers@protonmail.com>"
   ],
-  "version": "3.0.0-0",
+  "version": "3.0.0-1",
   "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
   "repository": "https://github.com/75lb/sort-array.git",
   "license": "MIT",
