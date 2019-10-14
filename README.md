@@ -6,7 +6,7 @@
 
 # sort-array
 
-Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
+Powerful, isomorphic, load-anywhere module for sorting an array of objects or primatives.
 
 ## Synopsis
 
