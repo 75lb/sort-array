@@ -6,7 +6,7 @@
   ],
   "version": "3.0.0-2",
   "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
-  "repository": "https://github.com/75lb/sort-array.git",
+  "repository": "https://github.com/75lb/sort-array",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "index.mjs",
@@ -24,20 +24,24 @@
     "node": ">=8"
   },
   "scripts": {
-    "lint": "standard --fix index.mjs test/*.js",
     "test": "npm run dist && test-runner test/*.js",
-    "docs": "jsdoc2md -t README.hbs index.js > README.md; echo",
+    "docs": "jsdoc2md -c jsdoc.conf -t README.hbs index.mjs > README.md",
     "dist": "rollup -f umd -o dist/index.js -n sortArray index.mjs"
   },
   "dependencies": {},
   "devDependencies": {
     "jsdoc-to-markdown": "^5.0.1",
     "rollup": "^1.20.3",
-    "standard": "^14.1.0",
     "test-runner": "^0.6.0"
   },
   "files": [
     "dist/index.js",
     "index.mjs"
-  ]
+  ],
+  "standard": {
+    "ignore": [
+      "dist",
+      "tmp"
+    ]
+  }
 }

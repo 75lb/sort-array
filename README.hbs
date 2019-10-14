@@ -4,6 +4,90 @@
 [![Dependency Status](https://badgen.net/david/dep/75lb/sort-array)](https://david-dm.org/75lb/sort-array)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
+# sort-array
+
+Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
+
+## Synopsis
+
+With this data
+
+```js
+> DJs = [
+  { name: 'Trevor', slot: 'twilight' },
+  { name: 'Chris', slot: 'twilight' },
+  { name: 'Mike', slot: 'afternoon' },
+  { name: 'Rodney', slot: 'morning' },
+  { name: 'Chris', slot: 'morning' },
+  { name: 'Zane', slot: 'evening' }
+]
+```
+
+Sort by `slot` using an ascending sort type
+
+```js
+> sortBy(DJs, [ 'slot' ], [ 'asc' ])
+[ { name: 'Mike', slot: 'afternoon' },
+  { name: 'Zane', slot: 'evening' },
+  { name: 'Chris', slot: 'morning' },
+  { name: 'Rodney', slot: 'morning' },
+  { name: 'Chris', slot: 'twilight' },
+  { name: 'Trevor', slot: 'twilight' } ]
+```
+
+Sort by `slot` using a descending sort type
+
+```js
+> sortBy(DJs, [ 'slot' ], [ 'desc' ])
+[ { name: 'Chris', slot: 'twilight' },
+  { name: 'Trevor', slot: 'twilight' },
+  { name: 'Chris', slot: 'morning' },
+  { name: 'Rodney', slot: 'morning' },
+  { name: 'Zane', slot: 'evening' },
+  { name: 'Mike', slot: 'afternoon' }]
+```
+
+Sort by `slot` using an 'inline' custom sort type
+
+```js
+> sortBy(DJs, [ 'slot' ], [ 'morning', 'afternoon', 'evening', 'twilight' ])
+[ { name: 'Rodney', slot: 'morning' },
+  { name: 'Chris', slot: 'morning' },
+  { name: 'Mike', slot: 'afternoon' },
+  { name: 'Zane', slot: 'evening' },
+  { name: 'Trevor', slot: 'twilight' },
+  { name: 'Chris', slot: 'twilight' } ]
+```
+
+Sort by `slot` using an 'named' custom sort type
+
+```js
+> let namedConfigs = {
+    namedCustomOrders: {
+      custOrder1: [ 'morning', 'afternoon', 'evening', 'twilight' ]
+    }
+  }
+> sortBy(DJs, [ 'slot' ], [ 'custOrder1' ], namedConfigs)
+[ { name: 'Rodney', slot: 'morning' },
+  { name: 'Chris', slot: 'morning' },
+  { name: 'Mike', slot: 'afternoon' },
+  { name: 'Zane', slot: 'evening' },
+  { name: 'Trevor', slot: 'twilight' },
+  { name: 'Chris', slot: 'twilight' } ]
+```
+
+Sort by `slot` (with a custom sort type) then `name` (with an ascending sort type)
+
+```js
+> sortBy(DJs, ['slot', 'name'], [ [ 'morning', 'afternoon', 'evening', 'twilight' ], 'asc' ])
+[ { name: 'Chris', slot: 'morning' },
+  { name: 'Rodney', slot: 'morning' },
+  { name: 'Mike', slot: 'afternoon' },
+  { name: 'Zane', slot: 'evening' },
+  { name: 'Chris', slot: 'twilight' },
+  { name: 'Trevor', slot: 'twilight' } ]
+```
+
 {{>main}}
 
 * * *

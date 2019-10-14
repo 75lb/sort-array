@@ -1,5 +1,5 @@
 const Tom = require('test-runner').Tom
-const sort = require('../')
+const sortArray = require('../')
 const a = require('assert')
 
 const tom = module.exports = new Tom('preformatting')
@@ -29,7 +29,7 @@ tom.test('too few sort types provided - defaults to asc', function () {
   ]
   const sortBy = ['a', 'b', 'c']
   const sortTypes = ['asc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const result = sortArray(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
 
@@ -58,6 +58,6 @@ tom.test('too many sort types provided - extras ignored', function () {
   ]
   const sortBy = ['a', 'b', 'c']
   const sortTypes = ['asc', 'desc', 'asc', 'desc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const result = sortArray(fixture, sortBy, sortTypes)
   a.deepStrictEqual(result, expected)
 })
