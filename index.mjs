@@ -1,3 +1,6 @@
+import arrayify from './node_modules/array-back/index.mjs'
+import t from './node_modules/typical/index.mjs'
+
 /**
  * Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
  *
@@ -27,22 +30,22 @@ function sortArray (recordset, sortBy, sortTypes, namedConfigs) {
 
   let namedComputedProps = {}
   let namedCustomOrders = {}
-  if (isObject(namedConfigs)) {
-    if (isDefined(namedConfigs.namedComputedProps)) {
+  if (t.isObject(namedConfigs)) {
+    if (t.isDefined(namedConfigs.namedComputedProps)) {
       namedComputedProps = namedConfigs.namedComputedProps
     }
-    if (isDefined(namedConfigs.namedCustomOrders)) {
+    if (t.isDefined(namedConfigs.namedCustomOrders)) {
       namedCustomOrders = namedConfigs.namedCustomOrders
     }
   }
 
   // Perform sanity checks.
-  const isPrimitiveSort = recordset.some(record => isPrimitive(record))
+  const isPrimitiveSort = recordset.some(record => t.isPrimitive(record))
   if (isPrimitiveSort) {
     // The only applicable 'sortBy' arguments on a primitive array
     // are 'computed property' functions.
     for (let i = 0; i < sortBy.length; i++) {
-      if (!isFunction(sortBy[i])) {
+      if (!t.isFunction(sortBy[i])) {
         return recordset
       }
     }
@@ -111,7 +114,7 @@ function comparePrim (sortBy, sortTypes) {
     let result
 
     // Allocate the comparees.
-    if (isFunction(property)) {
+    if (t.isFunction(property)) {
       x = property(a)
       y = property(b)
     } else {
@@ -120,7 +123,7 @@ function comparePrim (sortBy, sortTypes) {
     }
 
     // Perform the sort
-    if (isArrayLike(sort)) {
+    if (t.isArrayLike(sort)) {
       // Apply custom ordering
       result = sort.indexOf(x) - sort.indexOf(y)
     } else {
@@ -155,10 +158,10 @@ function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
     const currentSort = sort
 
     // Allocate the comparees.
-    if (isFunction(property)) {
+    if (t.isFunction(property)) {
       x = property(a)
       y = property(b)
-    } else if (isDefined(namedComputedProps[property])) {
+    } else if (t.isDefined(namedComputedProps[property])) {
       x = namedComputedProps[property](a)
       y = namedComputedProps[property](b)
     } else {
@@ -167,10 +170,10 @@ function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
     }
 
     // Perform the sort
-    if (isArrayLike(sort)) {
+    if (t.isArrayLike(sort)) {
       // Apply custom ordering
       result = sort.indexOf(x) - sort.indexOf(y)
-    } else if (isDefined(namedCustomOrders[sort])) {
+    } else if (t.isDefined(namedCustomOrders[sort])) {
       // Apply custom ordering
       result = namedCustomOrders[sort].indexOf(x) - namedCustomOrders[sort].indexOf(y)
     } else {
@@ -226,60 +229,16 @@ function getOrder (x, y, asc) {
   return result
 }
 
-function isObject (input) {
-  return typeof input === 'object' && input !== null
-}
-
-function isArrayLike (input) {
-  return isObject(input) && typeof input.length === 'number'
-}
-
 function isNull (input) {
   return input === null
 }
 
-function isDefined (input) {
-  return typeof input !== 'undefined'
-}
-
 function isDefinedValue (input) {
-  return isDefined(input) && !isNull(input)
+  return t.isDefined(input) && !isNull(input)
 }
 
 function isUndefined (input) {
-  return typeof input === 'undefined'
-}
-
-function isFunction (input) {
-  return typeof input === 'function'
-}
-
-function isPrimitive (input) {
-  if (input === null) return true
-  switch (typeof input) {
-    case 'string':
-    case 'number':
-    case 'symbol':
-    case 'undefined':
-    case 'boolean':
-      return true
-    default:
-      return false
-  }
-}
-
-function arrayify (input) {
-  if (Array.isArray(input)) {
-    return input
-  } else {
-    if (input === undefined) {
-      return []
-    } else if (isArrayLike(input)) {
-      return Array.prototype.slice.call(input)
-    } else {
-      return [input]
-    }
-  }
+  return !t.isDefined(input)
 }
 
 export default sortArray

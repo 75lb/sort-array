@@ -8,6 +8,10 @@
 
 Powerful, isomorphic, load-anywhere module for sorting an array of objects or primatives.
 
+```js
+const sortArray = require('sort-array')
+```
+
 ## Synopsis
 
 With this data
@@ -26,7 +30,7 @@ With this data
 Sort by `slot` using an ascending sort type
 
 ```js
-> sortBy(DJs, [ 'slot' ], [ 'asc' ])
+> sortArray(DJs, 'slot', 'asc')
 [ { name: 'Mike', slot: 'afternoon' },
   { name: 'Zane', slot: 'evening' },
   { name: 'Chris', slot: 'morning' },
@@ -38,7 +42,7 @@ Sort by `slot` using an ascending sort type
 Sort by `slot` using a descending sort type
 
 ```js
-> sortBy(DJs, [ 'slot' ], [ 'desc' ])
+> sortArray(DJs, 'slot', 'desc')
 [ { name: 'Chris', slot: 'twilight' },
   { name: 'Trevor', slot: 'twilight' },
   { name: 'Chris', slot: 'morning' },
@@ -50,7 +54,7 @@ Sort by `slot` using a descending sort type
 Sort by `slot` using an 'inline' custom sort type
 
 ```js
-> sortBy(DJs, [ 'slot' ], [ 'morning', 'afternoon', 'evening', 'twilight' ])
+> sortArray(DJs, 'slot', [ 'morning', 'afternoon', 'evening', 'twilight' ])
 [ { name: 'Rodney', slot: 'morning' },
   { name: 'Chris', slot: 'morning' },
   { name: 'Mike', slot: 'afternoon' },
@@ -67,7 +71,7 @@ Sort by `slot` using an 'named' custom sort type
       custOrder1: [ 'morning', 'afternoon', 'evening', 'twilight' ]
     }
   }
-> sortBy(DJs, [ 'slot' ], [ 'custOrder1' ], namedConfigs)
+> sortArray(DJs, 'slot', [ 'custOrder1' ], namedConfigs)
 [ { name: 'Rodney', slot: 'morning' },
   { name: 'Chris', slot: 'morning' },
   { name: 'Mike', slot: 'afternoon' },
@@ -79,7 +83,7 @@ Sort by `slot` using an 'named' custom sort type
 Sort by `slot` (with a custom sort type) then `name` (with an ascending sort type)
 
 ```js
-> sortBy(DJs, ['slot', 'name'], [ [ 'morning', 'afternoon', 'evening', 'twilight' ], 'asc' ])
+> sortArray(DJs, ['slot', 'name'], [ [ 'morning', 'afternoon', 'evening', 'twilight' ], 'asc' ])
 [ { name: 'Chris', slot: 'morning' },
   { name: 'Rodney', slot: 'morning' },
   { name: 'Mike', slot: 'afternoon' },
@@ -112,6 +116,34 @@ const sortArray = require('sort-array')
 | [options.computed] | <code>object</code> | Key/value pairs, where the keys correspond to strings given in the sortBy property list, and the values are functions which will dynamically calculated values for each property in the input array. |
 | [options.customOrder] | <code>object</code> | Key/value pairs, where the keys correspond to strings given in the sortTypes list, and the values are arrays of custom values which define the sort type. |
 
+
+## Load anywhere
+
+This library is compatible with Node.js, the Web and any style of module loader. It can be loaded anywhere, natively without transpilation.
+
+Node.js:
+
+```js
+const arrayify = require('sort-array')
+```
+
+Within Node.js with ECMAScript Module support enabled:
+
+```js
+import arrayify from 'sort-array'
+```
+
+Within an modern browser ECMAScript Module:
+
+```js
+import arrayify from './node_modules/sort-array/index.mjs'
+```
+
+Old browser (adds `window.sortArray`):
+
+```html
+<script nomodule src="./node_modules/sort-array/dist/index.js"></script>
+```
 
 * * *
 

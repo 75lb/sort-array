@@ -5,6 +5,302 @@
 }(this, function () { 'use strict';
 
   /**
+   * Takes any input and guarantees an array back.
+   *
+   * - Converts array-like objects (e.g. `arguments`, `Set`) to a real array.
+   * - Converts `undefined` to an empty array.
+   * - Converts any another other, singular value (including `null`, objects and iterables other than `Set`) into an array containing that value.
+   * - Ignores input which is already an array.
+   *
+   * @module array-back
+   * @example
+   * > const arrayify = require('array-back')
+   *
+   * > arrayify(undefined)
+   * []
+   *
+   * > arrayify(null)
+   * [ null ]
+   *
+   * > arrayify(0)
+   * [ 0 ]
+   *
+   * > arrayify([ 1, 2 ])
+   * [ 1, 2 ]
+   *
+   * > arrayify(new Set([ 1, 2 ]))
+   * [ 1, 2 ]
+   *
+   * > function f(){ return arrayify(arguments); }
+   * > f(1,2,3)
+   * [ 1, 2, 3 ]
+   */
+
+  function isObject (input) {
+    return typeof input === 'object' && input !== null
+  }
+
+  function isArrayLike (input) {
+    return isObject(input) && typeof input.length === 'number'
+  }
+
+  /**
+   * @param {*} - The input value to convert to an array
+   * @returns {Array}
+   * @alias module:array-back
+   */
+  function arrayify (input) {
+    if (Array.isArray(input)) {
+      return input
+    }
+
+    if (input === undefined) {
+      return []
+    }
+
+    if (isArrayLike(input) || input instanceof Set) {
+      return Array.from(input)
+    }
+
+    return [ input ]
+  }
+
+  /**
+   * Functional, isomorphic, load-anywhere type checking for Javascript.
+   * @module typical
+   * @typicalname t
+   * @example
+   * const t = require('typical')
+   */
+
+  /**
+   * Returns true if input is a number
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   * @example
+   * > t.isNumber(0)
+   * true
+   * > t.isNumber(1)
+   * true
+   * > t.isNumber(1.1)
+   * true
+   * > t.isNumber(0xff)
+   * true
+   * > t.isNumber(0644)
+   * true
+   * > t.isNumber(6.2e5)
+   * true
+   * > t.isNumber(NaN)
+   * false
+   * > t.isNumber(Infinity)
+   * false
+   */
+  function isNumber (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n)
+  }
+
+  /**
+   * A plain object is a simple object literal, it is not an instance of a class. Returns true if the input `typeof` is `object` and directly decends from `Object`.
+   *
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   * @example
+   * > t.isPlainObject({ something: 'one' })
+   * true
+   * > t.isPlainObject(new Date())
+   * false
+   * > t.isPlainObject([ 0, 1 ])
+   * false
+   * > t.isPlainObject(/test/)
+   * false
+   * > t.isPlainObject(1)
+   * false
+   * > t.isPlainObject('one')
+   * false
+   * > t.isPlainObject(null)
+   * false
+   * > t.isPlainObject((function * () {})())
+   * false
+   * > t.isPlainObject(function * () {})
+   * false
+   */
+  function isPlainObject (input) {
+    return input !== null && typeof input === 'object' && input.constructor === Object
+  }
+
+  /**
+   * An array-like value has all the properties of an array, but is not an array instance. Examples in the `arguments` object. Returns true if the input value is an object, not null and has a `length` property with a numeric value.
+   *
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   * @example
+   * function sum(x, y){
+   *   console.log(t.isArrayLike(arguments))
+   *   // prints `true`
+   * }
+   */
+  function isArrayLike$1 (input) {
+    return isObject$1(input) && typeof input.length === 'number'
+  }
+
+  /**
+   * Returns true if the typeof input is `'object'` but not null.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isObject$1 (input) {
+    return typeof input === 'object' && input !== null
+  }
+
+  /**
+   * Returns true if the input value is defined.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isDefined (input) {
+    return typeof input !== 'undefined'
+  }
+
+  /**
+   * Returns true if the input value is an ES2015 `class`.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isClass (input) {
+    if (typeof input === 'function') {
+      return /^class /.test(Function.prototype.toString.call(input))
+    } else {
+      return false
+    }
+  }
+
+  /**
+   * Returns true if the input is a string, number, symbol, boolean, null or undefined value.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isPrimitive (input) {
+    if (input === null) return true
+    switch (typeof input) {
+      case 'string':
+      case 'number':
+      case 'symbol':
+      case 'undefined':
+      case 'boolean':
+        return true
+      default:
+        return false
+    }
+  }
+
+  /**
+   * Returns true if the input is a Promise.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isPromise (input) {
+    if (input) {
+      const isPromise = isDefined(Promise) && input instanceof Promise;
+      const isThenable = input.then && typeof input.then === 'function';
+      return !!(isPromise || isThenable)
+    } else {
+      return false
+    }
+  }
+
+  /**
+   * Returns true if the input is an iterable (`Map`, `Set`, `Array`, Generator etc.).
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   * @example
+   * > t.isIterable('string')
+   * true
+   * > t.isIterable(new Map())
+   * true
+   * > t.isIterable([])
+   * true
+   * > t.isIterable((function * () {})())
+   * true
+   * > t.isIterable(Promise.resolve())
+   * false
+   * > t.isIterable(Promise)
+   * false
+   * > t.isIterable(true)
+   * false
+   * > t.isIterable({})
+   * false
+   * > t.isIterable(0)
+   * false
+   * > t.isIterable(1.1)
+   * false
+   * > t.isIterable(NaN)
+   * false
+   * > t.isIterable(Infinity)
+   * false
+   * > t.isIterable(function () {})
+   * false
+   * > t.isIterable(Date)
+   * false
+   * > t.isIterable()
+   * false
+   * > t.isIterable({ then: function () {} })
+   * false
+   */
+  function isIterable (input) {
+    if (input === null || !isDefined(input)) {
+      return false
+    } else {
+      return (
+        typeof input[Symbol.iterator] === 'function' ||
+        typeof input[Symbol.asyncIterator] === 'function'
+      )
+    }
+  }
+
+  /**
+   * Returns true if the input value is a string. The equivalent of `typeof input === 'string'` for use in funcitonal contexts.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isString (input) {
+    return typeof input === 'string'
+  }
+
+  /**
+   * Returns true if the input value is a function. The equivalent of `typeof input === 'function'` for use in funcitonal contexts.
+   * @param {*} - the input to test
+   * @returns {boolean}
+   * @static
+   */
+  function isFunction (input) {
+    return typeof input === 'function'
+  }
+
+  var t = {
+    isNumber,
+    isPlainObject,
+    isArrayLike: isArrayLike$1,
+    isObject: isObject$1,
+    isDefined,
+    isClass,
+    isPrimitive,
+    isPromise,
+    isIterable,
+    isString,
+    isFunction
+  };
+
+  /**
    * Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
    *
    * @module sort-array
@@ -15,12 +311,12 @@
 
   /**
    * @param {Array} recordset - Input array of objects or primitive values.
-   * @param {Array.<(string|function)>} sortBy - One or more property expressions to sort by. Expressions may be strings which refer to properties in the input array; they may be strings which refer to properties in the optional `options.namedComputedProps` parameter; or they may be inline functions which dynamically calculate values for each property in the input array.
-   * @param {Array.<(string|Array.<*>)>} sortTypes - The sort types for each of the sortBy expressions. Values may be 'asc', 'desc', an array of custom values, and strings which refer to properties in the optional `options.namedCustomOrders` parameter.
+   * @param {Array.<(string|function)>} sortBy - One or more property expressions to sort by. Expressions may be strings which refer to properties in the input array; they may be strings which refer to properties in the optional `options.computed` parameter; or they may be inline functions which dynamically calculate values for each property in the input array.
+   * @param {Array.<(string|Array.<*>)>} sortTypes - The sort types for each of the sortBy expressions. Values may be 'asc', 'desc', an array of custom values, and strings which refer to properties in the optional `options.customOrder` parameter.
    * @params {object} [options] - Options
    * @param {object} [options] - Provides a means of reusing computed property functions and custom sort types.
-   * @param {object} [options.namedComputedProps] - Key/value pairs, where the keys correspond to strings given in the sortBy property list, and the values are functions which will dynamically calculated values for each property in the input array.
-   * @param {object} [options.namedCustomOrders] - Key/value pairs, where the keys correspond to strings given in the sortTypes list, and the values are arrays of custom values which define the sort type.
+   * @param {object} [options.computed] - Key/value pairs, where the keys correspond to strings given in the sortBy property list, and the values are functions which will dynamically calculated values for each property in the input array.
+   * @param {object} [options.customOrder] - Key/value pairs, where the keys correspond to strings given in the sortTypes list, and the values are arrays of custom values which define the sort type.
    * @returns {Array}
    *
    * @alias module:sort-array
@@ -33,22 +329,22 @@
 
     let namedComputedProps = {};
     let namedCustomOrders = {};
-    if (isObject(namedConfigs)) {
-      if (isDefined(namedConfigs.namedComputedProps)) {
+    if (t.isObject(namedConfigs)) {
+      if (t.isDefined(namedConfigs.namedComputedProps)) {
         namedComputedProps = namedConfigs.namedComputedProps;
       }
-      if (isDefined(namedConfigs.namedCustomOrders)) {
+      if (t.isDefined(namedConfigs.namedCustomOrders)) {
         namedCustomOrders = namedConfigs.namedCustomOrders;
       }
     }
 
     // Perform sanity checks.
-    const isPrimitiveSort = recordset.some(record => isPrimitive(record));
+    const isPrimitiveSort = recordset.some(record => t.isPrimitive(record));
     if (isPrimitiveSort) {
       // The only applicable 'sortBy' arguments on a primitive array
       // are 'computed property' functions.
       for (let i = 0; i < sortBy.length; i++) {
-        if (!isFunction(sortBy[i])) {
+        if (!t.isFunction(sortBy[i])) {
           return recordset
         }
       }
@@ -117,7 +413,7 @@
       let result;
 
       // Allocate the comparees.
-      if (isFunction(property)) {
+      if (t.isFunction(property)) {
         x = property(a);
         y = property(b);
       } else {
@@ -126,7 +422,7 @@
       }
 
       // Perform the sort
-      if (isArrayLike(sort)) {
+      if (t.isArrayLike(sort)) {
         // Apply custom ordering
         result = sort.indexOf(x) - sort.indexOf(y);
       } else {
@@ -161,10 +457,10 @@
       const currentSort = sort;
 
       // Allocate the comparees.
-      if (isFunction(property)) {
+      if (t.isFunction(property)) {
         x = property(a);
         y = property(b);
-      } else if (isDefined(namedComputedProps[property])) {
+      } else if (t.isDefined(namedComputedProps[property])) {
         x = namedComputedProps[property](a);
         y = namedComputedProps[property](b);
       } else {
@@ -173,10 +469,10 @@
       }
 
       // Perform the sort
-      if (isArrayLike(sort)) {
+      if (t.isArrayLike(sort)) {
         // Apply custom ordering
         result = sort.indexOf(x) - sort.indexOf(y);
-      } else if (isDefined(namedCustomOrders[sort])) {
+      } else if (t.isDefined(namedCustomOrders[sort])) {
         // Apply custom ordering
         result = namedCustomOrders[sort].indexOf(x) - namedCustomOrders[sort].indexOf(y);
       } else {
@@ -232,60 +528,16 @@
     return result
   }
 
-  function isObject (input) {
-    return typeof input === 'object' && input !== null
-  }
-
-  function isArrayLike (input) {
-    return isObject(input) && typeof input.length === 'number'
-  }
-
   function isNull (input) {
     return input === null
   }
 
-  function isDefined (input) {
-    return typeof input !== 'undefined'
-  }
-
   function isDefinedValue (input) {
-    return isDefined(input) && !isNull(input)
+    return t.isDefined(input) && !isNull(input)
   }
 
   function isUndefined (input) {
-    return typeof input === 'undefined'
-  }
-
-  function isFunction (input) {
-    return typeof input === 'function'
-  }
-
-  function isPrimitive (input) {
-    if (input === null) return true
-    switch (typeof input) {
-      case 'string':
-      case 'number':
-      case 'symbol':
-      case 'undefined':
-      case 'boolean':
-        return true
-      default:
-        return false
-    }
-  }
-
-  function arrayify (input) {
-    if (Array.isArray(input)) {
-      return input
-    } else {
-      if (input === undefined) {
-        return []
-      } else if (isArrayLike(input)) {
-        return Array.prototype.slice.call(input)
-      } else {
-        return [input]
-      }
-    }
+    return !t.isDefined(input)
   }
 
   return sortArray;
