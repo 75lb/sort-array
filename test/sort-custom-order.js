@@ -83,33 +83,33 @@ tom.test('unnamed sort order 1', function () {
 })
 
 tom.test('unnamed 2-column sort 1', function () {
-  const expected = [
-    { importance: 'speed', weight: 'low' },
-    { importance: 'speed', weight: 'medium' },
-    { importance: 'speed', weight: 'high' },
-    { importance: 'strength', weight: 'low' },
-    { importance: 'strength', weight: 'medium' },
-    { importance: 'strength', weight: 'high' },
-    { importance: 'intelligence', weight: 'low' },
-    { importance: 'intelligence', weight: 'medium' },
-    { importance: 'intelligence', weight: 'high' }
-  ]
   const fixture = [
-    { importance: 'intelligence', weight: 'medium' },
-    { importance: 'strength', weight: 'high' },
-    { importance: 'speed', weight: 'low' },
-    { importance: 'strength', weight: 'low' },
-    { importance: 'speed', weight: 'high' },
-    { importance: 'intelligence', weight: 'low' },
-    { importance: 'speed', weight: 'medium' },
-    { importance: 'intelligence', weight: 'high' },
-    { importance: 'strength', weight: 'medium' }
+    { skill: 'intelligence', weight: 'medium' },
+    { skill: 'strength', weight: 'high' },
+    { skill: 'speed', weight: 'low' },
+    { skill: 'strength', weight: 'low' },
+    { skill: 'speed', weight: 'high' },
+    { skill: 'intelligence', weight: 'low' },
+    { skill: 'speed', weight: 'medium' },
+    { skill: 'intelligence', weight: 'high' },
+    { skill: 'strength', weight: 'medium' }
+  ]
+  const expected = [
+    { skill: 'speed', weight: 'low' },
+    { skill: 'speed', weight: 'medium' },
+    { skill: 'speed', weight: 'high' },
+    { skill: 'strength', weight: 'low' },
+    { skill: 'strength', weight: 'medium' },
+    { skill: 'strength', weight: 'high' },
+    { skill: 'intelligence', weight: 'low' },
+    { skill: 'intelligence', weight: 'medium' },
+    { skill: 'intelligence', weight: 'high' }
   ]
 
-  const by = ['importance', 'weight']
-  const order = ['importance', 'weight']
+  const by = ['skill', 'weight']
+  const order = ['skill', 'weight']
   const customOrders = {
-    importance: ['speed', 'strength', 'intelligence'],
+    skill: ['speed', 'strength', 'intelligence'],
     weight: ['low', 'medium', 'high']
   }
   const result = sort(fixture, { by, order, customOrders })

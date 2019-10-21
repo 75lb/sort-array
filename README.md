@@ -14,54 +14,104 @@ const sortArray = require('sort-array')
 
 ## Synopsis
 
-With this data
+Sort an array of primitives, for example strings.
 
 ```js
-> DJs = [
-  { name: 'Trevor', slot: 'twilight' },
-  { name: 'Chris', slot: 'twilight' },
-  { name: 'Mike', slot: 'afternoon' },
-  { name: 'Rodney', slot: 'morning' },
-  { name: 'Chris', slot: 'morning' },
-  { name: 'Zane', slot: 'evening' }
+> const partsOfTheDay = ['twilight', 'afternoon', 'morning', 'evening']
+
+> sortArray(partsOfTheDay)
+[ 'afternoon', 'evening', 'morning', 'twilight' ]
+```
+
+The default sort order is `asc` but you could specify `desc` or a custom order. For example, sort the parts of the day by the time in which they occur.
+
+```js
+> sortArray(partsOfTheDay, {
+  order: 'time',
+  customOrders: {
+    time: ['morning', 'afternoon', 'evening', 'twilight']
+  }
+})
+[ 'morning', 'afternoon', 'evening', 'twilight' ]
+```
+
+Sort by a computed field. For example, an algorithm to rank boxers by influence.
+
+```js
+> const boxers = [
+  { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 },
+  { name: 'Amir', ticketsSold: 30000, titlesHeld: 2 },
+  { name: 'Vasiliy', ticketsSold: 20000, titlesHeld: 4 },
+  { name: 'Josh', ticketsSold: 10000, titlesHeld: 3 },
+]
+
+> sortArray(boxers, {
+  by: 'rank',
+  order: 'desc',
+  computed: {
+    rank: boxer => boxer.ticketsSold + (boxer.titlesHeld * 10000)
+  }
+})
+
+[
+  { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 },
+  { name: 'Vasiliy', ticketsSold: 20000, titlesHeld: 4 },
+  { name: 'Amir', ticketsSold: 30000, titlesHeld: 2 },
+  { name: 'Josh', ticketsSold: 10000, titlesHeld: 3 }
 ]
 ```
 
-Sort by `slot` using an ascending sort type
+You can use computed fields to sort by values deep in an object structure.
 
 ```js
-> sortArray(DJs, { by: 'slot' })
-[ { name: 'Mike', slot: 'afternoon' },
-  { name: 'Zane', slot: 'evening' },
-  { name: 'Chris', slot: 'morning' },
-  { name: 'Rodney', slot: 'morning' },
-  { name: 'Chris', slot: 'twilight' },
-  { name: 'Trevor', slot: 'twilight' } ]
+> const data = [
+  { inner: { number: 2 } },
+  { inner: { number: 3 } },
+  { inner: { number: 5 } },
+  { inner: { number: 1 } },
+  { inner: { number: 4 } }
+]
+
+> sortArray(data, { by: 'number', computed: { number: row => row.inner.number} })
+[
+  { inner: { number: 1 } },
+  { inner: { number: 2 } },
+  { inner: { number: 3 } },
+  { inner: { number: 4 } },
+  { inner: { number: 5 } }
+]
 ```
 
-Sort by `slot` using a descending sort type
+Sort by multiple columns using multiple custom orders.
 
 ```js
-> sortArray(DJs, { by: 'slot', order: 'desc' })
-[ { name: 'Chris', slot: 'twilight' },
-  { name: 'Trevor', slot: 'twilight' },
-  { name: 'Chris', slot: 'morning' },
-  { name: 'Rodney', slot: 'morning' },
-  { name: 'Zane', slot: 'evening' },
-  { name: 'Mike', slot: 'afternoon' }]
-```
+> const attributes = [
+  { skill: 'accuracy', confidence: 'medium' },
+  { skill: 'power', confidence: 'high' },
+  { skill: 'speed', confidence: 'low' },
+  { skill: 'speed', confidence: 'high' },
+  { skill: 'accuracy', confidence: 'low' },
+  { skill: 'accuracy', confidence: 'high' },
+  { skill: 'power', confidence: 'medium' }
+]
 
-Sort by `slot` in a custom order.
-
-```js
-> const slotOrder = [ 'morning', 'afternoon', 'evening', 'twilight' ]
-> sortArray(DJs, { by: 'slot', order: 'slotOrder', customOrders: { slotOrder } })
-[ { name: 'Rodney', slot: 'morning' },
-  { name: 'Chris', slot: 'morning' },
-  { name: 'Mike', slot: 'afternoon' },
-  { name: 'Zane', slot: 'evening' },
-  { name: 'Trevor', slot: 'twilight' },
-  { name: 'Chris', slot: 'twilight' } ]
+> sortArray(attributes, {
+  by: ['skill', 'confidence'],
+  order: ['skill', 'confidence'],
+  customOrders: {
+    skill: ['accuracy', 'speed', 'power'],
+    confidence: ['low', 'medium', 'high'],
+  }
+})
+[
+  { skill: 'accuracy', confidence: 'low' },
+  { skill: 'accuracy', confidence: 'medium' },
+  { skill: 'accuracy', confidence: 'high' },
+  { skill: 'speed', confidence: 'low' },
+  { skill: 'speed', confidence: 'high' },
+  { skill: 'power', confidence: 'medium' },
+  { skill: 'power', confidence: 'high' }
+]
 ```
 
 <a name="module_sort-array"></a>
@@ -82,8 +132,8 @@ const sortArray = require('sort-array')
 | --- | --- | --- |
 | arr | <code>Array</code> | Input array. |
 | [options] | <code>object</code> | Sort config. |
-| [options.by] | <code>Array.&lt;string&gt;</code> | One or more properties to sort by. |
-| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. |
+| [options.by] | <code>Array.&lt;string&gt;</code> | One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects. |
+| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or the property name of `options.customOrders`. |
 | [options.customOrders] | <code>object</code> | An object containing one or more custom orders. |
 | [options.computed] | <code>object</code> | An object containing one or more computed field functions. |
 
