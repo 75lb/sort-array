@@ -23,7 +23,7 @@ Sort an array of primitives, for example strings.
 [ 'afternoon', 'evening', 'morning', 'twilight' ]
 ```
 
-The default sort order is `asc`. You can also specify `desc` or a custom order. For example, sort parts of the day by the time in which they occur.
+The default sort order is `asc`. You can also specify `desc` or the name of a property from the `customOrders` dictionary object. For example, sort parts of the day by the time in which they occur.
 
 ```js
 > sortArray(partsOfTheDay, {
@@ -35,14 +35,14 @@ The default sort order is `asc`. You can also specify `desc` or a custom order. 
 [ 'morning', 'afternoon', 'evening', 'twilight' ]
 ```
 
-Sort by a computed field. For example, an algorithm to rank boxers by influence.
+Sort by a computed field, e.g. an algorithm to rank boxers by influence. Define your computed fields in the `computed` object, each value being a function which takes an array member as input and returns the value to be sorted by.
 
 ```js
 > const boxers = [
-  { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 },
   { name: 'Amir', ticketsSold: 30000, titlesHeld: 2 },
   { name: 'Vasiliy', ticketsSold: 20000, titlesHeld: 4 },
   { name: 'Josh', ticketsSold: 10000, titlesHeld: 3 },
+  { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 }
 ]
 
 > sortArray(boxers, {

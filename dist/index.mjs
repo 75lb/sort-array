@@ -339,12 +339,13 @@ var t = {
  */
 
 /**
- * @param {Array} array - Input array.
- * @param {object} [options] - Sort config.
+ * @param {Array} array - The input array to sort. It is sorted in place.
+ * @param {object} [options] - Config object.
  * @param {string[]} [options.by] - One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects.
- * @param {string[]} [options.order] - One or more sort orders. Specify `asc`, `desc` or the property name from `options.customOrders`.
- * @param {object} [options.customOrders] - An object containing one or more custom orders. Each custom order must be an array defining the order expected values must be sorted in.
- * @param {object} [options.computed] - An object containing one or more computed field functions.
+ * @param {string[]} [options.order] - One or more sort orders. Specify `asc`, `desc` or a property name from the `options.customOrders` object.
+ * @param {object} [options.customOrders] - A dictionary object containing one or more custom orders. Each custom order value must be an array defining the order expected values must be sorted in.
+ * @param {object} [options.computed] - A dictionary object containing one or more computed field functions.
+ * @returns {Array} Returns the array that was passed in.
  * @alias module:sort-array
  */
 function sortArray (arr, options = {}) {
