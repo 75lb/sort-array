@@ -345,11 +345,11 @@
    */
 
   /**
-   * @param {Array} arr - Input array.
+   * @param {Array} array - Input array.
    * @param {object} [options] - Sort config.
    * @param {string[]} [options.by] - One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects.
-   * @param {string[]} [options.order] - One or more sort orders. Specify `asc`, `desc` or the property name of `options.customOrders`.
-   * @param {object} [options.customOrders] - An object containing one or more custom orders.
+   * @param {string[]} [options.order] - One or more sort orders. Specify `asc`, `desc` or the property name from `options.customOrders`.
+   * @param {object} [options.customOrders] - An object containing one or more custom orders. Each custom order must be an array defining the order expected values must be sorted in.
    * @param {object} [options.computed] - An object containing one or more computed field functions.
    * @alias module:sort-array
    */

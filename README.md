@@ -23,7 +23,7 @@ Sort an array of primitives, for example strings.
 [ 'afternoon', 'evening', 'morning', 'twilight' ]
 ```
 
-The default sort order is `asc` but you could specify `desc` or a custom order. For example, sort the parts of the day by the time in which they occur.
+The default sort order is `asc`. You can also specify `desc` or a custom order. For example, sort parts of the day by the time in which they occur.
 
 ```js
 > sortArray(partsOfTheDay, {
@@ -52,7 +52,6 @@ Sort by a computed field. For example, an algorithm to rank boxers by influence.
     rank: boxer => boxer.ticketsSold + (boxer.titlesHeld * 10000)
   }
 })
-
 [
   { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 },
   { name: 'Vasiliy', ticketsSold: 20000, titlesHeld: 4 },
@@ -72,7 +71,12 @@ You can use computed fields to sort by values deep in an object structure.
   { inner: { number: 4 } }
 ]
 
-> sortArray(data, { by: 'number', computed: { number: row => row.inner.number} })
+> sortArray(data, {
+  by: 'number',
+  computed: {
+    number: row => row.inner.number
+  }
+})
 [
   { inner: { number: 1 } },
   { inner: { number: 2 } },
@@ -89,8 +93,10 @@ Sort by multiple columns using multiple custom orders.
   { skill: 'accuracy', confidence: 'medium' },
   { skill: 'power', confidence: 'high' },
   { skill: 'speed', confidence: 'low' },
+  { skill: 'power', confidence: 'low' },
   { skill: 'speed', confidence: 'high' },
   { skill: 'accuracy', confidence: 'low' },
+  { skill: 'speed', confidence: 'medium' },
   { skill: 'accuracy', confidence: 'high' },
   { skill: 'power', confidence: 'medium' }
 ]
@@ -108,7 +114,9 @@ Sort by multiple columns using multiple custom orders.
   { skill: 'accuracy', confidence: 'medium' },
   { skill: 'accuracy', confidence: 'high' },
   { skill: 'speed', confidence: 'low' },
+  { skill: 'speed', confidence: 'medium' },
   { skill: 'speed', confidence: 'high' },
+  { skill: 'power', confidence: 'low' },
   { skill: 'power', confidence: 'medium' },
   { skill: 'power', confidence: 'high' }
 ]
@@ -125,16 +133,16 @@ const sortArray = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortArray"></a>
 
-### sortArray(arr, [options]) ⏏
+### sortArray(array, [options]) ⏏
 **Kind**: Exported function  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| arr | <code>Array</code> | Input array. |
+| array | <code>Array</code> | Input array. |
 | [options] | <code>object</code> | Sort config. |
 | [options.by] | <code>Array.&lt;string&gt;</code> | One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects. |
-| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or the property name of `options.customOrders`. |
-| [options.customOrders] | <code>object</code> | An object containing one or more custom orders. |
+| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or the property name from `options.customOrders`. |
+| [options.customOrders] | <code>object</code> | An object containing one or more custom orders. Each custom order must be an array defining the order expected values must be sorted in. |
 | [options.computed] | <code>object</code> | An object containing one or more computed field functions. |
 
 
