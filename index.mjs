@@ -20,7 +20,10 @@ import t from './node_modules/typical/index.mjs'
  * @alias module:sort-array
  */
 function sortArray (arr, options = {}) {
-  options = Object.assign({}, { order: 'asc' }, options)
+  options = Object.assign(
+    { order: 'asc', computed: {}, customOrders: {} },
+    options
+  )
   arr.sort(getCompareFunc(options))
   return arr
 }
@@ -33,8 +36,12 @@ function getCompareFunc (options = {}) {
     const isAsc = order[byIndex] === 'asc'
     let result, x, y
     if (by.length) {
-      x = t.isDefined(xIn[by[byIndex]]) ? xIn[by[byIndex]] : computed[by[byIndex]](xIn)
-      y = t.isDefined(yIn[by[byIndex]]) ? yIn[by[byIndex]] : computed[by[byIndex]](yIn)
+      x = t.isDefined(xIn[by[byIndex]])
+        ? xIn[by[byIndex]]
+        : computed[by[byIndex]] && computed[by[byIndex]](xIn)
+      y = t.isDefined(yIn[by[byIndex]])
+        ? yIn[by[byIndex]]
+        : computed[by[byIndex]] && computed[by[byIndex]](yIn)
     } else {
       x = xIn
       y = yIn

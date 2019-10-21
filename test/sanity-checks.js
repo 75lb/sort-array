@@ -19,14 +19,12 @@ tom.test('missing named computed property 1 - no sort performed', function () {
     { inner: { a: 1, b: 10 } },
     { inner: { a: 4, b: 10 } }
   ]
-  const sortBy = ['total']
-  const sortTypes = ['asc']
-  const namedConfigs = {
-    namedComputedProps: {
-      MISSPELT: item => item.inner.a + item.inner.b
-    }
+  const by = ['total']
+  const order = ['asc']
+  const computed = {
+    MISSPELT: item => item.inner.a + item.inner.b
   }
-  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
+  const result = sort(fixture, { by, order, computed })
   a.deepStrictEqual(result, expected)
 })
 
@@ -42,13 +40,12 @@ tom.test('missing named custom order 1 - no sort performed', function () {
     { a: 1 }
   ]
 
-  const sortBy = ['a']
-  const sortTypes = ['custom1']
-  const namedConfigs = {
-    namedCustomOrders: {
-      MISSSPELLED: [1, 2, undefined]
-    }
+  const by = ['a']
+  const order = ['custom1']
+  const customOrders = {
+    MISSSPELLED: [1, 2, undefined]
   }
-  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
+  const result = sort(fixture, { by, order, customOrders })
+  // console.error(require('util').inspect(result, { depth: 6, colors: true, maxArrayLength: Infinity }))
   a.deepStrictEqual(result, expected)
 })

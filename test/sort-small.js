@@ -15,9 +15,9 @@ tom.test('order remains unchanged on (asc) 1', function () {
     { a: 4 },
     { a: 4 }
   ]
-  const sortBy = ['a']
-  const sortTypes = ['asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -32,9 +32,9 @@ tom.test('order remains unchanged on (asc) 2', function () {
     { a: 2 },
     { a: 3 }
   ]
-  const sortBy = ['a']
-  const sortTypes = ['asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -49,9 +49,9 @@ tom.test('order remains unchanged on (desc) 1', function () {
     { a: 4 },
     { a: 4 }
   ]
-  const sortBy = ['a']
-  const sortTypes = ['desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -66,9 +66,9 @@ tom.test('order remains unchanged on (desc) 2', function () {
     { a: 2 },
     { a: 1 }
   ]
-  const sortBy = ['a']
-  const sortTypes = ['desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -85,9 +85,9 @@ tom.test('order changes on (asc) 1', function () {
     { a: 3 },
     { a: 4 }
   ]
-  const sortBy = ['a']
-  const sortTypes = ['asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -102,9 +102,9 @@ tom.test('order changes on (desc) 1', function () {
     { a: 2 },
     { a: 1 }
   ]
-  const sortBy = ['a']
-  const sortTypes = ['desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -119,9 +119,9 @@ tom.test('order remains unchanged on (asc asc) 1', function () {
     { a: 4, b: 1 },
     { a: 4, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -136,9 +136,9 @@ tom.test('order remains unchanged on (asc asc) 2', function () {
     { a: 2, b: 1 },
     { a: 3, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -153,9 +153,9 @@ tom.test('order remains unchanged on (asc asc) 3', function () {
     { a: 2, b: 2 },
     { a: 3, b: 3 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -170,9 +170,9 @@ tom.test('order remains unchanged on (asc asc) 4', function () {
     { a: 4, b: 2 },
     { a: 4, b: 3 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -187,9 +187,9 @@ tom.test('order remains unchanged on (asc desc) 1', function () {
     { a: 4, b: 1 },
     { a: 4, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -204,9 +204,9 @@ tom.test('order remains unchanged on (asc desc) 2', function () {
     { a: 4, b: 2 },
     { a: 4, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -221,9 +221,9 @@ tom.test('order remains unchanged on (asc desc) 3', function () {
     { a: 2, b: 2 },
     { a: 3, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -244,9 +244,9 @@ tom.test('order changes on (asc desc) 1', function () {
     { a: 5, b: 2 },
     { a: 5, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['asc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['asc', 'desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -267,9 +267,9 @@ tom.test('order changes on (desc asc) 1', function () {
     { a: 2, b: 2 },
     { a: 1, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['desc', 'asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['desc', 'asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -290,8 +290,8 @@ tom.test('order changes on (desc desc) 1', function () {
     { a: 2, b: 2 },
     { a: 1, b: 1 }
   ]
-  const sortBy = ['a', 'b']
-  const sortTypes = ['desc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b']
+  const order = ['desc', 'desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })

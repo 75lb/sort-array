@@ -330,7 +330,7 @@ var t = {
 };
 
 /**
- * Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
+ * Isomorphic, load-anywhere function to sort an array by scalar, deep or computed value in any standard or custom order.
  *
  * @module sort-array
  * @typicalname sortArray
@@ -339,223 +339,69 @@ var t = {
  */
 
 /**
- * @param {Array} recordset - Input array of objects or primitive values.
- * @param {Array.<(string|function)>} sortBy - One or more property expressions to sort by. Expressions may be strings which refer to properties in the input array; they may be strings which refer to properties in the optional `options.computed` parameter; or they may be inline functions which dynamically calculate values for each property in the input array.
- * @param {Array.<(string|Array.<*>)>} sortTypes - The sort types for each of the sortBy expressions. Values may be 'asc', 'desc', an array of custom values, and strings which refer to properties in the optional `options.customOrder` parameter.
- * @params {object} [options] - Options
- * @param {object} [options] - Provides a means of reusing computed property functions and custom sort types.
- * @param {object} [options.computed] - Key/value pairs, where the keys correspond to strings given in the sortBy property list, and the values are functions which will dynamically calculated values for each property in the input array.
- * @param {object} [options.customOrder] - Key/value pairs, where the keys correspond to strings given in the sortTypes list, and the values are arrays of custom values which define the sort type.
- * @returns {Array}
- *
+ * @param {Array} arr - Input array.
+ * @param {object} [options] - Sort config.
+ * @param {string[]} [options.by] - One or more properties to sort by.
+ * @param {string[]} [options.order] - One or more sort orders.
+ * @param {object} [options.customOrders] - An object containing one or more custom orders.
+ * @param {object} [options.computed] - An object containing one or more computed field functions.
  * @alias module:sort-array
  */
-function sortArray (recordset, options) {
-  let { by: sortBy, order: sortTypes } = options;
-  const namedConfigs = options;
-
-  // First stage data preparation
-  recordset = arrayify(recordset);
-  sortBy = arrayify(sortBy);
-  sortTypes = arrayify(sortTypes);
-
-  let namedComputedProps = {};
-  let namedCustomOrders = {};
-  if (t.isObject(namedConfigs)) {
-    if (t.isDefined(namedConfigs.namedComputedProps)) {
-      namedComputedProps = namedConfigs.namedComputedProps;
-    }
-    if (t.isDefined(namedConfigs.namedCustomOrders)) {
-      namedCustomOrders = namedConfigs.namedCustomOrders;
-    }
-  }
-
-  // Perform sanity checks.
-  const isPrimitiveSort = recordset.some(record => t.isPrimitive(record));
-  if (isPrimitiveSort) {
-    // The only applicable 'sortBy' arguments on a primitive array
-    // are 'computed property' functions.
-    for (let i = 0; i < sortBy.length; i++) {
-      if (!t.isFunction(sortBy[i])) {
-        return recordset
-      }
-    }
-  } else {
-    // At least one 'sortBy' argument must be provided, so that the recordset
-    // can be sorted according to that property.
-    if (sortBy.length === 0) {
-      return recordset
-    }
-  }
-
-  // Ensure that if namedCustomOrders is provided, that the object keys
-  // are referenced in the sortTypes array
-  const noOfNamedCustomOrders = Object.keys(namedCustomOrders).length;
-  if (noOfNamedCustomOrders > 0) {
-    for (let i = 0; i < noOfNamedCustomOrders; i++) {
-      if (sortTypes.indexOf(Object.keys(namedCustomOrders)[i]) < 0) {
-        // Missing object key, return the recordset unchanged
-        return recordset
-      }
-    }
-  }
-
-  // Second stage data preparation. Ensure that each property in sortBy
-  // has a corresponding property in sortTypes. Populate missing and
-  // remove excess, as required.
-  if ((sortBy.length === 0) && (sortTypes.length === 0)) {
-    sortTypes.push('asc');
-  } else if (sortBy.length > sortTypes.length) {
-    // Not enough sortTypes have been provided. Fully hydrate the sortTypes
-    // array, using 'asc' by default.
-    const noOfMissingSortTypes = sortBy.length - sortTypes.length;
-    for (let i = 0; i < noOfMissingSortTypes; i++) {
-      sortTypes.push('asc');
-    }
-  } else if (!isPrimitiveSort && (sortBy.length < sortTypes.length)) {
-    // Too many sortTypes have been provided. Prune the redundant ones
-    // at the end of the sortType array.
-    sortTypes.splice(-1, sortTypes.length - sortBy.length);
-  }
-
-  if (isPrimitiveSort) {
-    return recordset.sort(comparePrim(sortBy, sortTypes))
-  } else {
-    return recordset.sort(compare(sortBy, sortTypes, namedComputedProps, namedCustomOrders))
-  }
+function sortArray (arr, options = {}) {
+  options = Object.assign(
+    { order: 'asc', computed: {}, customOrders: {} },
+    options
+  );
+  arr.sort(getCompareFunc(options));
+  return arr
 }
 
-function comparePrim (sortBy, sortTypes) {
-  // The property should be undefined or a function
-  const sorts = sortBy.slice(0);
-  const property = sorts.shift();
-
-  // The sort should be 'asc', 'desc', or a custom array
-  let sort;
-  if (sortTypes.length > 1) {
-    sort = sortTypes.slice(0);
-  } else {
-    const types = sortTypes.slice(0);
-    sort = types.shift();
-  }
-
-  return function sorter (a, b) {
-    let x;
-    let y;
-    let result;
-
-    // Allocate the comparees.
-    if (t.isFunction(property)) {
-      x = property(a);
-      y = property(b);
+function getCompareFunc (options = {}) {
+  const by = arrayify(options.by);
+  const order = arrayify(options.order);
+  const { customOrders, computed } = options;
+  return function compareFunc (xIn, yIn, byIndex = 0) {
+    const isAsc = order[byIndex] === 'asc';
+    let result, x, y;
+    if (by.length) {
+      x = t.isDefined(xIn[by[byIndex]])
+        ? xIn[by[byIndex]]
+        : computed[by[byIndex]] && computed[by[byIndex]](xIn);
+      y = t.isDefined(yIn[by[byIndex]])
+        ? yIn[by[byIndex]]
+        : computed[by[byIndex]] && computed[by[byIndex]](yIn);
     } else {
-      x = a;
-      y = b;
+      x = xIn;
+      y = yIn;
     }
 
-    // Perform the sort
-    if (t.isArrayLike(sort)) {
-      // Apply custom ordering
-      result = sort.indexOf(x) - sort.indexOf(y);
+    if (customOrders && customOrders[order[byIndex]]) {
+      result = customOrders[order[byIndex]].indexOf(x) - customOrders[order[byIndex]].indexOf(y);
+    } else if (x === y) {
+      result = 0;
+    } else if (t.isNull(x) && t.isUndefined(y)) {
+      result = isAsc ? 1 : -1;
+    } else if (t.isUndefined(x) && t.isNull(y)) {
+      result = isAsc ? -1 : 1;
+    } else if (t.isNull(x) && t.isDefinedValue(y)) {
+      result = 1;
+    } else if (t.isUndefined(x) && t.isDefinedValue(y)) {
+      result = 1;
+    } else if (t.isNull(y) && t.isDefinedValue(x)) {
+      result = -1;
+    } else if (t.isUndefined(y) && t.isDefinedValue(x)) {
+      result = -1;
     } else {
-      // Perform an asc sort by default, then invert later if a desc has been
-      // requested for the current property.
-      result = getOrder(x, y, sort === 'asc');
+      result = x < y ? -1 : x > y ? 1 : 0;
+      if (!isAsc) {
+        result = result * -1;
+      }
     }
-
+    if (result === 0 && by[byIndex + 1]) {
+      result = compareFunc(xIn, yIn, byIndex + 1);
+    }
     return result
   }
-}
-
-function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
-  // Identify the first property on which to sort, and the way it should be sorted.
-
-  // The property may be either a string property name, an anonymous function, or
-  // a string key into the namedComputedProps object.
-  let sorts = sortBy.slice(0);
-  let property = sorts.shift();
-
-  // The sort can be 'asc', 'desc', a custom array or a string key into the
-  // namedCustomOrders object.
-  let types = sortTypes.slice(0);
-  let sort = types.shift();
-
-  return function sorter (a, b) {
-    let x;
-    let y;
-    let result;
-    let recurse;
-    const currentSort = sort;
-
-    // Allocate the comparees.
-    if (t.isFunction(property)) {
-      x = property(a);
-      y = property(b);
-    } else if (t.isDefined(namedComputedProps[property])) {
-      x = namedComputedProps[property](a);
-      y = namedComputedProps[property](b);
-    } else {
-      x = a[property];
-      y = b[property];
-    }
-
-    // Perform the sort
-    if (t.isArrayLike(sort)) {
-      // Apply custom ordering
-      result = sort.indexOf(x) - sort.indexOf(y);
-    } else if (t.isDefined(namedCustomOrders[sort])) {
-      // Apply custom ordering
-      result = namedCustomOrders[sort].indexOf(x) - namedCustomOrders[sort].indexOf(y);
-    } else {
-      // Perform an asc sort by default, then invert later if a desc has been
-      // requested for the current property.
-      result = getOrder(x, y, currentSort === 'asc');
-    }
-
-    // Reset this sorting function and parent, unless there is an equal
-    // result and there are more sorts still to perform, in which case
-    // move on to the next one.
-    if (result === 0 && sorts.length) {
-      recurse = true;
-    } else {
-      recurse = false;
-      sorts = sortBy.slice(0);
-      types = sortTypes.slice(0);
-    }
-    property = sorts.shift();
-    sort = types.shift();
-
-    if (recurse) {
-      return sorter(a, b)
-    } else {
-      return result
-    }
-  }
-}
-
-function getOrder (x, y, asc) {
-  let result;
-  if (x === y) {
-    result = 0;
-  } else if (t.isNull(x) && t.isUndefined(y)) {
-    result = asc ? 1 : -1;
-  } else if (t.isUndefined(x) && t.isNull(y)) {
-    result = asc ? -1 : 1;
-  } else if (t.isNull(x) && t.isDefinedValue(y)) {
-    result = 1;
-  } else if (t.isUndefined(x) && t.isDefinedValue(y)) {
-    result = 1;
-  } else if (t.isNull(y) && t.isDefinedValue(x)) {
-    result = -1;
-  } else if (t.isUndefined(y) && t.isDefinedValue(x)) {
-    result = -1;
-  } else {
-    result = x < y ? -1 : x > y ? 1 : 0;
-    if (!asc) {
-      result = result * -1;
-    }
-  }
-  return result
 }
 
 export default sortArray;

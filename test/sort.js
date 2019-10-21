@@ -27,9 +27,9 @@ tom.test('(asc desc asc)', function () {
     { a: 4, b: 3, c: 1 },
     { a: 4, b: 1, c: 1 }
   ]
-  const sortBy = ['a', 'b', 'c']
-  const sortTypes = ['asc', 'desc', 'asc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b', 'c']
+  const order = ['asc', 'desc', 'asc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -56,8 +56,8 @@ tom.test('(desc asc desc)', function () {
     { a: 1, b: 2, c: 4 },
     { a: 1, b: 3, c: 4 }
   ]
-  const sortBy = ['a', 'b', 'c']
-  const sortTypes = ['desc', 'asc', 'desc']
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a', 'b', 'c']
+  const order = ['desc', 'asc', 'desc']
+  const result = sort(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })

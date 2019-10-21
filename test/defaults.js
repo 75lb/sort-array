@@ -27,9 +27,9 @@ tom.test('too few sort types provided - defaults to asc', function () {
     { a: 4, b: 3, c: 1 },
     { a: 4, b: 1, c: 1 }
   ]
-  const sortBy = ['a', 'b', 'c']
-  const sortTypes = ['asc', 'desc']
-  const result = sortArray(fixture, sortBy, sortTypes)
+  const by = ['a', 'b', 'c']
+  const order = ['asc', 'desc']
+  const result = sortArray(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })
 
@@ -56,8 +56,8 @@ tom.test('too many sort types provided - extras ignored', function () {
     { a: 4, b: 3, c: 1 },
     { a: 4, b: 1, c: 1 }
   ]
-  const sortBy = ['a', 'b', 'c']
-  const sortTypes = ['asc', 'desc', 'asc', 'desc', 'desc']
-  const result = sortArray(fixture, sortBy, sortTypes)
+  const by = ['a', 'b', 'c']
+  const order = ['asc', 'desc', 'asc', 'desc', 'desc']
+  const result = sortArray(fixture, { by, order })
   a.deepStrictEqual(result, expected)
 })

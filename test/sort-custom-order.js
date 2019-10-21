@@ -16,11 +16,10 @@ tom.test('unnamed sort order (inc undefined) 1', function () {
     { a: undefined }
   ]
 
-  const sortBy = ['a']
-  const sortTypes = [
-    [1, 2, undefined]
-  ]
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['custom']
+  const custom = [1, 2, undefined]
+  const result = sort(fixture, { by, order, customOrders: { custom }})
   a.deepStrictEqual(result, expected)
 })
 
@@ -36,14 +35,10 @@ tom.test('named sort order (inc undefined) 1', function () {
     { a: undefined }
   ]
 
-  const sortBy = ['a']
-  const sortTypes = ['custom1']
-  const namedConfigs = {
-    namedCustomOrders: {
-      custom1: [1, 2, undefined]
-    }
-  }
-  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
+  const by = ['a']
+  const order = ['custom']
+  const custom = [1, 2, undefined]
+  const result = sort(fixture, { by, order, customOrders: { custom }})
   a.deepStrictEqual(result, expected)
 })
 
@@ -59,11 +54,10 @@ tom.test('unnamed sort order (inc null) 1', function () {
     { a: null }
   ]
 
-  const sortBy = ['a']
-  const sortTypes = [
-    [1, 2, null]
-  ]
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['a']
+  const order = ['custom']
+  const custom = [1, 2, null]
+  const result = sort(fixture, { by, order, customOrders: { custom }})
   a.deepStrictEqual(result, expected)
 })
 
@@ -81,11 +75,10 @@ tom.test('unnamed sort order 1', function () {
     { fruit: 'orange' }
   ]
 
-  const sortBy = ['fruit']
-  const sortTypes = [
-    ['banana', 'pear', 'apple', 'orange']
-  ]
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['fruit']
+  const order = ['custom']
+  const custom = ['banana', 'pear', 'apple', 'orange']
+  const result = sort(fixture, { by, order, customOrders: { custom }})
   a.deepStrictEqual(result, expected)
 })
 
@@ -113,12 +106,13 @@ tom.test('unnamed 2-column sort 1', function () {
     { importance: 'strength', weight: 'medium' }
   ]
 
-  const sortBy = ['importance', 'weight']
-  const sortTypes = [
-    ['speed', 'strength', 'intelligence'],
-    ['low', 'medium', 'high']
-  ]
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['importance', 'weight']
+  const order = ['importance', 'weight']
+  const customOrders = {
+    importance: ['speed', 'strength', 'intelligence'],
+    weight: ['low', 'medium', 'high']
+  }
+  const result = sort(fixture, { by, order, customOrders })
   a.deepStrictEqual(result, expected)
 })
 
@@ -126,12 +120,13 @@ tom.test('jsdoc-parse usage 1', function () {
   const fixture = require('./fixture/jsdoc-parse')
   const expected = require('./expected/jsdoc-parse')
 
-  const sortBy = ['kind', 'scope']
-  const sortTypes = [
-    ['class', 'constructor', 'mixin', 'member', 'namespace', 'enum', 'constant', 'function', 'event', 'typedef', 'external'],
-    ['global', 'instance', 'static', 'inner']
-  ]
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['kind', 'scope']
+  const order = ['kind', 'scope']
+  const customOrders = {
+    kind: ['class', 'constructor', 'mixin', 'member', 'namespace', 'enum', 'constant', 'function', 'event', 'typedef', 'external'],
+    scope: ['global', 'instance', 'static', 'inner']
+  }
+  const result = sort(fixture, { by, order, customOrders })
   a.deepStrictEqual(result, expected)
 })
 
@@ -159,13 +154,13 @@ tom.test('unnamed 2-column sort (inc null) 1', function () {
     { importance: 3, weight: null }
   ]
 
-  const sortBy = ['importance', 'weight']
-  const sortTypes = [
-    [undefined, 1, 2, null, 3],
-    ['a', 'b', null]
-  ]
-
-  const result = sort(fixture, sortBy, sortTypes)
+  const by = ['importance', 'weight']
+  const order = ['importance', 'weight']
+  const customOrders = {
+    importance: [undefined, 1, 2, null, 3],
+    weight: ['a', 'b', null]
+  }
+  const result = sort(fixture, { by, order, customOrders })
   a.deepStrictEqual(result, expected)
 })
 
@@ -193,15 +188,12 @@ tom.test('named 2-column sort (inc null) 1', function () {
     { importance: 3, weight: null }
   ]
 
-  const sortBy = ['importance', 'weight']
-  const sortTypes = ['cImportance', 'cWeight']
-  const namedConfigs = {
-    namedCustomOrders: {
-      cImportance: [undefined, 1, 2, null, 3],
-      cWeight: ['a', 'b', null]
-    }
+  const by = ['importance', 'weight']
+  const order = ['importance', 'weight']
+  const customOrders = {
+    importance: [undefined, 1, 2, null, 3],
+    weight: ['a', 'b', null]
   }
-
-  const result = sort(fixture, sortBy, sortTypes, namedConfigs)
+  const result = sort(fixture, { by, order, customOrders })
   a.deepStrictEqual(result, expected)
 })
