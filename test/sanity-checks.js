@@ -46,6 +46,5 @@ tom.test('missing named custom order 1 - no sort performed', function () {
     MISSSPELLED: [1, 2, undefined]
   }
   const result = sort(fixture, { by, order, customOrders })
-  // console.error(require('util').inspect(result, { depth: 6, colors: true, maxArrayLength: Infinity }))
   a.deepStrictEqual(result, expected)
 })

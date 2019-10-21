@@ -355,7 +355,7 @@
    */
   function sortArray (arr, options = {}) {
     options = Object.assign(
-      { order: 'asc', computed: {}, customOrders: {} },
+      { computed: {}, customOrders: {} },
       options
     );
     arr.sort(getCompareFunc(options));
@@ -367,7 +367,11 @@
     const order = arrayify(options.order);
     const { customOrders, computed } = options;
     return function compareFunc (xIn, yIn, byIndex = 0) {
-      const isAsc = order[byIndex] === 'asc';
+      const currOrder = order[byIndex] || 'asc';
+      if (!(currOrder === 'asc' || currOrder === 'desc' || customOrders[currOrder] )) {
+        return 0
+      }
+
       let result, x, y;
       if (by.length) {
         x = t.isDefined(xIn[by[byIndex]])
@@ -381,14 +385,22 @@
         y = yIn;
       }
 
-      if (customOrders && customOrders[order[byIndex]]) {
-        result = customOrders[order[byIndex]].indexOf(x) - customOrders[order[byIndex]].indexOf(y);
+      if (customOrders && customOrders[currOrder]) {
+        result = customOrders[currOrder].indexOf(x) - customOrders[currOrder].indexOf(y);
       } else if (x === y) {
         result = 0;
       } else if (t.isNull(x) && t.isUndefined(y)) {
-        result = isAsc ? 1 : -1;
+        result = currOrder === 'asc'
+          ? 1
+          : currOrder === 'desc'
+            ? -1
+            : 0;
       } else if (t.isUndefined(x) && t.isNull(y)) {
-        result = isAsc ? -1 : 1;
+        result = currOrder === 'asc'
+          ? -1
+          : currOrder === 'desc'
+            ? 1
+            : 0;
       } else if (t.isNull(x) && t.isDefinedValue(y)) {
         result = 1;
       } else if (t.isUndefined(x) && t.isDefinedValue(y)) {
@@ -399,7 +411,7 @@
         result = -1;
       } else {
         result = x < y ? -1 : x > y ? 1 : 0;
-        if (!isAsc) {
+        if (currOrder === 'desc') {
           result = result * -1;
         }
       }
