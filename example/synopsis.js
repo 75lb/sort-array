@@ -18,16 +18,62 @@ console.log(sortArray(DJs, 'slot'))
 /* simple descending sort */
 console.log(sortArray(DJs, 'popularity', 'desc'))
 
-/* inline custom order */
+//TODO
+/* inline custom order - ban this */
 console.log(sortArray(DJs, 'slot', [['morning', 'afternoon', 'evening', 'twilight']]))
 
-/* named custom order */
-let options = {
+/* named custom order - only this*/
+console.log(sortArray(DJs, 'slot', 'slotOrder', {
   namedCustomOrders: {
     slotOrder: ['morning', 'afternoon', 'evening', 'twilight']
   }
-}
-console.log(sortArray(DJs, 'slot', 'slotOrder', options))
+}))
 
-/* multiple sort columns, inline custom order */
+//TODO
+/* validation: ensure sort order value (asc, desc, or custom) is correct and, if custom, exists in options? */
+
+//TODO
+/* multiple sort columns, inline custom order - BAN, too confusing */
 console.log(sortArray(DJs, ['slot', 'name'], [['morning', 'afternoon', 'evening', 'twilight'], 'asc']))
+
+//TODO
+/* sort by computed - BUG, null behaves like 'desc', should throw validation error */
+console.log(sortArray(DJs, 'one', null, {
+  namedComputedProps: {
+    one: i => i.popularity * i.review
+  }
+}))
+
+/* sort by computed */
+console.log(sortArray(DJs, 'one', 'desc', {
+  namedComputedProps: {
+    one: i => i.popularity * i.review
+  }
+}))
+
+const nums = [1,4,3,10,-1]
+
+/* default asc */
+console.log(sortArray(nums.slice()))
+
+/* default desc */
+console.log(sortArray(nums.slice(), undefined, 'desc'))
+
+//TODO
+/* default desc - BUG, null causes sort to have no effect  */
+console.log(sortArray(nums.slice(), null, 'desc'))
+
+//TODO
+/* default sort with custom order */
+/* is it worth having more than one custom order with primatives?  */
+console.log(sortArray(nums.slice(), undefined, 'one', {
+  namedCustomOrders: {
+    one: [4, 1, -1, 10, 1]
+  }
+}))
+
+console.log(sortArray(nums.slice(), 'one', undefined, {
+  namedComputedProps: {
+    one: i => i === 4 ? Infinity : i
+  }
+}))

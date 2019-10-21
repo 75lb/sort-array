@@ -5,7 +5,7 @@
     "Ben Vickers <bjvickers@protonmail.com>"
   ],
   "version": "3.0.0-2",
-  "description": "Sort an array of objects by any property value, at any depth, in any custom order.",
+  "description": "Sort an array by scalar, deep or computed value in any standard or custom order.",
   "repository": "https://github.com/75lb/sort-array",
   "license": "MIT",
   "main": "dist/index.js",
@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "array-back": "^4.0.0",
-    "typical": "^5.1.0"
+    "typical": "^5.2.0"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^5.0.1",
-    "rollup": "^1.20.3",
+    "jsdoc-to-markdown": "^5.0.2",
+    "rollup": "^1.25.1",
     "test-runner": "^0.6.0"
   },
   "files": [

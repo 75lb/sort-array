@@ -95,7 +95,7 @@ Sort by `slot` (with a custom sort type) then `name` (with an ascending sort typ
 <a name="module_sort-array"></a>
 
 ## sort-array
-Sort an array of objects or primitives, by any property value, in any combindation of ascending, descending, custom or calculated order.
+Sort an array by scalar, deep or computed value in any standard or custom order.
 
 **Example**  
 ```js
@@ -103,18 +103,17 @@ const sortArray = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortArray"></a>
 
-### sortArray(recordset, sortBy, sortTypes, [options]) ⇒ <code>Array</code> ⏏
+### sortArray(arr, [options]) ⏏
 **Kind**: Exported function  
-**Params**: <code>object</code> [options] - Options  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| recordset | <code>Array</code> | Input array of objects or primitive values. |
-| sortBy | <code>Array.&lt;(string\|function())&gt;</code> | One or more property expressions to sort by. Expressions may be strings which refer to properties in the input array; they may be strings which refer to properties in the optional `options.computed` parameter; or they may be inline functions which dynamically calculate values for each property in the input array. |
-| sortTypes | <code>Array.&lt;(string\|Array.&lt;\*&gt;)&gt;</code> | The sort types for each of the sortBy expressions. Values may be 'asc', 'desc', an array of custom values, and strings which refer to properties in the optional `options.customOrder` parameter. |
-| [options] | <code>object</code> | Provides a means of reusing computed property functions and custom sort types. |
-| [options.computed] | <code>object</code> | Key/value pairs, where the keys correspond to strings given in the sortBy property list, and the values are functions which will dynamically calculated values for each property in the input array. |
-| [options.customOrder] | <code>object</code> | Key/value pairs, where the keys correspond to strings given in the sortTypes list, and the values are arrays of custom values which define the sort type. |
+| arr | <code>Array</code> | Input array. |
+| [options] | <code>object</code> | Sort config. |
+| [options.by] | <code>Array.&lt;string&gt;</code> | One or more properties to sort by. |
+| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. |
+| [options.customOrders] | <code>object</code> | An object containing one or more custom orders. |
+| [options.computed] | <code>object</code> | An object containing one or more computed field functions. |
 
 
 ## Load anywhere

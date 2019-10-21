@@ -60,15 +60,17 @@ function arrayify (input) {
 }
 
 /**
- * Functional, isomorphic, load-anywhere type checking for Javascript.
+ * Isomorphic, functional type-checking for Javascript.
  * @module typical
  * @typicalname t
  * @example
  * const t = require('typical')
+ * const allDefined = array.every(t.isDefined)
  */
 
 /**
- * Returns true if input is a number
+ * Returns true if input is a number. It is a more reasonable alternative to `typeof n` which returns `number` for `NaN` and `Infinity`.
+ *
  * @param {*} - the input to test
  * @returns {boolean}
  * @static
@@ -125,7 +127,7 @@ function isPlainObject (input) {
 }
 
 /**
- * An array-like value has all the properties of an array, but is not an array instance. Examples in the `arguments` object. Returns true if the input value is an object, not null and has a `length` property with a numeric value.
+ * An array-like value has all the properties of an array yet is not an array instance. An example is the `arguments` object. Returns `true`` if the input value is an object, not `null`` and has a `length` property set with a numeric value.
  *
  * @param {*} - the input to test
  * @returns {boolean}
@@ -158,6 +160,36 @@ function isObject$1 (input) {
  */
 function isDefined (input) {
   return typeof input !== 'undefined'
+}
+
+/**
+ * Returns true if the input value is undefined.
+ * @param {*} - the input to test
+ * @returns {boolean}
+ * @static
+ */
+function isUndefined (input) {
+  return !isDefined(input)
+}
+
+/**
+ * Returns true if the input value is null.
+ * @param {*} - the input to test
+ * @returns {boolean}
+ * @static
+ */
+function isNull (input) {
+ return input === null
+}
+
+/**
+ * Returns true if the input value is not one of `undefined`, `null`, or `NaN`.
+ * @param {*} - the input to test
+ * @returns {boolean}
+ * @static
+ */
+function isDefinedValue (input) {
+ return isDefined(input) && !isNull(input) && !Number.isNaN(input)
 }
 
 /**
@@ -286,6 +318,9 @@ var t = {
   isArrayLike: isArrayLike$1,
   isObject: isObject$1,
   isDefined,
+  isUndefined,
+  isNull,
+  isDefinedValue,
   isClass,
   isPrimitive,
   isPromise,
@@ -315,7 +350,10 @@ var t = {
  *
  * @alias module:sort-array
  */
-function sortArray (recordset, sortBy, sortTypes, namedConfigs) {
+function sortArray (recordset, options) {
+  let { by: sortBy, order: sortTypes } = options;
+  const namedConfigs = options;
+
   // First stage data preparation
   recordset = arrayify(recordset);
   sortBy = arrayify(sortBy);
@@ -425,7 +463,6 @@ function comparePrim (sortBy, sortTypes) {
       result = getOrder(x, y, sort === 'asc');
     }
 
-    // Present the result
     return result
   }
 }
@@ -488,7 +525,6 @@ function compare (sortBy, sortTypes, namedComputedProps, namedCustomOrders) {
     property = sorts.shift();
     sort = types.shift();
 
-    // Present the result
     if (recurse) {
       return sorter(a, b)
     } else {
@@ -501,17 +537,17 @@ function getOrder (x, y, asc) {
   let result;
   if (x === y) {
     result = 0;
-  } else if (isNull(x) && isUndefined(y)) {
+  } else if (t.isNull(x) && t.isUndefined(y)) {
     result = asc ? 1 : -1;
-  } else if (isUndefined(x) && isNull(y)) {
+  } else if (t.isUndefined(x) && t.isNull(y)) {
     result = asc ? -1 : 1;
-  } else if (isNull(x) && isDefinedValue(y)) {
+  } else if (t.isNull(x) && t.isDefinedValue(y)) {
     result = 1;
-  } else if (isUndefined(x) && isDefinedValue(y)) {
+  } else if (t.isUndefined(x) && t.isDefinedValue(y)) {
     result = 1;
-  } else if (isNull(y) && isDefinedValue(x)) {
+  } else if (t.isNull(y) && t.isDefinedValue(x)) {
     result = -1;
-  } else if (isUndefined(y) && isDefinedValue(x)) {
+  } else if (t.isUndefined(y) && t.isDefinedValue(x)) {
     result = -1;
   } else {
     result = x < y ? -1 : x > y ? 1 : 0;
@@ -520,18 +556,6 @@ function getOrder (x, y, asc) {
     }
   }
   return result
-}
-
-function isNull (input) {
-  return input === null
-}
-
-function isDefinedValue (input) {
-  return t.isDefined(input) && !isNull(input)
-}
-
-function isUndefined (input) {
-  return !t.isDefined(input)
 }
 
 export default sortArray;
