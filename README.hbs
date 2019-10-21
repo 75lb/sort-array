@@ -6,7 +6,7 @@
 
 # sort-array
 
-Powerful, isomorphic, load-anywhere module for sorting an array of objects or primatives.
+Isomorphic, load-anywhere function to sort an array by scalar, deep or computed value in any standard or custom order.
 
 ```js
 const sortArray = require('sort-array')
@@ -30,7 +30,7 @@ With this data
 Sort by `slot` using an ascending sort type
 
 ```js
-> sortArray(DJs, 'slot', 'asc')
+> sortArray(DJs, { by: 'slot' })
 [ { name: 'Mike', slot: 'afternoon' },
   { name: 'Zane', slot: 'evening' },
   { name: 'Chris', slot: 'morning' },
@@ -42,7 +42,7 @@ Sort by `slot` using an ascending sort type
 Sort by `slot` using a descending sort type
 
 ```js
-> sortArray(DJs, 'slot', 'desc')
+> sortArray(DJs, { by: 'slot', order: 'desc' })
 [ { name: 'Chris', slot: 'twilight' },
   { name: 'Trevor', slot: 'twilight' },
   { name: 'Chris', slot: 'morning' },
@@ -51,45 +51,17 @@ Sort by `slot` using a descending sort type
   { name: 'Mike', slot: 'afternoon' }]
 ```
 
-Sort by `slot` using an 'inline' custom sort type
+Sort by `slot` in a custom order.
 
 ```js
-> sortArray(DJs, 'slot', [ 'morning', 'afternoon', 'evening', 'twilight' ])
+> const slotOrder = [ 'morning', 'afternoon', 'evening', 'twilight' ]
+> sortArray(DJs, { by: 'slot', order: 'slotOrder', customOrders: { slotOrder } })
 [ { name: 'Rodney', slot: 'morning' },
   { name: 'Chris', slot: 'morning' },
   { name: 'Mike', slot: 'afternoon' },
   { name: 'Zane', slot: 'evening' },
   { name: 'Trevor', slot: 'twilight' },
   { name: 'Chris', slot: 'twilight' } ]
-```
-
-Sort by `slot` using an 'named' custom sort type
-
-```js
-> let namedConfigs = {
-    namedCustomOrders: {
-      custOrder1: [ 'morning', 'afternoon', 'evening', 'twilight' ]
-    }
-  }
-> sortArray(DJs, 'slot', [ 'custOrder1' ], namedConfigs)
-[ { name: 'Rodney', slot: 'morning' },
-  { name: 'Chris', slot: 'morning' },
-  { name: 'Mike', slot: 'afternoon' },
-  { name: 'Zane', slot: 'evening' },
-  { name: 'Trevor', slot: 'twilight' },
-  { name: 'Chris', slot: 'twilight' } ]
-```
-
-Sort by `slot` (with a custom sort type) then `name` (with an ascending sort type)
-
-```js
-> sortArray(DJs, ['slot', 'name'], [ [ 'morning', 'afternoon', 'evening', 'twilight' ], 'asc' ])
-[ { name: 'Chris', slot: 'morning' },
-  { name: 'Rodney', slot: 'morning' },
-  { name: 'Mike', slot: 'afternoon' },
-  { name: 'Zane', slot: 'evening' },
-  { name: 'Chris', slot: 'twilight' },
-  { name: 'Trevor', slot: 'twilight' } ]
 ```
 
 {{>main}}

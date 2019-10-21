@@ -5,7 +5,7 @@
     "Ben Vickers <bjvickers@protonmail.com>"
   ],
   "version": "3.0.0-2",
-  "description": "Sort an array by scalar, deep or computed value in any standard or custom order.",
+  "description": "Isomorphic, load-anywhere function to sort an array by scalar, deep or computed value in any standard or custom order",
   "repository": "https://github.com/75lb/sort-array",
   "license": "MIT",
   "main": "dist/index.js",
