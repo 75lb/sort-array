@@ -2,7 +2,7 @@ import arrayify from './node_modules/array-back/index.mjs'
 import t from './node_modules/typical/index.mjs'
 
 /**
- * Isomorphic, load-anywhere function to sort an array by scalar, deep or computed value in any standard or custom order.
+ * Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
  *
  * @module sort-array
  * @typicalname sortArray

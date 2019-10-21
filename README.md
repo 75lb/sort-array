@@ -6,7 +6,7 @@
 
 # sort-array
 
-Isomorphic, load-anywhere function to sort an array by scalar, deep or computed value in any standard or custom order.
+Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
 
 ```js
 const sortArray = require('sort-array')
@@ -67,7 +67,7 @@ Sort by `slot` in a custom order.
 <a name="module_sort-array"></a>
 
 ## sort-array
-Isomorphic, load-anywhere function to sort an array by scalar, deep or computed value in any standard or custom order.
+Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
 
 **Example**  
 ```js
