@@ -66,9 +66,7 @@ You can use computed fields to sort by values deep in an object structure.
 > const data = [
   { inner: { number: 2 } },
   { inner: { number: 3 } },
-  { inner: { number: 5 } },
-  { inner: { number: 1 } },
-  { inner: { number: 4 } }
+  { inner: { number: 1 } }
 ]
 
 > sortArray(data, {
@@ -80,9 +78,7 @@ You can use computed fields to sort by values deep in an object structure.
 [
   { inner: { number: 1 } },
   { inner: { number: 2 } },
-  { inner: { number: 3 } },
-  { inner: { number: 4 } },
-  { inner: { number: 5 } }
+  { inner: { number: 3 } }
 ]
 ```
 
