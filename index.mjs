@@ -12,7 +12,7 @@ import t from './node_modules/typical/index.mjs'
 
 /**
  * @param {Array} array - The input array to sort. It is sorted in place.
- * @param {object} [options] - Config object.
+ * @param {object} [options] - Sort options.
  * @param {string[]} [options.by] - One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects.
  * @param {string[]} [options.order] - One or more sort orders. Specify `asc`, `desc` or a property name from the `options.customOrders` object.
  * @param {object} [options.customOrders] - A dictionary object containing one or more custom orders. Each custom order value must be an array defining the order expected values must be sorted in.

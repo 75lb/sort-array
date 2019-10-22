@@ -23,7 +23,7 @@ Sort an array of primitives, for example strings.
 [ 'afternoon', 'evening', 'morning', 'twilight' ]
 ```
 
-The default sort order is `asc`. You can also specify `desc` or the name of a property from the `customOrders` object. For example, sort the parts of the day by the time in which they occur.
+The default sort order is `asc`. You can also specify `desc` or the name of a property from the `customOrders` object. For example, sort parts of the day by the order in which they occur.
 
 ```js
 > sortArray(partsOfTheDay, {
@@ -35,7 +35,7 @@ The default sort order is `asc`. You can also specify `desc` or the name of a pr
 [ 'morning', 'afternoon', 'evening', 'twilight' ]
 ```
 
-Sort by a computed field, e.g. an algorithm to rank boxers by influence. Define your computed fields in the `computed` object, each value being a function which takes an array member as input and returns the value to be sorted by. In this example we sort by `rank` - the name of our computed field supplied in `computed`.
+Sort by a computed field, e.g. an algorithm to rank boxers by influence. Define your computed fields in the `computed` object, each value being a function which takes an array member as input and returns the value to be sorted by. In this example we sort by `rank` (the name of our computed field supplied in `computed`).
 
 ```js
 > const boxers = [
@@ -136,7 +136,7 @@ const sortArray = require('sort-array')
 | Param | Type | Description |
 | --- | --- | --- |
 | array | <code>Array</code> | The input array to sort. It is sorted in place. |
-| [options] | <code>object</code> | Config object. |
+| [options] | <code>object</code> | Sort options. |
 | [options.by] | <code>Array.&lt;string&gt;</code> | One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects. |
 | [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or a property name from the `options.customOrders` object. |
 | [options.customOrders] | <code>object</code> | A dictionary object containing one or more custom orders. Each custom order value must be an array defining the order expected values must be sorted in. |
