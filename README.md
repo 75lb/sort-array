@@ -35,28 +35,26 @@ The default sort order is `asc`. You can also specify `desc` or the name of a pr
 [ 'morning', 'afternoon', 'evening', 'twilight' ]
 ```
 
-Sort by a computed field, e.g. an algorithm to rank boxers by influence. Define your computed fields in the `computed` object, each value being a function which takes an array member as input and returns the value to be sorted by. In this example we sort by `rank` (the name of our computed field supplied in `computed`).
+Sort by a computed field, i.e. a computed value that doesn't exist in the input dataset. Define your computed fields in the `options.computed` object, each value being a function which takes an array member as input and returns the primitive value to be sorted by. In this example we sort by `total` (the name of the computed field supplied in `options.computed`).
 
 ```js
-> const boxers = [
-  { name: 'Amir', ticketsSold: 30000, titlesHeld: 2 },
-  { name: 'Vasiliy', ticketsSold: 20000, titlesHeld: 4 },
-  { name: 'Josh', ticketsSold: 10000, titlesHeld: 3 },
-  { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 }
+> const repositories = [
+  { name: '75lb/sort-array', openIssues: 0, closedIssues: 4 },
+  { name: 'lwsjs/local-web-server', openIssues: 4, closedIssues: 80 },
+  { name: 'jsdoc2md/jsdoc-api', openIssues: 3, closedIssues: 47 }
 ]
 
-> sortArray(boxers, {
-  by: 'rank',
+> sortArray(repositories, {
+  by: 'total',
   order: 'desc',
   computed: {
-    rank: boxer => boxer.ticketsSold + (boxer.titlesHeld * 10000)
+    total: repository => repository.openIssues + repository.closedIssues
   }
 })
 [
-  { name: 'Anthony', ticketsSold: 90000, titlesHeld: 0 },
-  { name: 'Vasiliy', ticketsSold: 20000, titlesHeld: 4 },
-  { name: 'Amir', ticketsSold: 30000, titlesHeld: 2 },
-  { name: 'Josh', ticketsSold: 10000, titlesHeld: 3 }
+  { name: 'lwsjs/local-web-server', openIssues: 4, closedIssues: 80 },
+  { name: 'jsdoc2md/jsdoc-api', openIssues: 3, closedIssues: 47 },
+  { name: '75lb/sort-array', openIssues: 0, closedIssues: 4 }
 ]
 ```
 
