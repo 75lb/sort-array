@@ -140,7 +140,7 @@ const sortArray = require('sort-array')
 | [options.by] | <code>Array.&lt;string&gt;</code> | One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects. |
 | [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or a property name from the `options.customOrders` object. |
 | [options.customOrders] | <code>object</code> | A dictionary object containing one or more custom orders. Each custom order value must be an array defining the order expected values must be sorted in. |
-| [options.computed] | <code>object</code> | A dictionary object containing one or more computed field functions. |
+| [options.computed] | <code>object</code> | A dictionary object containing one or more computed field functions. The function will be invoked once per item in the array. Each invocation will receive the array item as input and must return a primitive value by which the array can be sorted. |
 
 
 ## Load anywhere
