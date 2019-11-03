@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "jsdoc-to-markdown": "^5.0.2",
-    "rollup": "^1.25.2",
+    "rollup": "^1.26.3",
     "test-runner": "^0.6.0"
   },
   "files": [

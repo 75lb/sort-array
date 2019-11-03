@@ -116,6 +116,8 @@ Sort by multiple columns using multiple custom orders.
 ]
 ```
 
+Please visit [the sort-array wiki](https://github.com/75lb/sort-array/wiki) for more examples.
+
 <a name="module_sort-array"></a>
 
 ## sort-array
