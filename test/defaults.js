@@ -2,7 +2,7 @@ const Tom = require('test-runner').Tom
 const sortArray = require('../')
 const a = require('assert')
 
-const tom = module.exports = new Tom('defaults')
+const tom = module.exports = new Tom()
 
 tom.test('too few sort types provided - defaults to asc', function () {
   const fixture = [

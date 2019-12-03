@@ -26,7 +26,7 @@
   "scripts": {
     "test": "npm run dist && test-runner test/*.js",
     "docs": "jsdoc2md -c jsdoc.conf -t README.hbs index.mjs > README.md",
-    "dist": "rollup -f umd -o dist/index.js -n sortArray index.mjs && rollup -f esm -o dist/index.mjs index.mjs"
+    "dist": "rollup -c"
   },
   "dependencies": {
     "array-back": "^4.0.1",
@@ -35,6 +35,7 @@
   "devDependencies": {
     "jsdoc-to-markdown": "^5.0.3",
     "rollup": "^1.27.8",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "test-runner": "^0.8.7"
   },
   "files": [
