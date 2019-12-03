@@ -21,7 +21,7 @@
     "desc"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "scripts": {
     "test": "npm run dist && test-runner test/*.js",
@@ -29,13 +29,13 @@
     "dist": "rollup -f umd -o dist/index.js -n sortArray index.mjs && rollup -f esm -o dist/index.mjs index.mjs"
   },
   "dependencies": {
-    "array-back": "^4.0.0",
-    "typical": "^5.2.0"
+    "array-back": "^4.0.1",
+    "typical": "^6.0.0"
   },
   "devDependencies": {
-    "jsdoc-to-markdown": "^5.0.2",
-    "rollup": "^1.26.3",
-    "test-runner": "^0.6.0"
+    "jsdoc-to-markdown": "^5.0.3",
+    "rollup": "^1.27.8",
+    "test-runner": "^0.8.7"
   },
   "files": [
     "dist/index.js",
