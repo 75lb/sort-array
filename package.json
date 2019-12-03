@@ -25,7 +25,7 @@
   },
   "scripts": {
     "test": "npm run dist && test-runner test/*.js",
-    "docs": "jsdoc2md -c jsdoc.conf -t README.hbs index.mjs > README.md",
+    "docs": "jsdoc2md -c jsdoc.conf -t README.hbs index.mjs -d 3 > README.md",
     "dist": "rollup -c"
   },
   "dependencies": {

@@ -23,6 +23,8 @@ Sort an array of primitives, for example strings.
 [ 'afternoon', 'evening', 'morning', 'twilight' ]
 ```
 
+### Custom sort order
+
 The default sort order is `asc`. You can also specify `desc` or the name of a property from the `customOrders` object. For example, sort parts of the day by the order in which they occur.
 
 ```js
@@ -34,6 +36,8 @@ The default sort order is `asc`. You can also specify `desc` or the name of a pr
 })
 [ 'morning', 'afternoon', 'evening', 'twilight' ]
 ```
+
+### Sort by computed field
 
 Sort by a computed field, i.e. a computed value that doesn't exist in the input dataset. Define your computed fields in the `options.computed` object, each value being a function which takes an array member as input and returns the primitive value to be sorted by. In this example we sort by `total` (the name of the computed field supplied in `options.computed`).
 
@@ -58,6 +62,8 @@ Sort by a computed field, i.e. a computed value that doesn't exist in the input 
 ]
 ```
 
+### Sort by deep object values
+
 You can use computed fields to sort by values deep in an object structure.
 
 ```js
@@ -79,6 +85,8 @@ You can use computed fields to sort by values deep in an object structure.
   { inner: { number: 3 } }
 ]
 ```
+
+### Sort by multiple fields
 
 Sort by multiple columns using multiple custom orders.
 
@@ -118,9 +126,11 @@ Sort by multiple columns using multiple custom orders.
 
 Please visit [the sort-array wiki](https://github.com/75lb/sort-array/wiki) for more examples.
 
+## API Reference
+
 <a name="module_sort-array"></a>
 
-## sort-array
+### sort-array
 Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
 
 **Example**  
@@ -129,7 +139,7 @@ const sortArray = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortArray"></a>
 
-### sortArray(array, [options]) ⇒ <code>Array</code> ⏏
+#### sortArray(array, [options]) ⇒ <code>Array</code> ⏏
 **Kind**: Exported function  
 **Returns**: <code>Array</code> - Returns the array that was passed in.  
 
