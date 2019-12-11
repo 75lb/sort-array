@@ -169,6 +169,126 @@ async function getTom () {
     a.deepStrictEqual(result, expected)
   })
 
+  tom.test('nullRank: -1', function () {
+    const fixture = [
+      { a: 4, b: null, c: 3 },
+      { a: 4, b: 2, c: null },
+      { a: 2, b: 2, c: 3 },
+      { a: 2, b: 2, c: 2 },
+      { a: null, b: 3, c: 4 },
+      { a: null, b: null, c: 4 },
+      { a: null, b: 2, c: 4 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: 3, c: null }
+    ]
+    const expected = [
+      { a: null, b: null, c: 4 },
+      { a: null, b: 2, c: 4 },
+      { a: null, b: 3, c: 4 },
+      { a: 2, b: 2, c: 2 },
+      { a: 2, b: 2, c: 3 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: null, c: 3 },
+      { a: 4, b: 2, c: null },
+      { a: 4, b: 3, c: null },
+    ]
+
+    const by = ['a', 'b', 'c']
+    const order = ['asc', 'asc', 'asc']
+    const result = sortArray(fixture, { by, order, nullRank: -1 })
+    a.deepStrictEqual(result, expected)
+  })
+
+  tom.test('nullRank: 1', function () {
+    const fixture = [
+      { a: 4, b: null, c: 3 },
+      { a: 4, b: 2, c: null },
+      { a: 2, b: 2, c: 3 },
+      { a: 2, b: 2, c: 2 },
+      { a: null, b: 3, c: 4 },
+      { a: null, b: null, c: 4 },
+      { a: null, b: 2, c: 4 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: 3, c: null }
+    ]
+    const expected = [
+      { a: 2, b: 2, c: 2 },
+      { a: 2, b: 2, c: 3 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: 2, c: null },
+      { a: 4, b: 3, c: null },
+      { a: 4, b: null, c: 3 },
+      { a: null, b: 2, c: 4 },
+      { a: null, b: 3, c: 4 },
+      { a: null, b: null, c: 4 },
+    ]
+
+    const by = ['a', 'b', 'c']
+    const order = ['asc', 'asc', 'asc']
+    const result = sortArray(fixture, { by, order, nullRank: 1 })
+    a.deepStrictEqual(result, expected)
+  })
+
+  tom.test('undefinedRank: -1', function () {
+    const fixture = [
+      { a: 4, b: undefined, c: 3 },
+      { a: 4, b: 2, c: undefined },
+      { a: 2, b: 2, c: 3 },
+      { a: 2, b: 2, c: 2 },
+      { a: undefined, b: 3, c: 4 },
+      { a: undefined, b: undefined, c: 4 },
+      { a: undefined, b: 2, c: 4 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: 3, c: undefined }
+    ]
+    const expected = [
+      { a: undefined, b: undefined, c: 4 },
+      { a: undefined, b: 2, c: 4 },
+      { a: undefined, b: 3, c: 4 },
+      { a: 2, b: 2, c: 2 },
+      { a: 2, b: 2, c: 3 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: undefined, c: 3 },
+      { a: 4, b: 2, c: undefined },
+      { a: 4, b: 3, c: undefined },
+    ]
+
+    const by = ['a', 'b', 'c']
+    const order = ['asc', 'asc', 'asc']
+    const result = sortArray(fixture, { by, order, undefinedRank: -1 })
+    a.deepStrictEqual(result, expected)
+  })
+
+  tom.test('undefinedRank: 1', function () {
+    const fixture = [
+      { a: 4, b: undefined, c: 3 },
+      { a: 4, b: 2, c: undefined },
+      { a: 2, b: 2, c: 3 },
+      { a: 2, b: 2, c: 2 },
+      { a: undefined, b: 3, c: 4 },
+      { a: undefined, b: undefined, c: 4 },
+      { a: undefined, b: 2, c: 4 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: 3, c: undefined }
+    ]
+    const expected = [
+      { a: 2, b: 2, c: 2 },
+      { a: 2, b: 2, c: 3 },
+      { a: 3, b: 3, c: 3 },
+      { a: 4, b: 2, c: undefined },
+      { a: 4, b: 3, c: undefined },
+      { a: 4, b: undefined, c: 3 },
+      { a: undefined, b: 2, c: 4 },
+      { a: undefined, b: 3, c: 4 },
+      { a: undefined, b: undefined, c: 4 },
+    ]
+
+    const by = ['a', 'b', 'c']
+    const order = ['asc', 'asc', 'asc']
+    const result = sortArray(fixture, { by, order, undefinedRank: 1 })
+    a.deepStrictEqual(result, expected)
+  })
+
   return tom
 }
 

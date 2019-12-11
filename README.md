@@ -139,15 +139,15 @@ Please visit [the sort-array wiki](https://github.com/75lb/sort-array/wiki) for 
 ### sort-array
 Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
 
-**Example**
+**Example**  
 ```js
 const sortArray = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortArray"></a>
 
 #### sortArray(array, [options]) ⇒ <code>Array</code> ⏏
-**Kind**: Exported function
-**Returns**: <code>Array</code> - Returns the array that was passed in.
+**Kind**: Exported function  
+**Returns**: <code>Array</code> - Returns the array that was passed in.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -157,6 +157,8 @@ const sortArray = require('sort-array')
 | [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or a property name from the `options.customOrders` object. |
 | [options.customOrders] | <code>object</code> | A dictionary object containing one or more custom orders. Each custom order value must be an array defining the order expected values must be sorted in. |
 | [options.computed] | <code>object</code> | A dictionary object containing one or more computed field functions. The function will be invoked once per item in the array. Each invocation will receive the array item as input and must return a primitive value by which the array can be sorted. |
+| [options.nullRank] | <code>number</code> | Configures whether `null` values will be sorted before or after defined values. Set to `-1` for before, `1` for after. Defaults to `1`. |
+| [options.undefinedRank] | <code>number</code> | Configures whether `undefined` values will be sorted before or after defined values. Set to `-1` for before, `1` for after. Defaults to `1`. |
 
 
 ## Load anywhere

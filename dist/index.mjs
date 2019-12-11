@@ -350,7 +350,12 @@ var t = {
  */
 function sortArray (arr, options = {}) {
   options = Object.assign(
-    { computed: {}, customOrders: {} },
+    {
+      computed: {},
+      customOrders: {},
+      nullRank: 1,
+      undefinedRank: 1
+    },
     options
   );
   arr.sort(getCompareFunc(options));
@@ -397,13 +402,13 @@ function getCompareFunc (options = {}) {
           ? 1
           : 0;
     } else if (t.isNull(x) && t.isDefinedValue(y)) {
-      result = 1;
+      result = options.nullRank;
     } else if (t.isUndefined(x) && t.isDefinedValue(y)) {
-      result = 1;
+      result = options.undefinedRank;
     } else if (t.isNull(y) && t.isDefinedValue(x)) {
-      result = -1;
+      result = -options.nullRank;
     } else if (t.isUndefined(y) && t.isDefinedValue(x)) {
-      result = -1;
+      result = -options.undefinedRank;
     } else {
       result = x < y ? -1 : x > y ? 1 : 0;
       if (currOrder === 'desc') {
