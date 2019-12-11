@@ -1,4 +1,4 @@
-[
+const data = [
   {
     "kind": "class",
     "scope": "global"
@@ -55,3 +55,5 @@
     "scope": "instance"
   }
 ]
+
+export default data

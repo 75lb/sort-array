@@ -24,7 +24,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "test": "npm run dist && test-runner test/*.js",
+    "test": "npm run dist && esm-runner test/*.mjs && web-runner test/*.mjs",
     "docs": "jsdoc2md -c jsdoc.conf -t README.hbs index.mjs -d 3 > README.md",
     "dist": "rollup -c"
   },
@@ -33,10 +33,13 @@
     "typical": "^6.0.0"
   },
   "devDependencies": {
+    "@test-runner/web": "^0.3.3",
+    "esm-runner": "^0.3.3",
+    "isomorphic-assert": "^0.1.1",
     "jsdoc-to-markdown": "^5.0.3",
-    "rollup": "^1.27.8",
+    "rollup": "^1.27.9",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "test-runner": "^0.8.7"
+    "test-object-model": "^0.6.0"
   },
   "files": [
     "dist/index.js",

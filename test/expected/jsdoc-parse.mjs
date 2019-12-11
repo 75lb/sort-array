@@ -1,4 +1,4 @@
-[ { "kind": "class", "scope": "global" },
+const data = [ { "kind": "class", "scope": "global" },
   { "kind": "constructor" },
   { "kind": "mixin", "scope": "global" },
   { "kind": "member", "scope": "global" },
@@ -12,3 +12,5 @@
   { "kind": "function", "scope": "instance" },
   { "kind": "function", "scope": "instance" },
   { "kind": "function", "scope": "static" } ]
+
+export default data
