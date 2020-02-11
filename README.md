@@ -18,7 +18,9 @@ Some trivial examples to demonstrate typical usage.
 
 ### Sorting an array of primitives
 
-Sort an array of strings.
+#### Ascending order
+
+Sort an array of strings in ascending order (the default).
 
 ```js
 > const partsOfTheDay = ['twilight', 'afternoon', 'morning', 'evening']
@@ -27,9 +29,18 @@ Sort an array of strings.
 [ 'afternoon', 'evening', 'morning', 'twilight' ]
 ```
 
+#### Descending order
+
+Sort an array of strings in descending order.
+
+```js
+> sortArray(partsOfTheDay, { order: 'desc' })
+[ 'twilight', 'morning', 'evening', 'afternoon' ]
+```
+
 #### Custom sort order
 
-The default sort order is `asc`. You can also specify `desc` or the name of a property from the `customOrders` object. For example, sort parts of the day by the order in which they occur.
+The default value for `options.order` is `'asc'`. You can also specify `'desc'` or the name of a property from the `customOrders` object. For example, sort parts of the day by the order in which they occur.
 
 ```js
 > sortArray(partsOfTheDay, {
@@ -42,6 +53,28 @@ The default sort order is `asc`. You can also specify `desc` or the name of a pr
 ```
 
 ### Sorting an array of objects
+
+#### Sort by object property
+
+Pass one or more property names to `options.by` to sort an array of objects by those properties.
+
+```js
+> const repositories = [
+  { name: '75lb/sort-array', openIssues: 0, closedIssues: 4 },
+  { name: 'lwsjs/local-web-server', openIssues: 4, closedIssues: 80 },
+  { name: 'jsdoc2md/jsdoc-api', openIssues: 3, closedIssues: 47 }
+]
+
+> sortArray(repositories, {
+  by: 'openIssues',
+  order: 'desc'
+})
+[
+  { name: 'lwsjs/local-web-server', openIssues: 4, closedIssues: 80 },
+  { name: 'jsdoc2md/jsdoc-api', openIssues: 3, closedIssues: 47 },
+  { name: '75lb/sort-array', openIssues: 0, closedIssues: 4 }
+]
+```
 
 #### Sort by computed field
 
@@ -154,7 +187,7 @@ const sortArray = require('sort-array')
 | array | <code>Array</code> | The input array to sort. It is sorted in place. |
 | [options] | <code>object</code> | Sort options. |
 | [options.by] | <code>Array.&lt;string&gt;</code> | One or more property names or computed fields to sort by. Specifying property names is only relevant when sorting an array of objects. |
-| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `asc`, `desc` or a property name from the `options.customOrders` object. |
+| [options.order] | <code>Array.&lt;string&gt;</code> | One or more sort orders. Specify `'asc'`, `'desc'` or a property name from the `options.customOrders` object. |
 | [options.customOrders] | <code>object</code> | A dictionary object containing one or more custom orders. Each custom order value must be an array defining the order expected values must be sorted in. |
 | [options.computed] | <code>object</code> | A dictionary object containing one or more computed field functions. The function will be invoked once per item in the array. Each invocation will receive the array item as input and must return a primitive value by which the array can be sorted. |
 | [options.nullRank] | <code>number</code> | Configures whether `null` values will be sorted before or after defined values. Set to `-1` for before, `1` for after. Defaults to `1`. |
