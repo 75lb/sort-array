@@ -15,6 +15,23 @@ async function getTom () {
     a.deepStrictEqual(result, expected)
   })
 
+  tom.test('simple asc 2', function () {
+    const fixture = [5, 4, 1, 10, 2]
+    const expected = [1, 2, 4, 5, 10]
+
+    const order = ['asc']
+    const result = sortArray(fixture, { order })
+    a.deepStrictEqual(result, expected)
+  })
+
+  tom.test('simple asc - default sort order', function () {
+    const fixture = [5, 4, 1, 10, 2]
+    const expected = [1, 2, 4, 5, 10]
+
+    const result = sortArray(fixture)
+    a.deepStrictEqual(result, expected)
+  })
+
   tom.test('simple desc', function () {
     const fixture = [22, 79, 66, 10, 70, 38, 100, 34, 60, 99, 88, 4, 39, 33, 52]
     const expected = [100, 99, 88, 79, 70, 66, 60, 52, 39, 38, 34, 33, 22, 10, 4]

@@ -1,5 +1,5 @@
-[![view on npm](http://img.shields.io/npm/v/sort-array.svg)](https://www.npmjs.org/package/sort-array)
-[![npm module downloads](http://img.shields.io/npm/dt/sort-array.svg)](https://www.npmjs.org/package/sort-array)
+[![view on npm](https://badgen.net/npm/v/sort-array)](https://www.npmjs.org/package/sort-array)
+[![npm module downloads](https://badgen.net/npm/dt/sort-array)](https://www.npmjs.org/package/sort-array)
 [![Build Status](https://travis-ci.org/75lb/sort-array.svg?branch=master)](https://travis-ci.org/75lb/sort-array)
 [![Dependency Status](https://badgen.net/david/dep/75lb/sort-array)](https://david-dm.org/75lb/sort-array)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
@@ -172,15 +172,15 @@ Please visit [the sort-array wiki](https://github.com/75lb/sort-array/wiki) for 
 ### sort-array
 Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
 
-**Example**  
+**Example**
 ```js
 const sortArray = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortArray"></a>
 
 #### sortArray(array, [options]) ⇒ <code>Array</code> ⏏
-**Kind**: Exported function  
-**Returns**: <code>Array</code> - Returns the array that was passed in.  
+**Kind**: Exported function
+**Returns**: <code>Array</code> - Returns the array that was passed in.
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -201,19 +201,19 @@ This library is compatible with Node.js, the Web and any style of module loader.
 Node.js:
 
 ```js
-const arrayify = require('sort-array')
+const sortArray = require('sort-array')
 ```
 
 Within Node.js with ECMAScript Module support enabled:
 
 ```js
-import arrayify from 'sort-array'
+import sortArray from 'sort-array'
 ```
 
 Within an modern browser ECMAScript Module:
 
 ```js
-import arrayify from './node_modules/sort-array/dist/index.mjs'
+import sortArray from './node_modules/sort-array/dist/index.mjs'
 ```
 
 Old browser (adds `window.sortArray`):
