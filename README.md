@@ -1,7 +1,8 @@
 [![view on npm](https://badgen.net/npm/v/sort-array)](https://www.npmjs.org/package/sort-array)
 [![npm module downloads](https://badgen.net/npm/dt/sort-array)](https://www.npmjs.org/package/sort-array)
+[![Gihub repo dependents](https://badgen.net/github/dependents-repo/75lb/sort-array)](https://github.com/75lb/sort-array/network/dependents?dependent_type=REPOSITORY)
+[![Gihub package dependents](https://badgen.net/github/dependents-pkg/75lb/sort-array)](https://github.com/75lb/sort-array/network/dependents?dependent_type=PACKAGE)
 [![Build Status](https://travis-ci.org/75lb/sort-array.svg?branch=master)](https://travis-ci.org/75lb/sort-array)
-[![Dependency Status](https://badgen.net/david/dep/75lb/sort-array)](https://david-dm.org/75lb/sort-array)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # sort-array
@@ -172,15 +173,15 @@ Please visit [the sort-array wiki](https://github.com/75lb/sort-array/wiki) for 
 ### sort-array
 Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
 
-**Example**
+**Example**  
 ```js
 const sortArray = require('sort-array')
 ```
 <a name="exp_module_sort-array--sortArray"></a>
 
 #### sortArray(array, [options]) ⇒ <code>Array</code> ⏏
-**Kind**: Exported function
-**Returns**: <code>Array</code> - Returns the array that was passed in.
+**Kind**: Exported function  
+**Returns**: <code>Array</code> - Returns the array that was passed in.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -201,19 +202,19 @@ This library is compatible with Node.js, the Web and any style of module loader.
 Node.js:
 
 ```js
-const sortArray = require('sort-array')
+const arrayify = require('sort-array')
 ```
 
 Within Node.js with ECMAScript Module support enabled:
 
 ```js
-import sortArray from 'sort-array'
+import arrayify from 'sort-array'
 ```
 
 Within an modern browser ECMAScript Module:
 
 ```js
-import sortArray from './node_modules/sort-array/dist/index.mjs'
+import arrayify from './node_modules/sort-array/dist/index.mjs'
 ```
 
 Old browser (adds `window.sortArray`):
