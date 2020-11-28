@@ -4,7 +4,7 @@
   "contributors": [
     "Ben Vickers <bjvickers@protonmail.com>"
   ],
-  "version": "4.1.2",
+  "version": "4.1.3",
   "description": "Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order",
   "repository": "https://github.com/75lb/sort-array",
   "license": "MIT",
