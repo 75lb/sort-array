@@ -366,7 +366,7 @@ function getCompareFunc (options = {}) {
   const { customOrders, computed } = options;
   return function compareFunc (xIn, yIn, byIndex = 0) {
     const currOrder = order[byIndex] || 'asc';
-    if (!(currOrder === 'asc' || currOrder === 'desc' || customOrders[currOrder] )) {
+    if (!(currOrder === 'asc' || currOrder === 'desc' || customOrders[currOrder])) {
       return 0
     }
 

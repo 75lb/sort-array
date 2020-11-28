@@ -48,8 +48,9 @@
   ],
   "standard": {
     "ignore": [
-      "dist",
-      "tmp"
+      "dist/",
+      "tmp/",
+      "test/"
     ]
   }
 }
