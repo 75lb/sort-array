@@ -30,12 +30,12 @@
  * [ 1, 2, 3 ]
  */
 
-function isObject (input) {
+function isObject$1 (input) {
   return typeof input === 'object' && input !== null
 }
 
-function isArrayLike (input) {
-  return isObject(input) && typeof input.length === 'number'
+function isArrayLike$1 (input) {
+  return isObject$1(input) && typeof input.length === 'number'
 }
 
 /**
@@ -48,7 +48,7 @@ function arrayify (input) {
     return input
   } else if (input === undefined) {
     return []
-  } else if (isArrayLike(input) || input instanceof Set) {
+  } else if (isArrayLike$1(input) || input instanceof Set) {
     return Array.from(input)
   } else {
     return [input]
@@ -134,8 +134,8 @@ function isPlainObject (input) {
  *   // prints `true`
  * }
  */
-function isArrayLike$1 (input) {
-  return isObject$1(input) && typeof input.length === 'number'
+function isArrayLike (input) {
+  return isObject(input) && typeof input.length === 'number'
 }
 
 /**
@@ -144,7 +144,7 @@ function isArrayLike$1 (input) {
  * @returns {boolean}
  * @static
  */
-function isObject$1 (input) {
+function isObject (input) {
   return typeof input === 'object' && input !== null
 }
 
@@ -311,8 +311,8 @@ function isFunction (input) {
 var t = {
   isNumber,
   isPlainObject,
-  isArrayLike: isArrayLike$1,
-  isObject: isObject$1,
+  isArrayLike,
+  isObject,
   isDefined,
   isUndefined,
   isNull,
