@@ -24,7 +24,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "test": "npm run dist && npm run test:esm && web-runner test/*.mjs",
+    "test": "npm run dist && npm run test:ci",
+    "test:ci": "npm run test:esm && web-runner test/*.mjs",
     "test:esm": "esm-runner test/*.mjs --view.hide-skips",
     "docs": "jsdoc2md -c jsdoc.conf -t README.hbs index.mjs -d 3 > README.md",
     "dist": "rollup -c"
