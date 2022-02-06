@@ -89,7 +89,7 @@ function getCompareFunc (options = {}) {
         result = result * -1
       }
     }
-    if (result === 0 && by[byIndex + 1]) {
+    if (result === 0 && t.isDefined(by[byIndex + 1])) {
       result = compareFunc(xIn, yIn, byIndex + 1)
     }
     return result
