@@ -199,6 +199,40 @@ async function getTom () {
     a.deepStrictEqual(result, expected)
   })
 
+  tom.todo('Alphanumeric then date sort', async function () {
+    const fixture = [
+      { id: 'ZZ01', date: new Date('2021-01-01') },
+      { id: 'AB01', date: new Date('2021-01-01') },
+      { id: 'AB010', date: new Date('2021-01-01') },
+      { id: 'AB02', date: new Date('2021-01-01') },
+      { id: 'L', date: new Date('2021-01-01') },
+      { id: 'L4', date: new Date('2021-01-03') },
+      { id: 'L4', date: new Date('2021-01-01') },
+      { id: 'L4', date: new Date('2021-01-05') },
+      { id: '4L40', date: new Date('2021-01-01') },
+      { id: '4L5', date: new Date('2021-01-01') },
+    ]
+    const expected = [
+      { id: '4L5', date: new Date('2021-01-01') },
+      { id: '4L40', date: new Date('2021-01-01') },
+      { id: 'AB01', date: new Date('2021-01-01') },
+      { id: 'AB02', date: new Date('2021-01-01') },
+      { id: 'AB010', date: new Date('2021-01-01') },
+      { id: 'L', date: new Date('2021-01-01') },
+      { id: 'L4', date: new Date('2021-01-01') },
+      { id: 'L4', date: new Date('2021-01-03') },
+      { id: 'L4', date: new Date('2021-01-05') },
+      { id: 'ZZ01', date: new Date('2021-01-01') },
+    ]
+    const by = ['id', 'date']
+    const order = ['alphaNumeric']
+    const customOrders = {
+      alphaNumeric: (a, b) => a.localeCompare(b, 'en', { numeric: true })
+    }
+    const result = sortArray(fixture, { by, order, customOrders })
+    a.deepStrictEqual(result, expected)
+  })
+
   return tom
 }
 
