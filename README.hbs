@@ -2,7 +2,7 @@
 [![npm module downloads](https://badgen.net/npm/dt/sort-array)](https://www.npmjs.org/package/sort-array)
 [![Gihub repo dependents](https://badgen.net/github/dependents-repo/75lb/sort-array)](https://github.com/75lb/sort-array/network/dependents?dependent_type=REPOSITORY)
 [![Gihub package dependents](https://badgen.net/github/dependents-pkg/75lb/sort-array)](https://github.com/75lb/sort-array/network/dependents?dependent_type=PACKAGE)
-[![Build Status](https://travis-ci.org/75lb/sort-array.svg?branch=master)](https://travis-ci.org/75lb/sort-array)
+[![Node.js CI](https://github.com/75lb/sort-array/actions/workflows/node.js.yml/badge.svg)](https://github.com/75lb/sort-array/actions/workflows/node.js.yml)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 # sort-array
