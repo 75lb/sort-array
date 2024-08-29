@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Takes any input and guarantees an array back.
  *
@@ -60,15 +62,15 @@ function arrayify (input) {
  * @module typical
  * @typicalname t
  * @example
- * const t = require('typical')
+ * import * as t from 'typical'
  * const allDefined = array.every(t.isDefined)
  */
 
 /**
- * Returns true if input is a number. It is a more reasonable alternative to `typeof n` which returns `number` for `NaN` and `Infinity`.
+ * Returns true if input is a number (including infinity). It is a more reasonable alternative to `typeof n` which returns `number` for `NaN`.
  *
- * @param {*} - the input to test
- * @returns {boolean}
+ * @param {*} n - The input to test
+ * @returns {boolean} `true` if input is a number
  * @static
  * @example
  * > t.isNumber(0)
@@ -86,16 +88,44 @@ function arrayify (input) {
  * > t.isNumber(NaN)
  * false
  * > t.isNumber(Infinity)
- * false
+ * true
  */
 function isNumber (n) {
+  return !isNaN(parseFloat(n))
+}
+
+/**
+ * Returns true if input is a finite number. Identical to `isNumber` beside excluding infinity.
+ *
+ * @param {*} n - The input to test
+ * @returns {boolean}
+ * @static
+ * @example
+ * > t.isFiniteNumber(0)
+ * true
+ * > t.isFiniteNumber(1)
+ * true
+ * > t.isFiniteNumber(1.1)
+ * true
+ * > t.isFiniteNumber(0xff)
+ * true
+ * > t.isFiniteNumber(0644)
+ * true
+ * > t.isFiniteNumber(6.2e5)
+ * true
+ * > t.isFiniteNumber(NaN)
+ * false
+ * > t.isFiniteNumber(Infinity)
+ * false
+ */
+function isFiniteNumber (n) {
   return !isNaN(parseFloat(n)) && isFinite(n)
 }
 
 /**
  * A plain object is a simple object literal, it is not an instance of a class. Returns true if the input `typeof` is `object` and directly decends from `Object`.
  *
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  * @example
@@ -125,7 +155,7 @@ function isPlainObject (input) {
 /**
  * An array-like value has all the properties of an array yet is not an array instance. An example is the `arguments` object. Returns `true`` if the input value is an object, not `null`` and has a `length` property set with a numeric value.
  *
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  * @example
@@ -140,7 +170,7 @@ function isArrayLike (input) {
 
 /**
  * Returns true if the typeof input is `'object'` but not null.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -150,7 +180,7 @@ function isObject (input) {
 
 /**
  * Returns true if the input value is defined.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -160,7 +190,7 @@ function isDefined (input) {
 
 /**
  * Returns true if the input value is undefined.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -170,27 +200,27 @@ function isUndefined (input) {
 
 /**
  * Returns true if the input value is null.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
 function isNull (input) {
- return input === null
+  return input === null
 }
 
 /**
  * Returns true if the input value is not one of `undefined`, `null`, or `NaN`.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
 function isDefinedValue (input) {
- return isDefined(input) && !isNull(input) && !Number.isNaN(input)
+  return isDefined(input) && !isNull(input) && !Number.isNaN(input)
 }
 
 /**
  * Returns true if the input value is an ES2015 `class`.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -204,7 +234,7 @@ function isClass (input) {
 
 /**
  * Returns true if the input is a string, number, symbol, boolean, null or undefined value.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -224,7 +254,7 @@ function isPrimitive (input) {
 
 /**
  * Returns true if the input is a Promise.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -240,7 +270,7 @@ function isPromise (input) {
 
 /**
  * Returns true if the input is an iterable (`Map`, `Set`, `Array`, Generator etc.).
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  * @example
@@ -290,7 +320,7 @@ function isIterable (input) {
 
 /**
  * Returns true if the input value is a string. The equivalent of `typeof input === 'string'` for use in funcitonal contexts.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -300,7 +330,7 @@ function isString (input) {
 
 /**
  * Returns true if the input value is a function. The equivalent of `typeof input === 'function'` for use in funcitonal contexts.
- * @param {*} - the input to test
+ * @param {*} input - The input to test
  * @returns {boolean}
  * @static
  */
@@ -310,6 +340,7 @@ function isFunction (input) {
 
 var t = {
   isNumber,
+  isFiniteNumber,
   isPlainObject,
   isArrayLike,
   isObject,
@@ -420,4 +451,4 @@ function getCompareFunc (options = {}) {
   }
 }
 
-export default sortArray;
+module.exports = sortArray;

@@ -1,5 +1,5 @@
-import arrayify from 'array-back/index.mjs'
-import t from 'typical/index.mjs'
+import arrayify from 'array-back'
+import t from 'typical'
 
 /**
  * Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order.
