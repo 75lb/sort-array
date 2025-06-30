@@ -3,7 +3,10 @@
   "author": "Lloyd Brookes <75pound@gmail.com>",
   "version": "5.0.0",
   "description": "Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order",
-  "repository": "https://github.com/75lb/sort-array",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/75lb/sort-array.git"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -27,7 +30,7 @@
     "test": "npm run dist && npm run test:ci",
     "test:ci": "75lb-nature test-runner test/defaults.js test/sort-computed-property.js test/sort-custom-order.js test/sort-falsy.js test/sort-primitives.js test/sort-small.js test/sort.js test/validation.js",
     "docs": "75lb-nature jsdoc2md -t README.hbs index.js -d 3 > README.md",
-    "dist": "75lb-nature cjs-build index.js && 75lb-nature simple-rollup index.js",
+    "dist": "75lb-nature cjs-build index.js && 75lb-nature simple-rollup index.js"
   },
   "dependencies": {
     "array-back": "^6.2.2",
