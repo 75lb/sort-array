@@ -286,4 +286,64 @@ test.set('undefinedRank: 1', function () {
   a.deepStrictEqual(result, expected)
 })
 
+test.set('nanRank: -1', function () {
+  const fixture = [
+    { a: 4, b: NaN, c: 3 },
+    { a: 4, b: 2, c: NaN },
+    { a: 2, b: 2, c: 3 },
+    { a: 2, b: 2, c: 2 },
+    { a: NaN, b: 3, c: 4 },
+    { a: NaN, b: NaN, c: 4 },
+    { a: NaN, b: 2, c: 4 },
+    { a: 3, b: 3, c: 3 },
+    { a: 4, b: 3, c: NaN }
+  ]
+  const expected = [
+    { a: NaN, b: NaN, c: 4 },
+    { a: NaN, b: 2, c: 4 },
+    { a: NaN, b: 3, c: 4 },
+    { a: 2, b: 2, c: 2 },
+    { a: 2, b: 2, c: 3 },
+    { a: 3, b: 3, c: 3 },
+    { a: 4, b: NaN, c: 3 },
+    { a: 4, b: 2, c: NaN },
+    { a: 4, b: 3, c: NaN },
+  ]
+
+  const by = ['a', 'b', 'c']
+  const order = ['asc', 'asc', 'asc']
+  const result = sortArray(fixture, { by, order, nanRank: -1 })
+  a.deepStrictEqual(result, expected)
+})
+
+test.set('nanRank: 1', function () {
+  const fixture = [
+    { a: 4, b: NaN, c: 3 },
+    { a: 4, b: 2, c: NaN },
+    { a: 2, b: 2, c: 3 },
+    { a: 2, b: 2, c: 2 },
+    { a: NaN, b: 3, c: 4 },
+    { a: NaN, b: NaN, c: 4 },
+    { a: NaN, b: 2, c: 4 },
+    { a: 3, b: 3, c: 3 },
+    { a: 4, b: 3, c: NaN }
+  ]
+  const expected = [
+    { a: 2, b: 2, c: 2 },
+    { a: 2, b: 2, c: 3 },
+    { a: 3, b: 3, c: 3 },
+    { a: 4, b: 2, c: NaN },
+    { a: 4, b: 3, c: NaN },
+    { a: 4, b: NaN, c: 3 },
+    { a: NaN, b: 2, c: 4 },
+    { a: NaN, b: 3, c: 4 },
+    { a: NaN, b: NaN, c: 4 },
+  ]
+
+  const by = ['a', 'b', 'c']
+  const order = ['asc', 'asc', 'asc']
+  const result = sortArray(fixture, { by, order, nanRank: 1 })
+  a.deepStrictEqual(result, expected)
+})
+
 export { test, only, skip }

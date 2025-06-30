@@ -193,19 +193,20 @@ const sortArray = require('sort-array')
 | [options.computed] | <code>object</code> | A dictionary object containing one or more computed field functions. The function will be invoked once per item in the array. Each invocation will receive the array item as input and must return a primitive value by which the array can be sorted. |
 | [options.nullRank] | <code>number</code> | Configures whether `null` values will be sorted before or after defined values. Set to `-1` for before, `1` for after. Defaults to `1`. |
 | [options.undefinedRank] | <code>number</code> | Configures whether `undefined` values will be sorted before or after defined values. Set to `-1` for before, `1` for after. Defaults to `1`. |
+| [options.nanRank] | <code>number</code> | Configures whether `NaN` values will be sorted before or after defined values. Set to `-1` for before, `1` for after. Defaults to `1`. |
 
 
 ## Load anywhere
 
 This library is compatible with Node.js, the Web and any style of module loader. It can be loaded anywhere, natively without transpilation.
 
-Node.js:
+Node.js CommonJS:
 
 ```js
 const sortArray = require('sort-array')
 ```
 
-Within Node.js with ECMAScript Module support enabled:
+Node.js ECMAScript:
 
 ```js
 import sortArray from 'sort-array'
@@ -217,14 +218,8 @@ Within an modern browser ECMAScript Module:
 import sortArray from './node_modules/sort-array/dist/index.mjs'
 ```
 
-Old browser (adds `window.sortArray`):
-
-```html
-<script nomodule src="./node_modules/sort-array/dist/index.js"></script>
-```
-
 * * *
 
-&copy; 2015-24 Lloyd Brookes \<75pound@gmail.com\>.
+&copy; 2015-25 Lloyd Brookes \<75pound@gmail.com\>.
 
 Tested by [test-runner](https://github.com/test-runner-js/test-runner). Documented by [jsdoc-to-markdown](https://github.com/jsdoc2md/jsdoc-to-markdown).
