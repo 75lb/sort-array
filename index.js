@@ -29,7 +29,8 @@ function sortArray (arr, options = {}) {
       computed: {},
       customOrders: {},
       nullRank: 1,
-      undefinedRank: 1
+      undefinedRank: 1,
+      nanRank: 1
     },
     options
   )
