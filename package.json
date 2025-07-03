@@ -1,7 +1,7 @@
 {
   "name": "sort-array",
   "author": "Lloyd Brookes <75pound@gmail.com>",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order",
   "repository": {
     "type": "git",
