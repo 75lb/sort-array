@@ -1,6 +1,6 @@
 {
   "name": "sort-array",
-  "author": "Lloyd Brookes <75pound@gmail.com>",
+  "author": "Lloyd Brookes <opensource@75lb.com>",
   "version": "5.1.1",
   "description": "Isomorphic, load-anywhere function to sort an array by scalar, deep or computed values in any standard or custom order",
   "repository": {
@@ -28,13 +28,13 @@
   },
   "scripts": {
     "test": "npm run dist && npm run test:ci",
-    "test:ci": "75lb-nature test-runner test/defaults.js test/sort-computed-property.js test/sort-custom-order.js test/sort-falsy.js test/sort-primitives.js test/sort-small.js test/sort.js test/validation.js",
+    "test:ci": "75lb-nature test-runner test/*.js",
     "docs": "75lb-nature jsdoc2md -t README.hbs index.js -d 3 > README.md",
     "dist": "75lb-nature cjs-build index.js && 75lb-nature simple-rollup index.js"
   },
   "dependencies": {
-    "array-back": "^6.2.2",
-    "typical": "^7.1.1"
+    "array-back": "^6.2.3",
+    "typical": "^7.3.0"
   },
   "peerDependencies": {
     "@75lb/nature": "^0.1.1"

@@ -60,7 +60,7 @@ function arrayify (input) {
  * @module typical
  * @typicalname t
  * @example
- * import * as t from 'typical'
+ * import t from 'typical'
  * const allDefined = array.every(t.isDefined)
  */
 
@@ -336,6 +336,33 @@ function isFunction (input) {
   return typeof input === 'function'
 }
 
+/**
+ * Returns true if the input value is an async function or method.
+ * @param {*} input - The input to test
+ * @returns {boolean}
+ * @static
+ * @example
+ * > t.isAsyncFunction(function () {})
+ * false
+ * > t.isAsyncFunction(new Function())
+ * false
+ * > t.isAsyncFunction(() => {})
+ * false
+ * > t.isAsyncFunction(async function () {})
+ * true
+ * > const AsyncFunction = async function () {}.constructor
+ * > t.isAsyncFunction(new AsyncFunction())
+ * true
+ * > t.isAsyncFunction(async () => {})
+ * true
+ * > class Command { async execute () {} }
+ * > t.isAsyncFunction(new Command().execute)
+ * true
+ */
+function isAsyncFunction (input) {
+  return (typeof input === 'function' && input.constructor.name === 'AsyncFunction')
+}
+
 var t = {
   isNumber,
   isFiniteNumber,
@@ -351,7 +378,8 @@ var t = {
   isPromise,
   isIterable,
   isString,
-  isFunction
+  isFunction,
+  isAsyncFunction
 };
 
 /**
